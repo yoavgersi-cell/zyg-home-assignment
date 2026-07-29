@@ -1,0 +1,6 @@
+node_modules/
+deck/node_modules/
+deck/package-lock.json
+*.pdf
+*.log
+.DS_Store
