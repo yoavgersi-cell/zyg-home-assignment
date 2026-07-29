@@ -21,6 +21,18 @@ Date pulled: as provided by user (2026).
 - Bonafide (Relizen) — Direct
 - O Positiv — Indirect
 
+## Stripes Beauty (OUR BRAND) — Meta Ad Library benchmark (US, Active)
+- **~38 active US ads.** Small paid player — in line with direct menopause brands (Womaness 39, Kindra 27), FAR below the paid leaders (Happy Mammoth 660, Midi 120, Nutrafol 94, Ritual 65).
+- **Ads lead with BODY CARE / SKINCARE, not the supplement:** Rich & Tight Body Butter (peptides, crepey/midlife skin), Full Monty Vitamin C Body Oil (fragrance/skin). Platforms: FB/IG/Threads.
+- **Founder in creative:** "Naomi Watts with Stripes Beauty" — the asset no competitor has.
+- **Already uses the GLP-1 wedge:** "Love your GLP-1, but not the skin changes that come with it?" — same angle Midi/Nutrafol run.
+- Note (tool nuance): Semrush .Trends shows little/no data for Stripes — it's below the traffic-model threshold AND Semrush can't see paid-social clicks (in-app referrer loss). Ad Library is the correct source for Stripes' social. Search "stripesbeauty.us"/".com" in Semrush *Domain Overview* for paid search.
+
+**Implications for the launch:**
+1. **The Inside Addition (supplement) is NOT currently a paid focus** — Stripes' paid is skincare/body-led. So the hero-product launch is genuinely new ground, even for Stripes itself. Whitespace.
+2. Stripes is a **small paid player** — it hasn't built the paid machine the category leaders have. The launch is the move to change that.
+3. Assets already in hand to exploit: **Naomi Watts (founder)** + a live **GLP-1** angle.
+
 ## Deep-dive: Happy Mammoth — traffic intelligence (Semrush-style, US, Apr–Jul 2026)
 
 **Paid Social (referral traffic):** ~3.2K (Apr) → 1.4K (May) → 0.3K (Jun) → 2.1K (Jul). Top pages: Hormone Balance (~1.4K), Hormone Harmony (~299). Sources: l.facebook.com, facebook.com.
