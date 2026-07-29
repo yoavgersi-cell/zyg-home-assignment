@@ -138,13 +138,27 @@ Display runs on **healthline.com, medicalnewstoday.com** (health) + coupon/progr
 **Estroven (estroven.com) — DIRECT (mass/legacy). Total visits ~252.7K/mo. Channel share (visits):** Paid Search 33.26% (~98,508) 🏆 · Display 25.31% (~78,489) · Organic Search 20.9% (~61,700) · Direct 10.5% (~30,702) · Email 5.34% (~13,492) · Gen AI 1.45% · **Paid Social 0.13% (~340)** · Organic Social 0.20%.
 **Read (Estroven):** a **paid-search + display** brand (buys Google + programmatic display via rakuten/247sports/health sites) with **essentially zero paid social (~340 visits).**
 
-### 🎯 THE paid-social whitespace (the punchline)
-Across every **menopause-native (direct) brand**, paid social is basically nothing:
-- Estroven ~340 · Stripes ~104 · Kindra ~188 · Womaness ~1,785 paid-social visits/mo.
+**Bonafide (hellobonafide.com) — DIRECT (Relizen/Revaree). Total visits ~1.1M/mo — the biggest direct menopause brand. Channel share (visits):** Paid Search 25.6% (~356,895) 🏆 · Organic Search 19.5% (~275,047) · Direct 15.67% (~229,375) · Display 12.94% (~180,503) · Email 9.41% (~132,487) · Affiliates 5.26% (~73,497) · Referrals 5.98% (~91,153) · **Paid Social 3.67% (~46,444)** · Organic Social 1.69%.
+**Read (Bonafide):** the **one direct menopause brand running a real multi-channel paid engine** — paid search (~357K, menopause/vaginal-atrophy terms), display (foxnews, health sites), and meaningful **paid social (~46K)**. Faceless/clinical positioning, but the one direct competitor genuinely present on paid.
 
-Meanwhile **Happy Mammoth (an INDIRECT hormone/gut brand) does ~632,000 paid-social visits/mo.**
+**Midi (joinmidi.com) — INDIRECT (menopause telehealth/HRT). Total visits ~3.6M/mo. Channel share (visits):** Organic Search 35.15% (~1.574M) 🏆 · Direct 24.48% (~1.152M) · Paid Search 11.26% (~547,357) · Email 8.18% (~362,749) · **Paid Social 8.12% (~420,965)** · Display 6.38% (~315,611) · Organic Social 2.22% (~128,079).
+**Read (Midi):** a big brand built on **organic/SEO content + direct**, but with **substantial paid — the #2 paid-social player (~421K)** and big paid search (~547K). Sells **HRT/prescriptions** (telehealth), i.e. the "medicalize it" answer.
 
-→ **No menopause-native brand runs a real paid-social engine.** Paid social for menopause is uncontested by the category's own brands — Happy Mammoth owns it by default while saying nothing menopause-native or credible. **That is the open lane for The Inside Addition:** a credible, founder-led (Naomi Watts), hormone-free **paid-social** launch, in a channel where no direct competitor even shows up.
+**Evernow (evernow.com) — INDIRECT (menopause telehealth/HRT). Total visits ~164K/mo. Channel share (visits):** Direct 34.03% (~70,001) · Organic Search 32.43% (~60,366) · Email 28.72% (~53,116) · Referrals 3.61% · Organic Social 0.65% · **Paid Search N/A · Paid Social N/A · Display N/A · Affiliates N/A.**
+**Read (Evernow):** runs on **direct + organic + email only — essentially ZERO paid.** Unlike telehealth peers Midi/Alloy, Evernow doesn't buy traffic; a smaller brand/SEO/email-led player. (Confirms not all telehealth plays paid — the paid telehealth players are Midi + Alloy.)
+
+### 🎯 The paid-social lane — who's there, and the exact gap (CORRECTED with all data)
+Paid social IS contested at the top — but by a specific, narrow set:
+| Brand | Paid-social visits/mo | What she sees |
+|---|---|---|
+| Happy Mammoth | ~632,000 | Hype hormone/gut supplement (trust-damaged) |
+| **Midi** | **~420,965** | "Get on **HRT**" — telehealth/prescriptions |
+| Bonafide | ~46,444 | Faceless clinical menopause supplement |
+| Womaness / Estroven / Kindra / Stripes | ~1,785 / 340 / 188 / 104 | Basically absent |
+
+**The honest read:** on paid social today the menopausal woman is offered either **"medicalize it → HRT" (Midi)** or a **hype hormone supplement (Happy Mammoth)**. What she does **NOT** see is a **credible, founder-led, hormone-free, premium consumer brand** built for her. Consumer-*product* menopause brands like Stripes are essentially absent (only Bonafide is present, and it's faceless).
+
+→ **That exact position — trusted face (Naomi Watts) + hormone-free + premium + made-for-her — is unoccupied on paid social.** It's not that the channel is empty; it's that the *credible, non-hormonal, human* answer is missing. **The Inside Addition can own the lane none of the three incumbents (HRT / hype / faceless-clinical) occupy.**
 
 ### Cross-brand pattern — now THREE paid fronts, real numbers
 | Front | Owner(s) | Scale (visits/mo) |
