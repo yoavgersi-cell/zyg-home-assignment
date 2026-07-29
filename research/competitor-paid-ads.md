@@ -98,11 +98,42 @@ Display runs on **forbes.com, forbeshealth.com, comparetreatments.com** (health/
 
 **Read (Happy Mammoth):** a **pure paid-acquisition machine.** Paid social is its **#1 channel (~632K visits/mo)** — that's the real number Semrush couldn't see, and it confirms the 660 ads. Paid + performance channels (paid social + display + paid search + affiliates) ≈ **70% of a 2.5M-visit base.** Organic search is just 6% — it **buys** its growth. For scale: HM's paid social alone (~632K) is **~15x Womaness's entire traffic (40.9K).**
 
-### Cross-brand pattern (two paid fronts) — now with real numbers
-- **Paid SOCIAL front → Happy Mammoth owns it:** ~632K paid-social visits/mo (its #1 channel), vs Alloy ~119K, Womaness ~1,785. HM is in a league of its own on social.
-- **Paid SEARCH front → the telehealth/HRT lane owns it:** Alloy ~543K + Midi (~155K Semrush) paid-search visits, capturing high-intent "HRT / hormone replacement" searchers. HM also big (~442K).
-- **The DTC menopause *product* brands (Womaness ~41K total, Kindra, Estroven, and Stripes ~38 ads) are minnows on both fronts** — 1-2 orders of magnitude smaller.
-- **Takeaway for Stripes:** the paid category is dominated by brands doing ~2.5M visits/mo of bought traffic, none of them menopause-native. Stripes isn't competing on spend yet — the edge has to be **angle + credibility (Naomi Watts + hormone-free)**, not outbidding a machine like Happy Mammoth.
+**O Positiv (opositiv.com). Total visits ~5.8M/mo — biggest of the set. Channel share (and visits):**
+| Channel | Share | Visits |
+|---|---|---|
+| **Display Ads 🏆** | **59.17%** | **~3,808,000** |
+| **Paid Search** | **13.40%** | **970,077** |
+| Direct | 8.04% | 605,502 |
+| Email | 7.65% | 625,729 |
+| Organic Search | 3.39% | 238,546 |
+| **Paid Social** | **3.07%** | **234,636** |
+| Affiliates | 3.01% | 267,342 |
+| Referrals | 1.63% | 112,386 |
+| Organic Social | 0.42% | 29,106 |
+| Gen AI | 0.21% | 13,650 |
+
+Display runs on **healthline.com, medicalnewstoday.com** (health) + coupon/programmatic (capitaloneshopping.com, etc.). *Note: some display sources look programmatic/low-quality — treat the exact 3.8M as directional; the point is display is O Positiv's dominant channel.*
+
+**Read (O Positiv):** the **display + paid-search king** (~3.8M display + ~970K paid search — the biggest paid search of anyone). Only ~3% organic search — buys its growth like HM. **But its machine is mostly for URO (vaginal probiotics); MENO (menopause) is a small slice** — so this giant paid engine is largely NOT menopause.
+
+**Kindra (ourkindra.com) — DIRECT. Total visits ~41.6K/mo (small, like Womaness). Channel share (visits):** Organic Search 47.25% (~20,314) · Direct 31.5% (~13,785) · Email 14.15% (~6,251) · Display 4.51% (~1,941) · Organic Social 1.37% · Gen AI 0.76% · **Paid Social 0.45% (~188)** · **Paid Search N/A (~0)**.
+
+**Read (Kindra):** runs almost entirely on **organic search + direct + email**. Paid ≈ **0.5%** — even more organic-reliant than Womaness. Its ~27 Meta ads = only ~188 paid-social visits. Yet another confirmation the direct menopause brands don't play the paid game.
+
+### Cross-brand pattern — now THREE paid fronts, real numbers
+| Front | Owner(s) | Scale (visits/mo) |
+|---|---|---|
+| **Display** | **O Positiv** | ~3.8M (health-site programmatic) |
+| **Paid Search** | **O Positiv, Alloy, Midi, HM** | O Positiv ~970K · Alloy ~543K · HM ~442K · Midi ~155K |
+| **Paid Social** | **Happy Mammoth** | HM ~632K ≫ O Positiv ~234K · Alloy ~119K · Womaness ~1.8K |
+
+**Total traffic:** O Positiv 5.8M > HM 2.5M > Alloy 1.7M > … > Womaness 41K > Stripes (tiny).
+
+**Two things stay true no matter the front:**
+1. The paid giants **buy** their growth (organic search 3-6%) and are **NOT menopause-native** (O Positiv = vaginal probiotics, Alloy/Midi = HRT, HM = hormones/gut).
+2. **Menopause-native DTC product brands (Womaness, Kindra, Estroven, Stripes) are 1-2 orders of magnitude smaller on every front.**
+
+**Takeaway for Stripes:** you cannot out-spend a 2.5–5.8M-visit machine. The edge is **angle + credibility (Naomi Watts + hormone-free)** to win attention the money-brands can't buy — and, tactically, these giants are strong on **display + search** but only Happy Mammoth truly owns **paid social**, which is the most efficient place for a credible, founder-led, creative-driven challenger to punch.
 
 ## Deep-dive: Happy Mammoth — traffic intelligence (Semrush-style, US, Apr–Jul 2026)
 
