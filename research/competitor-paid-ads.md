@@ -33,6 +33,16 @@ Date pulled: as provided by user (2026).
 2. Stripes is a **small paid player** — it hasn't built the paid machine the category leaders have. The launch is the move to change that.
 3. Assets already in hand to exploit: **Naomi Watts (founder)** + a live **GLP-1** angle.
 
+## Second tier — also addressed (watchlist, not in the primary 5+5)
+Kept out of the top 5+5 because we ranked by paid-acquisition leadership; these are smaller paid players or a second brand in an adjacency already covered. Included to "address the obvious + non-obvious names."
+
+- **Pause Well-Aging** — menopause **skincare**. DIRECT (menopause-identity consumer brand). Small paid; skincare-only, not the supplement lane.
+- **Evernow** — menopause **telehealth / HRT**. INDIRECT (Rx lane; same as Midi, smaller). Duplicates the telehealth adjacency Midi already leads.
+- **Foria** — **CBD sexual-wellness**; menopause via vaginal dryness/intimacy (Sex Oil, Intimacy Melts). INDIRECT (adjacent — intimacy). Small paid.
+- **Better Not Younger** — **hair/scalp care** for women 40+ ("pro-aging"). INDIRECT (adjacent — hair; same lane as Nutrafol, which is bigger on paid).
+- **Valerie** — **daily perimenopause supplement** (ashwagandha, B, zinc, magnesium). DIRECT — the closest product-for-product rival to The Inside Addition ("one daily formula"). Newer/smaller.
+- Others in the set (address-and-move-on): Alloy, Winona (telehealth/HRT); State Of Menopause; The Better Menopause (UK).
+
 ## Deep-dive: Happy Mammoth — traffic intelligence (Semrush-style, US, Apr–Jul 2026)
 
 **Paid Social (referral traffic):** ~3.2K (Apr) → 1.4K (May) → 0.3K (Jun) → 2.1K (Jul). Top pages: Hormone Balance (~1.4K), Hormone Harmony (~299). Sources: l.facebook.com, facebook.com.
