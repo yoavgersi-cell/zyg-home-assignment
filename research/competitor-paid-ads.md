@@ -41,7 +41,10 @@ Kept out of the top 5+5 because we ranked by paid-acquisition leadership; these 
 - **Foria** — **CBD sexual-wellness**; menopause via vaginal dryness/intimacy (Sex Oil, Intimacy Melts). INDIRECT (adjacent — intimacy). Small paid.
 - **Better Not Younger** — **hair/scalp care** for women 40+ ("pro-aging"). INDIRECT (adjacent — hair; same lane as Nutrafol, which is bigger on paid).
 - **Valerie** — **daily perimenopause supplement** (ashwagandha, B, zinc, magnesium). DIRECT — the closest product-for-product rival to The Inside Addition ("one daily formula"). Newer/smaller.
+- **Honey Girl Organics** — small organic honey/beeswax skincare brand (tangential menopause relevance via natural skin / intimate care). ~3K visits/mo; paid = only ~1,096 paid-search clicks, **no paid social, no display, no email**. → A "long tail" brand that is **not competing on paid acquisition at all.**
 - Others in the set (address-and-move-on): Alloy, Winona (telehealth/HRT); State Of Menopause; The Better Menopause (UK).
+
+**Long-tail note:** brands like Honey Girl Organics confirm the core finding — the space has a long tail of small natural/skincare brands, but **paid acquisition is contested by only a handful of big players** (Happy Mammoth, Midi, O Positiv, Alloy, Bonafide). Everyone else effectively sits the paid game out.
 
 ## Similarweb — full channel mix (better paid-social estimate than Semrush)
 Geo = Worldwide (Womaness is US-heavy, so ≈ US). Apr–Jun 2026.
