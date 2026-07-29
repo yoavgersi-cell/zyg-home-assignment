@@ -55,6 +55,26 @@ Date pulled: as provided by user (2026).
 2. **Menopause-specific paid search is small for everyone** = an under-contested capture layer / whitespace for Stripes.
 3. Direct menopause brands barely run paid search; where they do (Womaness), it's **vaginal**, not daily-supplement.
 
+## Paid Social comparison — traffic intelligence (US, Apr–Jul 2026, 5 brands)
+> ⚠️ Semrush UNDERCOUNTS paid social (in-app referrer loss) — treat as DIRECTIONAL (platform mix, landing pages), not true size. For social scale use Meta Ad Library counts.
+
+**Paid-social traffic trend (measured referral visits):**
+- **O Positiv** — ~1K → spike **~14.5K (May)** → ~1.5K → ~4.5K. Highest measured of the set.
+- **Happy Mammoth** — ~3.2K → 1.4K → 0.3K → 2.1K.
+- **Ritual** — low (~0.3K → ~2K).
+- **Womaness / Estroven** — negligible (barely register on paid social).
+
+**Platform mix (Paid Social top sources) — the interesting part:**
+- **Happy Mammoth:** l.facebook.com + facebook.com only → **concentrated on FB/IG** (matches its 660 Meta ads).
+- **O Positiv:** l.facebook + instagram + pinterest + youtube + **tiktok (↑100%)** → **most diverse social mix; TikTok rising.**
+- **Ritual:** **youtube.com ↑281%**, facebook ↓93% → **shifting paid social to YouTube.**
+
+**Combined paid picture (search + social):**
+- **Happy Mammoth** = demand-creation + capture machine: huge FB/IG ad volume (660) + growing branded paid search.
+- **O Positiv** = big paid search (URO) + most diverse paid social (incl. TikTok) — but mostly vaginal health.
+- **Ritual** = big paid search (prenatal) + YouTube-led paid social — not menopause.
+- **Womaness, Estroven** (and Kindra/Wile from Ad Library) = small-to-negligible on BOTH paid channels.
+
 ## Emerging patterns (interim — to confirm once all in)
 1. **The paid leaderboard is topped entirely by INDIRECT brands.** The pure menopause DTC brands are tiny paid spenders (Womaness 39, Kindra 27, Estroven 3, Wile 0). The category's paid acquisition is dominated by broader brands (hormone/gut, telehealth, hair). → Stripes' real paid threat is not the other menopause brands.
 2. **Direct brands lead with vaginal/intimate care + skincare (topicals), not the daily symptom supplement.** The "daily symptom supplement" lane (The Inside Addition's lane) is fought mostly by INDIRECT players (Happy Mammoth) and the weight/GLP-1 angle. → less direct-competitor crowding in our exact lane.
