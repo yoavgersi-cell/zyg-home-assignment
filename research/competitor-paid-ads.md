@@ -82,10 +82,27 @@ Display runs on **forbes.com, forbeshealth.com, comparetreatments.com** (health/
 
 **Read (Alloy):** a telehealth/HRT **paid GIANT led by PAID SEARCH** (~543K visits/mo — capturing high-intent "HRT / hormone replacement" searchers), plus ~119K paid-social visits. **Total paid ≈ 29.5% of traffic.** Confirms the telehealth/HRT lane (Alloy + Midi) are the category's **paid-search powerhouses**, an order of magnitude bigger than the DTC menopause brands. → Alloy deserves promotion from watchlist into the main indirect set.
 
-### Cross-brand pattern emerging (two paid fronts)
-- **Paid SOCIAL front:** owned by **Happy Mammoth** (supplement, FB/IG, ~660 ads).
-- **Paid SEARCH front:** owned by the **telehealth/HRT lane — Alloy (~543K) + Midi (~155K)** — capturing high-intent HRT searchers.
-- The DTC menopause *product* brands (Womaness, Kindra, Estroven, Stripes) are **minnows on both fronts.**
+**Happy Mammoth (happymammoth.com). Total visits ~2.5M/mo — biggest of the set. Channel share (and visits):**
+| Channel | Share | Visits |
+|---|---|---|
+| **Paid Social 🏆** | **19.86%** | **632,097** |
+| Display Ads | 19.45% | 589,642 |
+| Affiliates | 17.50% | 446,193 |
+| **Paid Search** | **13.85%** | **442,186** |
+| Direct | 11.17% | 375,989 |
+| Organic Search | 6.06% | 186,999 |
+| Referrals | 4.85% | 136,309 |
+| Email | 4.14% | 140,187 |
+| Organic Social | 2.82% | 80,033 |
+| Gen AI | 0.31% | 16,196 |
+
+**Read (Happy Mammoth):** a **pure paid-acquisition machine.** Paid social is its **#1 channel (~632K visits/mo)** — that's the real number Semrush couldn't see, and it confirms the 660 ads. Paid + performance channels (paid social + display + paid search + affiliates) ≈ **70% of a 2.5M-visit base.** Organic search is just 6% — it **buys** its growth. For scale: HM's paid social alone (~632K) is **~15x Womaness's entire traffic (40.9K).**
+
+### Cross-brand pattern (two paid fronts) — now with real numbers
+- **Paid SOCIAL front → Happy Mammoth owns it:** ~632K paid-social visits/mo (its #1 channel), vs Alloy ~119K, Womaness ~1,785. HM is in a league of its own on social.
+- **Paid SEARCH front → the telehealth/HRT lane owns it:** Alloy ~543K + Midi (~155K Semrush) paid-search visits, capturing high-intent "HRT / hormone replacement" searchers. HM also big (~442K).
+- **The DTC menopause *product* brands (Womaness ~41K total, Kindra, Estroven, and Stripes ~38 ads) are minnows on both fronts** — 1-2 orders of magnitude smaller.
+- **Takeaway for Stripes:** the paid category is dominated by brands doing ~2.5M visits/mo of bought traffic, none of them menopause-native. Stripes isn't competing on spend yet — the edge has to be **angle + credibility (Naomi Watts + hormone-free)**, not outbidding a machine like Happy Mammoth.
 
 ## Deep-dive: Happy Mammoth — traffic intelligence (Semrush-style, US, Apr–Jul 2026)
 
