@@ -50,10 +50,18 @@ Date pulled: as provided by user (2026).
 - **Happy Mammoth:** broad hormone / gut / bloating / PCOS (logged above).
 - **Estroven:** minimal paid search; keywords **100% branded** ("estroven", "estroven reviews", "estroven complete") — legacy brand defending its own name, not buying category terms.
 
-**Cross-brand takeaways (paid search):**
-1. The biggest paid-search spenders (O Positiv, Ritual) are **not buying menopause** — they're on vaginal probiotics and prenatal vitamins. Their menopause overlap is small.
-2. **Menopause-specific paid search is small for everyone** = an under-contested capture layer / whitespace for Stripes.
-3. Direct menopause brands barely run paid search; where they do (Womaness), it's **vaginal**, not daily-supplement.
+**Cross-brand takeaways (paid search) — REVISED after adding Midi + Bonafide:**
+1. Among the first 5, the biggest paid-search spenders (O Positiv, Ritual) are **not buying menopause** — vaginal probiotics and prenatal vitamins. Small menopause overlap.
+2. ~~Menopause-specific paid search is small for everyone~~ **CORRECTION:** once Midi + Bonafide are added, menopause search IS contested — see their section below. But it's owned by the **HRT/medical framing (Midi)** and **vaginal-atrophy/symptom framing (Bonafide)**, NOT a "hormone-free daily supplement" framing. So Stripes' specific angle is still relatively uncontested in search, even though the broad menopause search space is not.
+3. Direct menopause brands mostly don't run paid search; the exception is **Bonafide** (below).
+
+## Bonafide + Midi — Paid Search (US, Apr–Jul 2026) — the menopause-search players
+
+**Bonafide (hellobonafide.com) — DIRECT.** Paid-search traffic ~24K → 58K (May) → 44K → 37K. Top pages: **-menopause (22.5K, spiked 16.7K%)**, reviews (9.2K), 5-reasons (9.2K), Revaree/vaginal (6.6K). Keywords: **"symptoms of menopause", "vaginal atrophy symptoms"** + branded (bonafide, revaree). → **The one direct menopause brand actually buying category search** — on symptoms + vaginal atrophy.
+
+**Midi (joinmidi.com) — INDIRECT (telehealth/Rx).** Paid-search traffic **~85K → 130K → 155K, big and climbing — the paid-search GIANT of the set.** Top pages: insurance (32.4K), care-benefits (14.1K), we-are-midi (11.6K), menopause (10.7K). Keywords: **"hormone replacement therapy", "hrt", "signs of perimenopause"** + bidding on competitor **"winona"**. → Wins search by capturing **high-intent HRT / perimenopause** searchers with a medical + insurance angle.
+
+**Implication for Stripes:** the menopause *search* layer is being taken by the **HRT/medical** answer (Midi) and the **vaginal-atrophy** answer (Bonafide). A **hormone-free daily symptom supplement** is a different intent that neither owns — but it's also a *smaller* search category, which is exactly why the game for Stripes is **social-led demand creation**, with search used to capture brand + a few non-brand terms.
 
 ## Paid Social comparison — traffic intelligence (US, Apr–Jul 2026, 5 brands)
 > ⚠️ Semrush UNDERCOUNTS paid social (in-app referrer loss) — treat as DIRECTIONAL (platform mix, landing pages), not true size. For social scale use Meta Ad Library counts.
