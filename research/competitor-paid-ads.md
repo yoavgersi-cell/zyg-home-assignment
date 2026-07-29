@@ -21,6 +21,19 @@ Date pulled: as provided by user (2026).
 - Bonafide (Relizen) — Direct
 - O Positiv — Indirect
 
+## Deep-dive: Happy Mammoth — traffic intelligence (Semrush-style, US, Apr–Jul 2026)
+
+**Paid Social (referral traffic):** ~3.2K (Apr) → 1.4K (May) → 0.3K (Jun) → 2.1K (Jul). Top pages: Hormone Balance (~1.4K), Hormone Harmony (~299). Sources: l.facebook.com, facebook.com.
+> ⚠️ CAVEAT: this tool badly UNDERCOUNTS paid social — Meta in-app browser clicks strip the referrer, so most paid-social visits are invisible here. The real social scale is the **~660 live Meta ads**, not this number. Do not read "small paid social" from this.
+
+**Paid Search (referral traffic):** ~13K (Apr) → 12K (May) → 26K (Jun) → 32K (Jul) — big and climbing fast. Top pages: weight-control (13.5K), Hormone Harmony (19.4K), homepage (12.8K). Sources: google.com (7.12%), yahoo, bing.
+**Top paid-search keywords:** "happy mammoth reviews", "happy mammoth", "hormone harmony" (branded) + "how to get rid of bloating", "what is polycystic ovary [PCOS]" (non-brand).
+
+**What this proves:**
+1. **Two-engine paid model:** heavy paid *social* (660 ads) to create demand + big, growing paid *search* to capture it. This is the scaled-DTC playbook.
+2. **The social→search capture loop is real and visible** — their #1 paid-search term is "happy mammoth reviews," i.e. people who saw a social ad then Googled the brand. This validates our channel plan (social creates, Google closes).
+3. **Positioning confirmed BROAD, not menopause:** landing pages and keywords are hormones, bloating/gut, PCOS, weight, protein. Menopause is just one use-case funnelled through "Hormone Harmony." Reinforces why they're INDIRECT.
+
 ## Emerging patterns (interim — to confirm once all in)
 1. **The paid leaderboard is topped entirely by INDIRECT brands.** The pure menopause DTC brands are tiny paid spenders (Womaness 39, Kindra 27, Estroven 3, Wile 0). The category's paid acquisition is dominated by broader brands (hormone/gut, telehealth, hair). → Stripes' real paid threat is not the other menopause brands.
 2. **Direct brands lead with vaginal/intimate care + skincare (topicals), not the daily symptom supplement.** The "daily symptom supplement" lane (The Inside Addition's lane) is fought mostly by INDIRECT players (Happy Mammoth) and the weight/GLP-1 angle. → less direct-competitor crowding in our exact lane.
