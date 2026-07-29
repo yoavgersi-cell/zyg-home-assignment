@@ -43,6 +43,27 @@ Kept out of the top 5+5 because we ranked by paid-acquisition leadership; these 
 - **Valerie** — **daily perimenopause supplement** (ashwagandha, B, zinc, magnesium). DIRECT — the closest product-for-product rival to The Inside Addition ("one daily formula"). Newer/smaller.
 - Others in the set (address-and-move-on): Alloy, Winona (telehealth/HRT); State Of Menopause; The Better Menopause (UK).
 
+## Similarweb — full channel mix (better paid-social estimate than Semrush)
+Geo = Worldwide (Womaness is US-heavy, so ≈ US). Apr–Jun 2026.
+
+**Womaness — total visits ~40.9K/mo. Channel share (and absolute visits):**
+| Channel | Share | Visits |
+|---|---|---|
+| Organic Search | 33.8% | 23,082 |
+| Email | 19.7% | 11,462 |
+| Referrals | 11.5% | 4,714 |
+| Display Ads | 11.2% | 5,078 |
+| Direct | 8.8% | 7,446 |
+| Affiliates | 4.8% | 2,252 |
+| **Paid Social** | **4.36%** | **1,785** |
+| Organic Social | 4.2% | 2,311 |
+| **Paid Search** | **1.17%** | **1,172** |
+| Gen AI | 0.36% | 148 |
+
+Top sources incl. Google (organic), Mail, Display on **health.com + nytimes.com**, Facebook (organic social, ↑234%).
+
+**Read (Womaness):** runs mostly on **organic search + email + display**, NOT paid. Total paid ≈ **5.5% of traffic** (paid social 4.36% + paid search 1.17%). Confirms Womaness is a **small paid-acquisition player** — an SEO / CRM / PR-driven brand. Its ~39 Meta ads translate to only ~1,785 paid-social visits.
+
 ## Deep-dive: Happy Mammoth — traffic intelligence (Semrush-style, US, Apr–Jul 2026)
 
 **Paid Social (referral traffic):** ~3.2K (Apr) → 1.4K (May) → 0.3K (Jun) → 2.1K (Jul). Top pages: Hormone Balance (~1.4K), Hormone Harmony (~299). Sources: l.facebook.com, facebook.com.
