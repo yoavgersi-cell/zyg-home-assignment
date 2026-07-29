@@ -1,71 +1,54 @@
 # Part 1 - Market & Competitive Landscape
 
-## About the data (read this first)
-Everything below is based on the **last three months - April 2026 through June 2026**. Traffic and channel numbers come from **Similarweb and Semrush**; live ad counts come from the **Meta Ad Library**. These are estimates, so treat them as directional, not exact - but across ~15 brands the pattern is clear and consistent. Figures are worldwide unless noted.
+**A quick note on the data.** I pulled the last three months, April through June 2026, from Similarweb and Semrush for traffic and channels, and from the Meta Ad Library for who's actually running ads. It's estimated data, so I read it as direction, not gospel. But I looked at around 15 brands and the story didn't wobble.
 
----
+## Defining the competition
+The easy mistake is to only count "menopause brands." In a paid feed, this woman isn't shopping a tidy menopause shelf. She's getting served ads by anyone chasing the same problem: help me feel like myself again through peri and menopause.
 
-## How we define a competitor
-A competitor is a brand the **same woman** might buy to solve the **same problem** - feeling better through perimenopause and menopause. Two questions, and both have to be yes:
+So my test is simple. Two yeses:
+- Is it for the same woman (peri or menopausal)?
+- Is she buying it to fix the same thing (her symptoms)?
 
-1. **Same woman?** She's in perimenopause or menopause.
-2. **Same need?** She's buying it to ease her symptoms and feel like herself.
+If yes to both, I split it one way: is menopause the whole brand, or not?
 
-If both are yes, one more question sorts it (you can check it on their homepage):
+- **Direct** - the brand *is* menopause: Womaness, Kindra, Bonafide, Estroven, Wile, Pause Well-Aging, Valerie.
+- **Indirect** - a bigger brand that just scoops her up along the way: Happy Mammoth (hormones/gut), Midi, Alloy and Evernow (HRT telehealth), O Positiv (vaginal probiotics), Nutrafol (hair), Ritual (vitamins), Foria, Good Clean Love and Joylux (intimate wellness).
 
-3. **Is menopause the brand's whole identity?**
-   - **Yes → Direct.** The brand *is* a menopause brand.
-   - **No → Indirect.** A broader brand (hormones, hair, vitamins, telehealth, intimacy) that catches her as one of several audiences - and these are usually the ones fighting hardest on paid.
+There's a long tail under that too, small naturals like Honey Girl Organics and marketplaces like Thirteen Lune, but none of them show up on paid, so I'm leaving them as footnotes.
 
----
+## Who's actually spending to win her
+Here's where it gets interesting. Ranked by traffic and by paid social:
 
-## The competitors
-
-**Direct - menopause is the brand:**
-Womaness · Kindra · Bonafide (Relizen) · Estroven · Wile · Pause Well-Aging · Valerie
-
-**Indirect - a broader brand that wins her on paid:**
-Happy Mammoth (hormones/gut) · Midi · Alloy · Evernow (telehealth/HRT) · O Positiv (vaginal probiotics) · Nutrafol (hair) · Ritual (vitamins) · Foria · Good Clean Love · Joylux (intimate wellness)
-
-*We also scanned a long tail of smaller and adjacent brands (Honey Girl Organics, and retailers like Thirteen Lune). None compete meaningfully on paid, so they stay footnotes.*
-
----
-
-## Who is actually winning paid acquisition
-Line the brands up by size and paid social, and two things jump out.
-
-| Brand | Type | Total visits / mo | Paid social / mo |
+| Brand | Type | Visits / mo | Paid social / mo |
 |---|---|---|---|
 | O Positiv | Indirect | ~5.8M | ~234K |
 | Midi | Indirect | ~3.6M | ~421K |
-| Happy Mammoth | Indirect | ~2.5M | **~632K** |
+| Happy Mammoth | Indirect | ~2.5M | ~632K |
 | Alloy | Indirect | ~1.7M | ~119K |
 | Bonafide | Direct | ~1.1M | ~46K |
 | Estroven | Direct | ~253K | ~0.3K |
 | Kindra | Direct | ~42K | ~0.2K |
 | Womaness | Direct | ~41K | ~1.8K |
-| **Stripes (us)** | - | **~11K** | **~0.1K** |
 
-**1. The biggest players are not menopause brands.** The top of the table is all *indirect* - hormones/gut (Happy Mammoth), telehealth/HRT (Midi, Alloy), vaginal probiotics (O Positiv). They buy their growth; organic search is only ~3-6% of their traffic.
+Two things stood out.
 
-**2. The menopause-native brands barely spend.** Except for Bonafide, every direct brand runs mostly on organic search and email, with almost no paid social (a few hundred to a couple thousand visits a month). Stripes is the smallest of all.
+**The brands with the most traffic aren't menopause brands at all.** They're hormone/gut (Happy Mammoth), HRT (Midi, Alloy), vaginal probiotics (O Positiv). And they buy their growth, organic search is a rounding error for them.
 
----
+**The actual menopause brands barely run paid.** Apart from Bonafide, they live on SEO and email. Paid social for the whole direct group is a few hundred to a couple thousand visits a month. Basically nothing.
 
-## The insight that matters
-Paid social isn't empty. But look at what the menopausal woman is actually offered there:
+## Where we sit
+For context, Stripes is doing roughly 11K visits a month, and almost none of it is paid social (~100 visits). We're not even running paid behind the supplement yet. So we're not late to a fight we're losing, we just haven't shown up to it. That's the opportunity, not the problem.
 
-- **Happy Mammoth** - a hype hormone supplement (with a real trust problem)
-- **Midi / Alloy** - "get on HRT"
-- **O Positiv** - vaginal probiotics
-- **Joylux** - a pelvic device
-- **Bonafide** - a faceless, clinical supplement
+## The gap I'd bet on
+Paid social isn't empty. But look at what she's actually offered there:
 
-Nobody is offering her a **credible, hormone-free, founder-led daily made for this moment.** That exact position - **a face she trusts (Naomi Watts) + hormone-free + premium + made for her** - is wide open on paid social. And that is exactly what The Inside Addition is.
+- Happy Mammoth: a hyped-up hormone pill she probably doesn't trust
+- Midi and Alloy: go get on HRT
+- O Positiv: vaginal probiotics
+- Joylux: a pelvic device
+- Bonafide: a clinical supplement with no face and no warmth
 
----
+Not one of them is a credible, hormone-free daily with a face she actually trusts. That's the empty seat, and it's the exact one Stripes is built to sit in: Naomi Watts, hormone-free, premium, clearly made for this woman.
 
-## What it means for Stripes
-Stripes is tiny on paid today (~11K visits/mo, and it isn't even advertising the supplement yet). It cannot out-spend a 2.5M-visit machine like Happy Mammoth, and it doesn't need to.
-
-The win is **owning the credible, human, hormone-free lane** that none of the big spenders stand in. And **paid social is where to plant that flag** - it's where attention is cheapest, where the category's own menopause brands barely show up, and where the only real incumbent (Happy Mammoth) is loud but not trusted.
+## So what
+We can't outspend a brand doing 2.5M visits a month, and we shouldn't try. The play is to own the lane none of them stand in, the trustworthy, human, hormone-free one, and to plant it on paid social, where attention is cheapest and where almost no real menopause brand is even showing up.
