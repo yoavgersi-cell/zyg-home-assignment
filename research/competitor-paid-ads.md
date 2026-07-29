@@ -120,6 +120,32 @@ Display runs on **healthline.com, medicalnewstoday.com** (health) + coupon/progr
 
 **Read (Kindra):** runs almost entirely on **organic search + direct + email**. Paid ≈ **0.5%** — even more organic-reliant than Womaness. Its ~27 Meta ads = only ~188 paid-social visits. Yet another confirmation the direct menopause brands don't play the paid game.
 
+**Stripes Beauty (stripesbeauty.com) — OUR BRAND. Total visits ~11K/mo — smallest of the set.** (Note: `.com` has data in Similarweb; `.us` didn't — earlier mystery solved.) Channel share (visits):
+| Channel | Share | Visits |
+|---|---|---|
+| **Paid Search 🏆** | **32.33%** | **3,549** |
+| Organic Search | 22.67% | 2,488 |
+| Direct | 18.39% | 2,018 |
+| Display Ads | 12.47% | 1,369 |
+| Affiliates | 7.06% | 775 |
+| Email | 4.93% | 541 |
+| **Paid Social** | **0.95%** | **104** |
+| Organic Social | 0.05% | 6 |
+
+**Read (Stripes):** DTC site is small and paid is **search-skewed** — #1 channel is **branded paid search** (~3,549, ↑88%). **Paid social is nascent (~104 visits from ~38 ads)** — Stripes has NOT built a paid-social engine. → **The Inside Addition paid-social launch is greenfield.**
+*Caveat: 11K = DTC site traffic only (Worldwide, Similarweb estimate, rough for small sites). Stripes also sells via Amazon + retail (not captured here), so this measures the DTC paid motion, not total brand size.*
+
+**Estroven (estroven.com) — DIRECT (mass/legacy). Total visits ~252.7K/mo. Channel share (visits):** Paid Search 33.26% (~98,508) 🏆 · Display 25.31% (~78,489) · Organic Search 20.9% (~61,700) · Direct 10.5% (~30,702) · Email 5.34% (~13,492) · Gen AI 1.45% · **Paid Social 0.13% (~340)** · Organic Social 0.20%.
+**Read (Estroven):** a **paid-search + display** brand (buys Google + programmatic display via rakuten/247sports/health sites) with **essentially zero paid social (~340 visits).**
+
+### 🎯 THE paid-social whitespace (the punchline)
+Across every **menopause-native (direct) brand**, paid social is basically nothing:
+- Estroven ~340 · Stripes ~104 · Kindra ~188 · Womaness ~1,785 paid-social visits/mo.
+
+Meanwhile **Happy Mammoth (an INDIRECT hormone/gut brand) does ~632,000 paid-social visits/mo.**
+
+→ **No menopause-native brand runs a real paid-social engine.** Paid social for menopause is uncontested by the category's own brands — Happy Mammoth owns it by default while saying nothing menopause-native or credible. **That is the open lane for The Inside Addition:** a credible, founder-led (Naomi Watts), hormone-free **paid-social** launch, in a channel where no direct competitor even shows up.
+
 ### Cross-brand pattern — now THREE paid fronts, real numbers
 | Front | Owner(s) | Scale (visits/mo) |
 |---|---|---|
