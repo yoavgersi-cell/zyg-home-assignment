@@ -34,6 +34,27 @@ Date pulled: as provided by user (2026).
 2. **The social→search capture loop is real and visible** — their #1 paid-search term is "happy mammoth reviews," i.e. people who saw a social ad then Googled the brand. This validates our channel plan (social creates, Google closes).
 3. **Positioning confirmed BROAD, not menopause:** landing pages and keywords are hormones, bloating/gut, PCOS, weight, protein. Menopause is just one use-case funnelled through "Hormone Harmony." Reinforces why they're INDIRECT.
 
+## Paid Search comparison — traffic intelligence (US, Apr–Jul 2026, 5 brands)
+
+**Paid-search traffic trend (approx monthly visits):**
+- **O Positiv** — ~75–85K, dipping to ~50K (Jul). Among the highest.
+- **Ritual** — ~85K → 30K → ~55K. High.
+- **Happy Mammoth** — ~13K → 32K, climbing.
+- **Estroven** — low (<~10K).
+- **Womaness** — negligible.
+
+**But WHAT they buy search on matters more than volume:**
+- **O Positiv:** dominated by **URO / "uro vaginal probiotics"**; menopause ("meno") page only ~938 visits. → a vaginal-health brand; menopause is tiny for them.
+- **Ritual:** dominated by **"ritual prenatal" / "what's a good prenatal vitamin"** (prenatal choline page 22.9K). → a prenatal/general-vitamin brand; not menopause. (Confirms the weak-fit flag on Ritual.)
+- **Womaness:** tiny paid search; top keyword **"best vaginal moisturizer."** → leads on vaginal care, not supplements.
+- **Happy Mammoth:** broad hormone / gut / bloating / PCOS (logged above).
+- **Estroven:** minimal paid search; keywords **100% branded** ("estroven", "estroven reviews", "estroven complete") — legacy brand defending its own name, not buying category terms.
+
+**Cross-brand takeaways (paid search):**
+1. The biggest paid-search spenders (O Positiv, Ritual) are **not buying menopause** — they're on vaginal probiotics and prenatal vitamins. Their menopause overlap is small.
+2. **Menopause-specific paid search is small for everyone** = an under-contested capture layer / whitespace for Stripes.
+3. Direct menopause brands barely run paid search; where they do (Womaness), it's **vaginal**, not daily-supplement.
+
 ## Emerging patterns (interim — to confirm once all in)
 1. **The paid leaderboard is topped entirely by INDIRECT brands.** The pure menopause DTC brands are tiny paid spenders (Womaness 39, Kindra 27, Estroven 3, Wile 0). The category's paid acquisition is dominated by broader brands (hormone/gut, telehealth, hair). → Stripes' real paid threat is not the other menopause brands.
 2. **Direct brands lead with vaginal/intimate care + skincare (topicals), not the daily symptom supplement.** The "daily symptom supplement" lane (The Inside Addition's lane) is fought mostly by INDIRECT players (Happy Mammoth) and the weight/GLP-1 angle. → less direct-competitor crowding in our exact lane.
