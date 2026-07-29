@@ -64,6 +64,29 @@ Top sources incl. Google (organic), Mail, Display on **health.com + nytimes.com*
 
 **Read (Womaness):** runs mostly on **organic search + email + display**, NOT paid. Total paid ≈ **5.5% of traffic** (paid social 4.36% + paid search 1.17%). Confirms Womaness is a **small paid-acquisition player** — an SEO / CRM / PR-driven brand. Its ~39 Meta ads translate to only ~1,785 paid-social visits.
 
+**Alloy (myalloy.com) — telehealth/HRT. Total visits ~1.7M/mo (≈40x Womaness). Channel share (and visits):**
+| Channel | Share | Visits |
+|---|---|---|
+| **Paid Search** | **24.92%** | **543,108** |
+| Organic Search | 20.55% | 420,389 |
+| Direct | 19.14% | 377,818 |
+| Email | 13.84% | 267,352 |
+| Display Ads | 9.21% | 173,045 |
+| Affiliates | 2.84% | 65,436 |
+| Referrals | 3.08% | 63,481 |
+| **Paid Social** | **4.55%** | **118,655** |
+| Organic Social | 1.42% | 34,818 |
+| Gen AI | 0.44% | 7,314 |
+
+Display runs on **forbes.com, forbeshealth.com, comparetreatments.com** (health/news + HRT comparison sites).
+
+**Read (Alloy):** a telehealth/HRT **paid GIANT led by PAID SEARCH** (~543K visits/mo — capturing high-intent "HRT / hormone replacement" searchers), plus ~119K paid-social visits. **Total paid ≈ 29.5% of traffic.** Confirms the telehealth/HRT lane (Alloy + Midi) are the category's **paid-search powerhouses**, an order of magnitude bigger than the DTC menopause brands. → Alloy deserves promotion from watchlist into the main indirect set.
+
+### Cross-brand pattern emerging (two paid fronts)
+- **Paid SOCIAL front:** owned by **Happy Mammoth** (supplement, FB/IG, ~660 ads).
+- **Paid SEARCH front:** owned by the **telehealth/HRT lane — Alloy (~543K) + Midi (~155K)** — capturing high-intent HRT searchers.
+- The DTC menopause *product* brands (Womaness, Kindra, Estroven, Stripes) are **minnows on both fronts.**
+
 ## Deep-dive: Happy Mammoth — traffic intelligence (Semrush-style, US, Apr–Jul 2026)
 
 **Paid Social (referral traffic):** ~3.2K (Apr) → 1.4K (May) → 0.3K (Jun) → 2.1K (Jul). Top pages: Hormone Balance (~1.4K), Hormone Harmony (~299). Sources: l.facebook.com, facebook.com.
