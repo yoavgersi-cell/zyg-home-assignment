@@ -18,20 +18,20 @@ Two yeses: same woman (peri/menopausal) and same need (ease her symptoms). If bo
 
 ## Who leads on paid acquisition
 
-Last 3 months (Apr-Jun 2026), from Similarweb, Semrush and the Meta Ad Library. Estimates, so directional.
+Last 3 months (Apr-Jun 2026), from Similarweb, Semrush and the Meta Ad Library. These are estimated monthly **visits**, not spend (no one publishes ad spend, so visits are the signal). **"Paid" = all paid acquisition together: paid search (Google), paid social (Meta/Facebook), and display.**
 
-*A note on the numbers: these are estimated monthly **visits**, not spend (no one publishes ad spend, so visits are the signal). "Visits/mo" is total traffic from all channels; "Paid social/mo" is the slice that came from paid social (Facebook/Instagram ads). When we say **paid** we mean all paid acquisition together - paid search (Google), paid social (Meta), and display. We spotlight paid social because that's the channel this launch leads on, and where the gap is clearest.*
-
-| Brand | Type | Visits/mo | Paid social/mo |
-|---|---|---|---|
-| O Positiv | Indirect | ~5.8M | ~234K |
-| Midi | Indirect | ~3.6M | ~421K |
-| Happy Mammoth | Indirect | ~2.5M | ~632K |
-| Alloy | Indirect | ~1.7M | ~119K |
-| Bonafide | Direct | ~1.1M | ~46K |
-| Estroven / Kindra / Womaness | Direct | ~40-250K | ~0.2-1.8K |
+| Brand | Type | Paid search | Paid social | Display | Total paid/mo |
+|---|---|---|---|---|---|
+| O Positiv | Indirect | ~970K | ~235K | ~3.8M | **~5.0M** |
+| Happy Mammoth | Indirect | ~442K | ~632K | ~590K | **~1.7M** |
+| Midi | Indirect | ~547K | ~421K | ~316K | **~1.3M** |
+| Alloy | Indirect | ~543K | ~119K | ~173K | **~835K** |
+| Bonafide | Direct | ~357K | ~46K | ~181K | **~584K** |
+| Estroven | Direct | ~99K | ~0.3K | ~78K | **~177K** |
+| Womaness | Direct | ~1K | ~2K | ~5K | **~8K** |
+| Kindra | Direct | ~0 | ~0.2K | ~2K | **~2K** |
 
 What the data shows:
-- The top of the paid table isn't menopause brands. It's hormones/gut (Happy Mammoth), HRT (Midi, Alloy) and vaginal probiotics (O Positiv). They buy their growth - organic is a rounding error.
-- The menopause brands barely run paid. Apart from Bonafide, they live on SEO and email.
-- For reference, Stripes isn't in the paid game yet (~11K visits/mo, ~100 from paid social) and isn't advertising the supplement.
+- Paid acquisition is dominated by **indirect, non-menopause brands.** And each owns a different channel: **display** is O Positiv (~3.8M, though some of it looks like low-quality/programmatic traffic), **paid social** is Happy Mammoth (~632K, its #1 channel), and **paid search** is the telehealth/HRT lane (Midi, Alloy) buying "hormone replacement" intent.
+- The **menopause-native brands barely run paid on any channel.** The one exception is Bonafide (~584K, mostly search + display).
+- For reference, Stripes isn't in the paid game yet (~5K total paid/mo) and isn't advertising the supplement.
