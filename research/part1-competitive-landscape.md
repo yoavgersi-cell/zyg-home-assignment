@@ -18,20 +18,20 @@ Two yeses: same woman (peri/menopausal) and same need (ease her symptoms). If bo
 
 ## Who leads on paid acquisition
 
-Last 3 months (Apr-Jun 2026), from Similarweb, Semrush and the Meta Ad Library. These are estimated monthly **visits**, not spend (no one publishes ad spend, so visits are the signal). **"Paid" = all paid acquisition together: paid search (Google), paid social (Meta/Facebook), and display.**
+Source: Similarweb channel mix (Apr-Jun 2026), cross-checked with Semrush and the Meta Ad Library. **"Paid" = paid search (Google) + paid social (Meta) + display.** I'm showing paid as a **share of each brand's traffic** - it's the most reliable read from the data and it sidesteps the monthly-vs-quarterly noise. "Est. traffic" is the Similarweb estimate for the 3-month window; the tools disagree on absolute size, so treat magnitudes as directional and the mix as the real signal.
 
-| Brand | Type | Paid search | Paid social | Display | Total paid/mo |
-|---|---|---|---|---|---|
-| O Positiv | Indirect | ~970K | ~235K | ~3.8M | **~5.0M** |
-| Happy Mammoth | Indirect | ~442K | ~632K | ~590K | **~1.7M** |
-| Midi | Indirect | ~547K | ~421K | ~316K | **~1.3M** |
-| Alloy | Indirect | ~543K | ~119K | ~173K | **~835K** |
-| Bonafide | Direct | ~357K | ~46K | ~181K | **~584K** |
-| Estroven | Direct | ~99K | ~0.3K | ~78K | **~177K** |
-| Womaness | Direct | ~1K | ~2K | ~5K | **~8K** |
-| Kindra | Direct | ~0 | ~0.2K | ~2K | **~2K** |
+| Brand | Type | Est. traffic | Paid search | Paid social | Display | Paid total |
+|---|---|---|---|---|---|---|
+| O Positiv | Indirect | ~5.8M | 13% | 3% | 59% | ~75% |
+| Midi | Indirect | ~3.6M | 11% | 8% | 6% | ~26% |
+| Happy Mammoth | Indirect | ~2.5M | 14% | 20% | 19% | ~53% |
+| Alloy | Indirect | ~1.7M | 25% | 5% | 9% | ~39% |
+| Bonafide | Direct | ~1.1M | 26% | 4% | 13% | ~42% |
+| Estroven | Direct | ~253K | 33% | 0% | 25% | ~59% |
+| Womaness | Direct | ~41K | 1% | 4% | 11% | ~17% |
+| Kindra | Direct | ~42K | 0% | 0% | 5% | ~5% |
 
 What the data shows:
-- Paid acquisition is dominated by **indirect, non-menopause brands.** And each owns a different channel: **display** is O Positiv (~3.8M, though some of it looks like low-quality/programmatic traffic), **paid social** is Happy Mammoth (~632K, its #1 channel), and **paid search** is the telehealth/HRT lane (Midi, Alloy) buying "hormone replacement" intent.
-- The **menopause-native brands barely run paid on any channel.** The one exception is Bonafide (~584K, mostly search + display).
-- For reference, Stripes isn't in the paid game yet (~5K total paid/mo) and isn't advertising the supplement.
+- The biggest paid players are **indirect, non-menopause brands**, and each leans on a different channel: **display** for O Positiv (~59%, though a chunk looks like low-quality/programmatic traffic), **paid social** for Happy Mammoth (~20%, its standout channel), and **paid search** for the telehealth/HRT brands (Midi, Alloy) buying "hormone replacement" intent.
+- The **menopause-native brands barely run paid.** The one real exception is Bonafide (~42% of its traffic, mostly search + display); the rest live on organic and email.
+- Stripes isn't in the paid game yet (paid is a rounding error of ~11K total traffic) and isn't advertising the supplement.
