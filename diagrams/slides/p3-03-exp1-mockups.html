@@ -8,7 +8,6 @@
   .arrow svg{width:30px;height:30px;}
   .arrow .lbl{font-size:10px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--blue);margin-top:5px;writing-mode:vertical-rl;transform:rotate(180deg);}
 
-  /* popup shell (Stripes brand) */
   .pop{width:300px;background:#fff;border-radius:16px;overflow:hidden;position:relative;
     border:1px solid #EEE7E3;box-shadow:0 24px 56px rgba(20,20,20,.15);font-family:'Helvetica Neue',Arial,sans-serif;}
   .pop .x{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;
@@ -49,19 +48,17 @@
   .opt .lb{flex:1;font-size:12px;font-weight:600;color:#20201f;}
   .opt .cv{color:#C9B7AD;font-size:14px;font-weight:700;}
 
-  /* right rail */
   .rail{flex:1;padding-top:4px;}
   .rail h3{font-size:13px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;color:var(--blue);}
   .chg{margin-top:15px;display:flex;flex-direction:column;gap:15px;}
   .ci{display:flex;gap:13px;}
-  .ci .n{width:30px;height:30px;border-radius:9px;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .ci .n svg{width:16px;height:16px;}
+  .ci .n{width:30px;height:30px;border-radius:9px;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;font-weight:700;}
   .ci .h{font-size:16px;font-weight:700;color:var(--navy);}
   .ci .t{font-size:14px;color:var(--muted);line-height:1.45;margin-top:3px;}
-  .efftag{display:inline-flex;align-items:center;gap:8px;margin-top:20px;background:var(--blue-soft);border:1px solid #DCE3FB;border-radius:999px;padding:9px 15px;font-size:13.5px;color:var(--blue);font-weight:600;}
-  .efftag svg{width:15px;height:15px;}
+  .efftag{display:inline-flex;align-items:center;gap:8px;margin-top:20px;background:#F7F9FC;border:1px solid var(--line-2);border-radius:999px;padding:9px 15px;font-size:13.5px;color:var(--muted);font-weight:600;}
+  .efftag svg{width:15px;height:15px;color:var(--blue);}
+  .efftag b{color:var(--navy);font-weight:700;}
 
-  /* bottom page flow */
   .flow{display:flex;align-items:stretch;justify-content:center;gap:10px;margin-top:22px;}
   .fstep{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 18px;text-align:center;box-shadow:0 4px 14px rgba(16,42,77,.05);min-width:128px;position:relative;}
   .fstep .ft{font-size:14px;font-weight:700;color:var(--navy);line-height:1.15;}
@@ -74,13 +71,12 @@
   .fsep{display:flex;align-items:center;color:#C2CBD8;font-size:19px;font-weight:700;}
 </style></head><body>
 <div class="slide">
-  <div class="kicker">Part 3 &middot; Experiment #1</div>
-  <div class="h1">Guided Discovery Popup</div>
-  <div class="lead" style="margin-top:8px;font-size:17px;">Same email offer, later moment - guide her to the right category first, then present the existing 10% popup once she's shopping with intent.</div>
+  <div class="kicker">Experiment 01 &mdash; Guided Entry Experience</div>
+  <div class="h1">Current vs. variant</div>
+  <div class="lead" style="margin-top:8px;font-size:17px;">The existing 10% email popup is preserved - it moves to a higher-intent moment, after the visitor selects a symptom and enters a relevant category.</div>
 
   <div class="stage">
     <div class="mocks">
-      <!-- CURRENT -->
       <div>
         <div class="pop">
           <div class="x">&times;</div>
@@ -101,7 +97,7 @@
             <div class="btn">JOIN US</div>
           </div>
         </div>
-        <div class="cap"><b>Current experience</b>Email ask on arrival</div>
+        <div class="cap"><b>Current</b>Email ask on arrival</div>
       </div>
 
       <div class="arrow">
@@ -109,7 +105,6 @@
         <div class="lbl">A / B</div>
       </div>
 
-      <!-- VARIANT -->
       <div>
         <div class="pop">
           <div class="x">&times;</div>
@@ -121,7 +116,7 @@
           </div>
           <div class="qwrap">
             <div class="q">What's bothering you<br>most lately?</div>
-            <div class="qsub">One tap - we'll take you straight to what helps.</div>
+            <div class="qsub">One tap takes you to the most relevant products.</div>
             <div class="opts">
               <div class="opt hot">
                 <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s4 4 4 8a4 4 0 0 1-8 0c0-1.5.7-2.8 1.3-3.7"/><path d="M12 22a6 6 0 0 0 6-6c0-2-1-3.5-2-5"/></svg></div>
@@ -150,7 +145,7 @@
             </div>
           </div>
         </div>
-        <div class="cap"><b>Proposed variant</b>Symptom discovery first</div>
+        <div class="cap"><b>Variant</b>Symptom selection first</div>
       </div>
     </div>
 
@@ -158,27 +153,26 @@
       <h3>What changes</h3>
       <div class="chg">
         <div class="ci">
-          <div class="n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
-          <div><div class="h">Guide first</div><div class="t">Replace the immediate email capture with a simple symptom-based discovery step.</div></div>
+          <div class="n">1</div>
+          <div><div class="h">Symptom selection</div><div class="t">Replace the immediate homepage email popup with a symptom-selection step.</div></div>
         </div>
         <div class="ci">
-          <div class="n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
-          <div><div class="h">Route with intent</div><div class="t">Each answer takes her to the most relevant existing category.</div></div>
+          <div class="n">2</div>
+          <div><div class="h">Category routing</div><div class="t">Route the visitor into the most relevant existing product category.</div></div>
         </div>
         <div class="ci">
-          <div class="n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v13H4z"/><path d="M4 7l8 5 8-5"/></svg></div>
-          <div><div class="h">Subscribe later</div><div class="t">The existing 10% email offer appears once she's in a relevant shopping journey.</div></div>
+          <div class="n">3</div>
+          <div><div class="h">Deferred email capture</div><div class="t">Present the existing 10% email popup after the visitor has entered the relevant shopping journey.</div></div>
         </div>
       </div>
-      <div class="efftag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>The only change is <i style="font-style:italic;font-weight:700;">when</i>&nbsp;we ask - not if</div>
+      <div class="efftag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/></svg>Incremental change - reuses the existing <b>modal, brand and category structure</b></div>
     </div>
   </div>
 
-  <!-- page flow -->
   <div class="flow">
     <div class="fstep"><div class="ft">Homepage</div><div class="fs">Entry</div></div>
     <div class="fsep">&rarr;</div>
-    <div class="fstep new"><div class="ft">Symptom<br>Discovery</div><div class="fs">New step</div></div>
+    <div class="fstep new"><div class="ft">Symptom<br>Selection</div><div class="fs">New step</div></div>
     <div class="fsep">&rarr;</div>
     <div class="fstep"><div class="ft">Relevant<br>Category</div><div class="fs">Existing page</div></div>
     <div class="fsep">&rarr;</div>
