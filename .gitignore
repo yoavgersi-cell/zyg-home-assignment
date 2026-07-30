@@ -4,3 +4,5 @@ deck/package-lock.json
 *.pdf
 *.log
 .DS_Store
+diagrams/node_modules/
+diagrams/package*.json
