@@ -1,76 +1,82 @@
 <!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
 <style>
-  /* ---- Stripes brand tokens (mockup only) ---- */
-  .stage{display:flex;align-items:flex-start;gap:44px;margin-top:22px;flex:1;}
-  .mocks{display:flex;align-items:center;gap:30px;}
-  .cap{text-align:center;margin-top:14px;font-size:14px;font-weight:600;color:var(--faint);letter-spacing:.3px;}
-  .cap b{display:block;font-size:15px;color:var(--navy);font-weight:700;letter-spacing:0;margin-bottom:2px;}
+  .stage{display:flex;align-items:flex-start;gap:40px;margin-top:18px;}
+  .mocks{display:flex;align-items:center;gap:26px;}
+  .cap{text-align:center;margin-top:12px;font-size:13px;font-weight:600;color:var(--faint);letter-spacing:.3px;}
+  .cap b{display:block;font-size:14.5px;color:var(--navy);font-weight:700;letter-spacing:0;margin-bottom:2px;}
   .arrow{display:flex;flex-direction:column;align-items:center;color:var(--blue);}
-  .arrow svg{width:34px;height:34px;}
-  .arrow .lbl{font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--blue);margin-top:6px;writing-mode:vertical-rl;transform:rotate(180deg);}
+  .arrow svg{width:30px;height:30px;}
+  .arrow .lbl{font-size:10px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--blue);margin-top:5px;writing-mode:vertical-rl;transform:rotate(180deg);}
 
-  /* popup shell */
-  .pop{width:322px;background:#fff;border-radius:16px;overflow:hidden;position:relative;
-    border:1px solid #EEE7E3;box-shadow:0 26px 60px rgba(20,20,20,.16);font-family:'Helvetica Neue',Arial,sans-serif;}
-  .pop .x{position:absolute;top:11px;right:11px;width:24px;height:24px;border-radius:50%;
-    background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;color:#9a9a9a;font-size:14px;z-index:3;box-shadow:0 1px 4px rgba(0,0,0,.08);}
-  .serif{font-family:Georgia,'Times New Roman',serif;}
+  /* popup shell (Stripes brand) */
+  .pop{width:300px;background:#fff;border-radius:16px;overflow:hidden;position:relative;
+    border:1px solid #EEE7E3;box-shadow:0 24px 56px rgba(20,20,20,.15);font-family:'Helvetica Neue',Arial,sans-serif;}
+  .pop .x{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;
+    background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;color:#9a9a9a;font-size:13px;z-index:3;box-shadow:0 1px 4px rgba(0,0,0,.08);}
   .coral{color:#D0674A;}
 
-  /* banner */
-  .ban{display:flex;height:150px;}
+  .ban{display:flex;height:138px;}
   .ban .photo{width:47%;position:relative;background:linear-gradient(158deg,#E9D6CB 0%,#D8BDAE 60%,#CBAd9c 100%);overflow:hidden;}
-  .ban .photo::after{content:"";position:absolute;left:46%;top:34%;transform:translate(-50%,-50%);width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.34);}
-  .ban .photo::before{content:"";position:absolute;left:46%;bottom:-10px;transform:translateX(-50%);width:92px;height:74px;border-radius:52% 52% 0 0;background:rgba(255,255,255,.26);}
-  .ban .txt{flex:1;background:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 16px;}
+  .ban .photo::after{content:"";position:absolute;left:46%;top:34%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.34);}
+  .ban .photo::before{content:"";position:absolute;left:46%;bottom:-10px;transform:translateX(-50%);width:86px;height:68px;border-radius:52% 52% 0 0;background:rgba(255,255,255,.26);}
+  .ban .txt{flex:1;background:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 14px;}
   .brand{line-height:1;}
-  .brand .w{font-family:Georgia,serif;font-weight:700;font-size:21px;color:#151515;letter-spacing:.2px;}
-  .brand .b{font-size:8px;font-weight:700;letter-spacing:3.6px;color:#151515;margin-top:3px;}
-  .ban .head{font-family:Georgia,serif;font-size:23px;font-weight:700;color:#151515;line-height:1.08;margin-top:14px;}
+  .brand .w{font-family:Georgia,serif;font-weight:700;font-size:19px;color:#151515;letter-spacing:.2px;}
+  .brand .b{font-size:7.5px;font-weight:700;letter-spacing:3.4px;color:#151515;margin-top:3px;}
+  .ban .head{font-family:Georgia,serif;font-size:21px;font-weight:700;color:#151515;line-height:1.08;margin-top:12px;}
 
-  .body{padding:16px 20px 20px;}
-  .sub{text-align:center;font-size:12.5px;color:#3d3d3d;line-height:1.45;}
+  .body{padding:14px 18px 18px;}
+  .sub{text-align:center;font-size:12px;color:#3d3d3d;line-height:1.45;}
+  .band{background:#F7D9CF;border-radius:8px;text-align:center;padding:13px 10px;margin-top:13px;}
+  .band .off{font-family:Georgia,serif;font-size:30px;font-weight:700;color:#151515;line-height:1;letter-spacing:.5px;}
+  .band .sm{font-size:11px;font-weight:600;letter-spacing:2.2px;color:#2a2a2a;margin-top:6px;}
+  .inp{margin-top:12px;border:1px solid #D8D8D8;border-radius:7px;padding:11px 12px;font-size:12.5px;color:#9a9a9a;}
+  .btn{margin-top:9px;background:#141414;color:#fff;text-align:center;border-radius:7px;padding:12px;font-size:12.5px;font-weight:700;letter-spacing:1.5px;}
 
-  /* current: offer band + form */
-  .band{background:#F7D9CF;border-radius:8px;text-align:center;padding:15px 10px;margin-top:15px;}
-  .band .off{font-family:Georgia,serif;font-size:33px;font-weight:700;color:#151515;line-height:1;letter-spacing:.5px;}
-  .band .sm{font-size:12px;font-weight:600;letter-spacing:2.4px;color:#2a2a2a;margin-top:7px;}
-  .inp{margin-top:14px;border:1px solid #D8D8D8;border-radius:7px;padding:12px 13px;font-size:13px;color:#9a9a9a;}
-  .btn{margin-top:10px;background:#141414;color:#fff;text-align:center;border-radius:7px;padding:13px;font-size:13.5px;font-weight:700;letter-spacing:1.6px;}
-
-  /* variant: slim banner + question + options */
-  .ban.slim{height:96px;}
-  .ban.slim .photo::after{top:32%;width:38px;height:38px;}
-  .ban.slim .photo::before{width:72px;height:56px;}
+  .ban.slim{height:88px;}
+  .ban.slim .photo::after{top:32%;width:34px;height:34px;}
+  .ban.slim .photo::before{width:66px;height:52px;}
   .ban.slim .head{display:none;}
-  .qwrap{padding:15px 18px 18px;}
-  .q{font-family:Georgia,serif;font-size:19px;font-weight:700;color:#151515;line-height:1.2;text-align:center;}
-  .qsub{text-align:center;font-size:11.5px;color:#8a7f79;margin-top:6px;}
-  .opts{margin-top:13px;display:flex;flex-direction:column;gap:7px;}
-  .opt{display:flex;align-items:center;gap:11px;background:#FBF6F3;border:1px solid #EEE3DD;border-radius:9px;padding:9px 11px;}
+  .qwrap{padding:14px 16px 16px;}
+  .q{font-family:Georgia,serif;font-size:18px;font-weight:700;color:#151515;line-height:1.2;text-align:center;}
+  .qsub{text-align:center;font-size:11px;color:#8a7f79;margin-top:5px;}
+  .opts{margin-top:11px;display:flex;flex-direction:column;gap:6px;}
+  .opt{display:flex;align-items:center;gap:10px;background:#FBF6F3;border:1px solid #EEE3DD;border-radius:9px;padding:7px 10px;}
   .opt.hot{background:#FCEFE9;border-color:#F3D9CD;}
-  .opt .ic{width:26px;height:26px;border-radius:7px;background:#F2E4DC;display:flex;align-items:center;justify-content:center;color:#C06246;flex-shrink:0;}
+  .opt .ic{width:24px;height:24px;border-radius:7px;background:#F2E4DC;display:flex;align-items:center;justify-content:center;color:#C06246;flex-shrink:0;}
   .opt.hot .ic{background:#F6D9CC;}
-  .opt .ic svg{width:15px;height:15px;}
-  .opt .lb{flex:1;font-size:12.5px;font-weight:600;color:#20201f;}
-  .opt .cv{color:#C9B7AD;font-size:15px;font-weight:700;}
-  .noem{text-align:center;font-size:10.5px;color:#a99e97;margin-top:11px;letter-spacing:.2px;}
+  .opt .ic svg{width:14px;height:14px;}
+  .opt .lb{flex:1;font-size:12px;font-weight:600;color:#20201f;}
+  .opt .cv{color:#C9B7AD;font-size:14px;font-weight:700;}
 
   /* right rail */
-  .rail{flex:1;padding-top:6px;}
-  .rail h3{font-size:14px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;color:var(--blue);}
-  .chg{margin-top:16px;display:flex;flex-direction:column;gap:13px;}
+  .rail{flex:1;padding-top:4px;}
+  .rail h3{font-size:13px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;color:var(--blue);}
+  .chg{margin-top:15px;display:flex;flex-direction:column;gap:15px;}
   .ci{display:flex;gap:13px;}
-  .ci .n{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .ci .t{font-size:15.5px;color:var(--ink);line-height:1.42;}
-  .ci .t b{color:var(--navy);font-weight:700;}
-  .efftag{display:inline-flex;align-items:center;gap:8px;margin-top:22px;background:var(--blue-soft);border:1px solid #DCE3FB;border-radius:999px;padding:9px 15px;font-size:13.5px;color:var(--blue);font-weight:600;}
+  .ci .n{width:30px;height:30px;border-radius:9px;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .ci .n svg{width:16px;height:16px;}
+  .ci .h{font-size:16px;font-weight:700;color:var(--navy);}
+  .ci .t{font-size:14px;color:var(--muted);line-height:1.45;margin-top:3px;}
+  .efftag{display:inline-flex;align-items:center;gap:8px;margin-top:20px;background:var(--blue-soft);border:1px solid #DCE3FB;border-radius:999px;padding:9px 15px;font-size:13.5px;color:var(--blue);font-weight:600;}
   .efftag svg{width:15px;height:15px;}
+
+  /* bottom page flow */
+  .flow{display:flex;align-items:stretch;justify-content:center;gap:10px;margin-top:22px;}
+  .fstep{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 18px;text-align:center;box-shadow:0 4px 14px rgba(16,42,77,.05);min-width:128px;position:relative;}
+  .fstep .ft{font-size:14px;font-weight:700;color:var(--navy);line-height:1.15;}
+  .fstep .fs{font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-top:5px;color:var(--faint);}
+  .fstep.new{border-color:#C7D2F7;background:var(--blue-soft);}
+  .fstep.new .fs{color:var(--blue);}
+  .fstep.keep{border-color:#F1D8CE;background:#FCF3EF;}
+  .fstep.keep .ft{color:#B15738;}
+  .fstep.keep .fs{color:#C27553;}
+  .fsep{display:flex;align-items:center;color:#C2CBD8;font-size:19px;font-weight:700;}
 </style></head><body>
 <div class="slide">
   <div class="kicker">Part 3 &middot; Experiment #1</div>
   <div class="h1">Guided Discovery Popup</div>
-  <div class="lead" style="margin-top:10px;font-size:18px;">Replace the immediate email ask with a one-tap symptom router that sends her to the right category first.</div>
+  <div class="lead" style="margin-top:8px;font-size:17px;">Same email offer, later moment - guide her to the right category first, then present the existing 10% popup once she's shopping with intent.</div>
 
   <div class="stage">
     <div class="mocks">
@@ -95,7 +101,7 @@
             <div class="btn">JOIN US</div>
           </div>
         </div>
-        <div class="cap"><b>Current experience</b>Baseline &middot; email capture</div>
+        <div class="cap"><b>Current experience</b>Email ask on arrival</div>
       </div>
 
       <div class="arrow">
@@ -130,7 +136,7 @@
                 <div class="lb">Hair thinning</div><div class="cv">&rsaquo;</div>
               </div>
               <div class="opt">
-                <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 16.5a3 3 0 0 0 2.5 1.3" opacity=".6"/></svg></div>
+                <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></div>
                 <div class="lb">Dry skin</div><div class="cv">&rsaquo;</div>
               </div>
               <div class="opt">
@@ -142,22 +148,43 @@
                 <div class="lb">General menopause support</div><div class="cv">&rsaquo;</div>
               </div>
             </div>
-            <div class="noem">No email needed to start.</div>
           </div>
         </div>
-        <div class="cap"><b>Proposed variant</b>Guided symptom discovery</div>
+        <div class="cap"><b>Proposed variant</b>Symptom discovery first</div>
       </div>
     </div>
 
     <div class="rail">
       <h3>What changes</h3>
       <div class="chg">
-        <div class="ci"><div class="n">1</div><div class="t"><b>Email form is gone from the first step.</b> The opening ask becomes a single question, not a commitment.</div></div>
-        <div class="ci"><div class="n">2</div><div class="t"><b>One tap routes her to the right category</b> using the site's existing structure, then on to a PDP.</div></div>
-        <div class="ci"><div class="n">3</div><div class="t"><b>The 10% email capture moves to step 2</b> - shown on the category page, after intent is known. We still capture the email, at a higher-intent moment.</div></div>
+        <div class="ci">
+          <div class="n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
+          <div><div class="h">Guide first</div><div class="t">Replace the immediate email capture with a simple symptom-based discovery step.</div></div>
+        </div>
+        <div class="ci">
+          <div class="n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
+          <div><div class="h">Route with intent</div><div class="t">Each answer takes her to the most relevant existing category.</div></div>
+        </div>
+        <div class="ci">
+          <div class="n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v13H4z"/><path d="M4 7l8 5 8-5"/></svg></div>
+          <div><div class="h">Subscribe later</div><div class="t">The existing 10% email offer appears once she's in a relevant shopping journey.</div></div>
+        </div>
       </div>
-      <div class="efftag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>Same modal, same brand &middot; low dev effort</div>
+      <div class="efftag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>The only change is <i style="font-style:italic;font-weight:700;">when</i>&nbsp;we ask - not if</div>
     </div>
+  </div>
+
+  <!-- page flow -->
+  <div class="flow">
+    <div class="fstep"><div class="ft">Homepage</div><div class="fs">Entry</div></div>
+    <div class="fsep">&rarr;</div>
+    <div class="fstep new"><div class="ft">Symptom<br>Discovery</div><div class="fs">New step</div></div>
+    <div class="fsep">&rarr;</div>
+    <div class="fstep"><div class="ft">Relevant<br>Category</div><div class="fs">Existing page</div></div>
+    <div class="fsep">&rarr;</div>
+    <div class="fstep keep"><div class="ft">10% Email<br>Popup</div><div class="fs">Same as today</div></div>
+    <div class="fsep">&rarr;</div>
+    <div class="fstep"><div class="ft">Product<br>Page</div><div class="fs">Convert</div></div>
   </div>
 
   <div class="foot"><div class="zyg">ZyG</div><div class="stripes"><div class="word">Stripes</div><div class="beauty">BEAUTY</div></div></div>
