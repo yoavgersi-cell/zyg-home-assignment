@@ -1,47 +1,56 @@
 <!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
 <style>
-  .hero{margin-top:26px;font-size:34px;font-weight:700;color:var(--navy);letter-spacing:-.6px;line-height:1.25;max-width:1180px;}
-  .hero b{color:var(--blue);}
-  .imps{display:flex;gap:22px;margin-top:34px;}
-  .imp{flex:1;padding:26px 28px 28px;}
-  .imp .ic{width:42px;height:42px;border-radius:11px;background:var(--blue-soft);display:flex;align-items:center;justify-content:center;color:var(--blue);}
-  .imp .ic svg{width:22px;height:22px;}
-  .imp h3{font-size:18px;font-weight:700;color:var(--navy);margin-top:16px;line-height:1.25;}
-  .imp p{font-size:15px;color:var(--muted);line-height:1.5;margin-top:9px;}
-  .imp p b{color:var(--navy);font-weight:700;}
+  .imps{display:flex;gap:22px;margin-top:30px;align-items:stretch;}
+  .imp{flex:1;padding:26px 28px 28px;display:flex;flex-direction:column;}
+  .imp .obl{font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);}
+  .imp .obt{font-size:16px;color:var(--navy);line-height:1.45;margin-top:9px;font-weight:600;}
+  .imp .obt b{font-weight:800;}
+  .imp .impl{margin-top:auto;padding-top:18px;border-top:1px solid var(--line-2);}
+  .imp .impl .l{font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--blue);}
+  .imp .impl .t{font-size:15.5px;color:var(--muted);line-height:1.5;margin-top:8px;}
+  .imp .impl .t b{color:var(--navy);font-weight:700;}
 
-  .next{margin-top:30px;background:var(--navy);border-radius:16px;padding:22px 30px;display:flex;align-items:center;gap:20px;}
+  .next{margin-top:28px;background:var(--navy);border-radius:16px;padding:22px 30px;display:flex;align-items:center;gap:20px;}
   .next .lbl{font-size:12px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#9FC0FF;flex-shrink:0;}
-  .next .t{font-size:19px;color:#EAF1FF;font-weight:500;line-height:1.45;}
+  .next .t{font-size:18px;color:#EAF1FF;font-weight:500;line-height:1.45;}
   .next .t b{color:#fff;font-weight:700;}
   .next .arr{margin-left:auto;color:#9FC0FF;font-size:26px;font-weight:700;flex-shrink:0;}
 </style></head><body>
 <div class="slide">
-  <div class="kicker">Strategic Takeaway</div>
-  <div class="h1">An open lane in a category no one is defending</div>
-  <div class="hero">Real, unmet demand exists - but the brands capturing it aren't menopause-native, and the ones that are have <b>stepped back from paid</b>. That leaves a clear opening for a focused entrant.</div>
+  <div class="kicker">Implications</div>
+  <div class="h1">What this means for Stripes</div>
+  <div class="lead" style="font-size:17.5px;">Three implications follow from the observations. Each is an inference from the data shown, not a measured result.</div>
 
   <div class="imps">
     <div class="imp card">
-      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
-      <h3>Demand is proven, attention is up for grabs</h3>
-      <p>Adjacent brands spend heavily against menopause intent - <b>the market is real</b> and currently under-owned.</p>
+      <div class="obl">Observed</div>
+      <div class="obt">Stripes' estimated traffic (<b>~11K/mo</b>) is below every brand in the set; the smallest measured is ~41K.</div>
+      <div class="impl">
+        <div class="l">Implication</div>
+        <div class="t">The near-term constraint is likely <b>top-of-funnel traffic</b>, not competitive share.</div>
+      </div>
     </div>
     <div class="imp card">
-      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 9l6-1z"/></svg></div>
-      <h3>The direct set has vacated paid</h3>
-      <p>Menopause-native competitors barely invest in performance - a <b>differentiated way in</b> for a brand that does.</p>
+      <div class="obl">Observed</div>
+      <div class="obt">Across the set, the leading paid channel is <b>split</b> across search, display, and social.</div>
+      <div class="impl">
+        <div class="l">Implication</div>
+        <div class="t">No single channel is forced by the category - <b>multiple are worth testing</b>.</div>
+      </div>
     </div>
     <div class="imp card">
-      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
-      <h3>Stripes starts from near-zero</h3>
-      <p>At ~11K monthly visits with almost no paid footprint, growth here is <b>pure headroom</b>, not a fight for share.</p>
+      <div class="obl">Observed</div>
+      <div class="obt">Direct-brand paid share ranges <b>5%&ndash;59%</b>; only two of the measured menopause-native brands invest heavily.</div>
+      <div class="impl">
+        <div class="l">Implication</div>
+        <div class="t">Paid presence from direct competitors is <b>uneven, not saturated</b>.</div>
+      </div>
     </div>
   </div>
 
   <div class="next">
-    <span class="lbl">What's next</span>
-    <div class="t">Capturing this demand starts with a <b>hero-product launch built for acquisition</b> - the focus of Part 2.</div>
+    <span class="lbl">Next</span>
+    <div class="t">Part 2 covers the hero-product launch - <b>The Inside Addition</b> - and how it is set up for acquisition.</div>
     <span class="arr">&#8594;</span>
   </div>
 
