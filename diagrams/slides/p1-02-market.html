@@ -1,68 +1,55 @@
 <!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
 <style>
-  .posbar{display:flex;align-items:center;gap:14px;margin-top:22px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 22px;box-shadow:0 6px 22px rgba(16,42,77,.055);}
-  .pos{display:flex;flex-direction:column;}
-  .pos .k{font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);}
-  .pos .v{font-size:18px;font-weight:700;color:var(--navy);margin-top:3px;}
-  .posbar .sep{color:#C2CBD8;font-size:19px;font-weight:700;}
-  .posbar .brand-pos .v{color:var(--blue);}
-  .posbar .tail{font-size:14.5px;color:var(--muted);margin-left:4px;}
-
-  .cols{display:flex;gap:24px;margin-top:22px;align-items:stretch;}
-  .col{flex:1;padding:30px 32px 34px;}
+  .cols{display:flex;gap:24px;margin-top:30px;align-items:stretch;}
+  .col{flex:1;padding:30px 34px 32px;}
   .col .cap{font-size:12px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--faint);}
-  .col h3{font-size:22px;font-weight:700;color:var(--navy);margin-top:12px;line-height:1.2;}
-  .col .big{font-size:40px;font-weight:800;color:var(--navy);letter-spacing:-1px;margin-top:8px;}
-  .rowlist{margin-top:18px;display:flex;flex-direction:column;gap:14px;}
+
+  .flow{margin-top:20px;display:flex;flex-direction:column;align-items:flex-start;gap:9px;}
+  .fnode{font-size:23px;font-weight:700;color:var(--navy);}
+  .fnode.cat{color:var(--blue);}
+  .farrow{color:#B7C2D3;font-size:20px;font-weight:700;line-height:1;padding-left:2px;}
+  .col p{font-size:15.5px;color:var(--muted);line-height:1.5;margin-top:20px;}
+  .col p b{color:var(--navy);font-weight:700;}
+
+  .clead{font-size:16px;color:var(--ink);line-height:1.5;margin-top:18px;}
+  .rowlist{margin-top:16px;display:flex;flex-direction:column;gap:13px;}
   .rl{display:flex;gap:13px;align-items:flex-start;}
   .rl .dot{width:8px;height:8px;border-radius:50%;background:var(--blue);margin-top:8px;flex-shrink:0;}
-  .rl .t{font-size:16px;color:var(--ink);line-height:1.45;}
-  .rl .t b{color:var(--navy);font-weight:700;}
-  .lbl{font-size:12px;font-weight:700;letter-spacing:.4px;color:var(--faint);margin-top:20px;text-transform:uppercase;}
-  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
-  .tags .tg{font-size:13.5px;color:#4E6178;background:#F2F5F9;border:1px solid var(--line-2);border-radius:999px;padding:6px 13px;font-weight:500;}
-  .premise{margin-top:18px;font-size:13.5px;color:var(--muted);line-height:1.45;border-left:3px solid var(--line);padding-left:12px;}
-  .premise b{color:var(--navy);font-weight:700;}
+  .rl .t{font-size:16px;color:var(--navy);font-weight:600;line-height:1.4;}
+
+  .take{margin-top:24px;background:var(--navy);border-radius:14px;padding:18px 28px;display:flex;align-items:center;gap:14px;}
+  .take .lbl{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#9FC0FF;flex-shrink:0;}
+  .take .t{font-size:17px;color:#EAF1FF;font-weight:500;}
 </style></head><body>
 <div class="slide">
   <div class="kicker">Market Overview</div>
-  <div class="h1">Category and target customer</div>
-  <div class="lead" style="font-size:18px;">How Stripes is positioned, and the customer definition used throughout this analysis.</div>
-
-  <div class="posbar">
-    <div class="pos"><span class="k">Vertical</span><span class="v">Women's Health</span></div>
-    <span class="sep">&rsaquo;</span>
-    <div class="pos"><span class="k">Category</span><span class="v">Menopause Wellness</span></div>
-    <span class="sep">&rsaquo;</span>
-    <div class="pos brand-pos"><span class="k">Stripes</span><span class="v">Supporting women throughout the menopause journey</span></div>
-    <span class="tail">- from perimenopause through post-menopause.</span>
-  </div>
+  <div class="h1">Who is Stripes really competing with?</div>
 
   <div class="cols">
     <div class="col card">
-      <div class="cap">Category &amp; positioning</div>
-      <h3>Menopause Wellness, within Women's Health</h3>
-      <div class="rowlist">
-        <div class="rl"><span class="dot"></span><div class="t"><b>Multi-year life stage</b> spanning perimenopause through post-menopause.</div></div>
-        <div class="rl"><span class="dot"></span><div class="t">Multiple symptoms often occur <b>simultaneously</b>.</div></div>
-        <div class="rl"><span class="dot"></span><div class="t">Stripes positions itself around the <b>overall menopause journey</b> rather than a single symptom.</div></div>
+      <div class="cap">The category</div>
+      <div class="flow">
+        <div class="fnode">Women's Health</div>
+        <div class="farrow">&darr;</div>
+        <div class="fnode cat">Menopause Wellness</div>
       </div>
-      <div class="lbl">Commonly associated symptoms</div>
-      <div class="tags">
-        <span class="tg">Hot flashes</span><span class="tg">Poor sleep</span><span class="tg">Brain fog</span>
-        <span class="tg">Mood</span><span class="tg">Dry skin</span><span class="tg">Intimacy</span>
-      </div>
+      <p>Stripes is built around <b>supporting women throughout menopause</b> - not solving a single symptom.</p>
     </div>
 
     <div class="col card">
-      <div class="cap">Target customer (for this analysis)</div>
-      <div class="big">Women 42&ndash;62</div>
+      <div class="cap">The customer</div>
+      <div class="clead">Women experiencing peri- or post-menopause who are looking for:</div>
       <div class="rowlist">
-        <div class="rl"><span class="dot"></span><div class="t">Experiencing <b>peri- or post-menopause</b>.</div></div>
-        <div class="rl"><span class="dot"></span><div class="t">Looking for <b>non-hormonal</b> wellness solutions.</div></div>
-        <div class="rl"><span class="dot"></span><div class="t">Looking for products that fit into <b>everyday routines</b>.</div></div>
+        <div class="rl"><span class="dot"></span><div class="t">Everyday wellness support</div></div>
+        <div class="rl"><span class="dot"></span><div class="t">Non-hormonal solutions</div></div>
+        <div class="rl"><span class="dot"></span><div class="t">Products that fit naturally into their routine</div></div>
       </div>
     </div>
+  </div>
+
+  <div class="take">
+    <span class="lbl">The lens</span>
+    <div class="t">This became the lens for choosing competitors throughout the analysis.</div>
   </div>
 
   <div class="foot"><div class="zyg">ZyG</div><div class="stripes"><div class="word">Stripes</div><div class="beauty">BEAUTY</div></div></div>
