@@ -1,0 +1,189 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
+<style>
+  .stage{display:flex;gap:36px;margin-top:16px;flex:1;align-items:flex-start;}
+
+  /* ---- left: visual comparison ---- */
+  .mocks{display:flex;gap:24px;align-items:flex-start;}
+  .mcol{display:flex;flex-direction:column;align-items:center;}
+  .cap{text-align:center;margin-top:10px;font-size:12.5px;font-weight:600;color:var(--faint);}
+  .cap b{display:block;font-size:14px;color:var(--navy);font-weight:700;margin-bottom:1px;}
+  .varrow{align-self:center;color:var(--blue);margin-top:180px;}
+  .varrow svg{width:28px;height:28px;}
+
+  .pop{width:286px;background:#fff;border-radius:15px;overflow:hidden;position:relative;
+    border:1px solid #EEE7E3;box-shadow:0 20px 48px rgba(20,20,20,.15);font-family:'Helvetica Neue',Arial,sans-serif;}
+  .pop .x{position:absolute;top:9px;right:9px;width:21px;height:21px;border-radius:50%;
+    background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;color:#9a9a9a;font-size:12px;z-index:3;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+  .coral{color:#D0674A;}
+  .ban{display:flex;height:128px;}
+  .ban .photo{width:47%;position:relative;background:linear-gradient(158deg,#E9D6CB 0%,#D8BDAE 60%,#CBAd9c 100%);overflow:hidden;}
+  .ban .photo::after{content:"";position:absolute;left:46%;top:34%;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.34);}
+  .ban .photo::before{content:"";position:absolute;left:46%;bottom:-9px;transform:translateX(-50%);width:80px;height:62px;border-radius:52% 52% 0 0;background:rgba(255,255,255,.26);}
+  .ban .txt{flex:1;background:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 13px;}
+  .brand{line-height:1;}
+  .brand .w{font-family:Georgia,serif;font-weight:700;font-size:18px;color:#151515;}
+  .brand .b{font-size:7px;font-weight:700;letter-spacing:3.2px;color:#151515;margin-top:3px;}
+  .ban .head{font-family:Georgia,serif;font-size:19.5px;font-weight:700;color:#151515;line-height:1.08;margin-top:11px;}
+  .body{padding:13px 17px 17px;}
+  .sub{text-align:center;font-size:11.5px;color:#3d3d3d;line-height:1.45;}
+  .band{background:#F7D9CF;border-radius:8px;text-align:center;padding:12px 10px;margin-top:12px;}
+  .band .off{font-family:Georgia,serif;font-size:28px;font-weight:700;color:#151515;line-height:1;letter-spacing:.5px;}
+  .band .sm{font-size:10.5px;font-weight:600;letter-spacing:2px;color:#2a2a2a;margin-top:6px;}
+  .inp{margin-top:11px;border:1px solid #D8D8D8;border-radius:7px;padding:10px 11px;font-size:12px;color:#9a9a9a;}
+  .btn{margin-top:8px;background:#141414;color:#fff;text-align:center;border-radius:7px;padding:11px;font-size:12px;font-weight:700;letter-spacing:1.4px;}
+
+  /* variant modal */
+  .ban.slim{height:82px;}
+  .ban.slim .photo::after{top:32%;width:32px;height:32px;}
+  .ban.slim .photo::before{width:62px;height:48px;}
+  .ban.slim .head{display:none;}
+  .qwrap{padding:13px 15px 15px;}
+  .q{font-family:Georgia,serif;font-size:17.5px;font-weight:700;color:#151515;line-height:1.2;text-align:center;}
+  .opts{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+  .opt{display:flex;align-items:center;gap:8px;background:#FBF6F3;border:1px solid #EEE3DD;border-radius:9px;padding:9px 10px;}
+  .opt.sel{background:#FCEFE9;border-color:#E8BFA9;}
+  .opt .ic{width:22px;height:22px;border-radius:6px;background:#F2E4DC;display:flex;align-items:center;justify-content:center;color:#C06246;flex-shrink:0;}
+  .opt.sel .ic{background:#F6D9CC;}
+  .opt .ic svg{width:13px;height:13px;}
+  .opt .lb{font-size:11.5px;font-weight:600;color:#20201f;}
+
+  /* after-selection strip */
+  .after{display:flex;align-items:center;gap:12px;margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 18px;box-shadow:0 4px 14px rgba(16,42,77,.05);width:648px;}
+  .after .aarr{color:var(--blue);font-size:17px;font-weight:700;flex-shrink:0;}
+  .after .t{font-size:13px;color:var(--ink);line-height:1.4;}
+  .after .t b{color:var(--navy);font-weight:700;}
+  .after .thumb{margin-left:auto;flex-shrink:0;background:#F7D9CF;border-radius:6px;padding:6px 10px;text-align:center;}
+  .after .thumb .o{font-family:Georgia,serif;font-size:13px;font-weight:700;color:#151515;line-height:1;}
+  .after .thumb .s{font-size:6px;font-weight:700;letter-spacing:1px;color:#2a2a2a;margin-top:2px;}
+
+  /* ---- right: details ---- */
+  .rail{flex:1;min-width:0;}
+  .blk{margin-bottom:16px;}
+  .blk .bl{font-size:11.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--blue);}
+  .blk p{font-size:14px;color:var(--ink);line-height:1.5;margin-top:7px;}
+  .blk p b{color:var(--navy);font-weight:700;}
+  .blk p.mut{color:var(--muted);}
+  .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;color:var(--navy);margin-top:8px;box-shadow:0 3px 10px rgba(16,42,77,.05);}
+  .chip .d{width:7px;height:7px;border-radius:50%;background:var(--blue);}
+  .why{margin-top:8px;display:flex;flex-direction:column;gap:8px;}
+  .wr{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink);line-height:1.4;}
+  .wr .ck{width:18px;height:18px;border-radius:6px;background:var(--blue-soft);display:flex;align-items:center;justify-content:center;color:var(--blue);flex-shrink:0;margin-top:1px;}
+  .wr .ck svg{width:11px;height:11px;}
+
+  /* footnote area */
+  .note{position:absolute;left:96px;right:96px;bottom:64px;border-top:1px solid var(--line-2);padding-top:10px;font-size:12px;color:#B6C0CD;font-weight:600;}
+</style></head><body>
+<div class="slide">
+  <div class="kicker">Part 3 &middot; Experiment #1</div>
+  <div class="h1" style="font-size:36px;">Guided Symptom Discovery</div>
+
+  <div class="stage">
+    <!-- left: comparison -->
+    <div>
+      <div class="mocks">
+        <div class="mcol">
+          <div class="pop">
+            <div class="x">&times;</div>
+            <div class="ban">
+              <div class="photo"></div>
+              <div class="txt">
+                <div class="brand"><div class="w">Stripes</div><div class="b">BEAUTY</div></div>
+                <div class="head">Be the first<br>to <span class="coral">know.</span></div>
+              </div>
+            </div>
+            <div class="body">
+              <div class="sub">New drops, members-only perks,<br>and the manual no one gave us.</div>
+              <div class="band">
+                <div class="off">10% OFF</div>
+                <div class="sm">YOUR FIRST ORDER</div>
+              </div>
+              <div class="inp">Email address</div>
+              <div class="btn">JOIN US</div>
+            </div>
+          </div>
+          <div class="cap"><b>Control</b>Current homepage popup</div>
+        </div>
+
+        <div class="varrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
+
+        <div class="mcol">
+          <div class="pop">
+            <div class="x">&times;</div>
+            <div class="ban slim">
+              <div class="photo"></div>
+              <div class="txt">
+                <div class="brand"><div class="w">Stripes</div><div class="b">BEAUTY</div></div>
+              </div>
+            </div>
+            <div class="qwrap">
+              <div class="q">What would you like<br>to improve?</div>
+              <div class="opts">
+                <div class="opt sel">
+                  <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></div>
+                  <div class="lb">Better Sleep</div>
+                </div>
+                <div class="opt">
+                  <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s4 4 4 8a4 4 0 0 1-8 0c0-1.5.7-2.8 1.3-3.7"/><path d="M12 22a6 6 0 0 0 6-6c0-2-1-3.5-2-5"/></svg></div>
+                  <div class="lb">Hot Flashes</div>
+                </div>
+                <div class="opt">
+                  <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg></div>
+                  <div class="lb">Mood</div>
+                </div>
+                <div class="opt">
+                  <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></div>
+                  <div class="lb">Skin</div>
+                </div>
+                <div class="opt">
+                  <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c2-9 5-14 8-14s6 5 8 14"/><path d="M8 20c1-6 2.5-9 4-9s3 3 4 9"/></svg></div>
+                  <div class="lb">Hair</div>
+                </div>
+                <div class="opt">
+                  <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
+                  <div class="lb">Energy</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cap"><b>Variant</b>Symptom discovery first</div>
+        </div>
+      </div>
+
+      <div class="after">
+        <span class="aarr">&rarr;</span>
+        <div class="t">After selection, she lands on the <b>most relevant category page</b> - where the <b>existing 10% email popup</b> appears exactly as it does today.</div>
+        <div class="thumb"><div class="o">10% OFF</div><div class="s">UNCHANGED</div></div>
+      </div>
+    </div>
+
+    <!-- right: details -->
+    <div class="rail">
+      <div class="blk">
+        <div class="bl">Hypothesis</div>
+        <p>Helping users identify their primary symptom before browsing products will <b>increase engagement with relevant categories</b> and improve downstream conversion.</p>
+      </div>
+      <div class="blk">
+        <div class="bl">What changes</div>
+        <p class="mut">Instead of immediately showing the existing 10% email popup, users first complete a short <b>symptom discovery step</b>. After selecting their primary symptom, they are redirected to the most relevant category page. The existing 10% email popup <b>remains unchanged</b> and appears later in the journey.</p>
+      </div>
+      <div class="blk">
+        <div class="bl">Funnel stage</div>
+        <div class="chip"><span class="d"></span>Homepage &middot; Paid Social</div>
+      </div>
+      <div class="blk">
+        <div class="bl">Why first?</div>
+        <div class="why">
+          <div class="wr"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span>High-impact Big Rock / Needle Mover</div>
+          <div class="wr"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span>Reduces early decision friction</div>
+          <div class="wr"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span>Creates a more personalized discovery journey</div>
+          <div class="wr"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span>Impacts every new visitor entering the funnel</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">Note &middot;</div>
+
+  <div class="foot"><div class="zyg">ZyG</div><div class="stripes"><div class="word">Stripes</div><div class="beauty">BEAUTY</div></div></div>
+</div>
+</body></html>
