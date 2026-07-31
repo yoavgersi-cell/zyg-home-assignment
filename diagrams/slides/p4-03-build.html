@@ -1,0 +1,84 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
+<style>
+  .stage{display:flex;gap:40px;margin-top:14px;align-items:flex-start;}
+  .left{flex:1;padding-top:10px;}
+  .steps{display:flex;flex-direction:column;gap:0;margin-top:22px;}
+  .step{display:flex;gap:18px;}
+  .step .rail{display:flex;flex-direction:column;align-items:center;}
+  .step .n{width:38px;height:38px;border-radius:11px;background:var(--blue-soft);color:var(--blue);font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .step .ln{width:2px;flex:1;background:#E4EAF6;margin:6px 0;}
+  .step .body{padding-bottom:26px;}
+  .step h3{font-size:21px;font-weight:700;color:var(--navy);padding-top:6px;}
+  .step p{font-size:15.5px;color:var(--muted);line-height:1.5;margin-top:7px;max-width:520px;}
+  .step p b{color:var(--navy);font-weight:700;}
+  .step:last-child .body{padding-bottom:0;}
+  .step:last-child .ln{display:none;}
+
+  /* the brief mockup */
+  .briefwrap{flex:0 0 470px;}
+  .brief{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 50px rgba(16,42,77,.12);padding:30px 34px;}
+  .brief .bh{display:flex;align-items:center;justify-content:space-between;}
+  .brief .bt{font-size:13px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--blue);}
+  .brief .status{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#B15738;background:#FCF3EF;border:1px solid #F1D8CE;border-radius:999px;padding:5px 12px;}
+  .brief .title{font-size:20px;font-weight:700;color:var(--navy);margin-top:14px;line-height:1.3;}
+  .brief .rows{margin-top:18px;display:flex;flex-direction:column;gap:13px;}
+  .brief .br{display:flex;gap:12px;align-items:baseline;}
+  .brief .bl{flex:0 0 118px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--faint);}
+  .brief .bv{font-size:14px;color:var(--ink);line-height:1.45;}
+  .brief .bv b{color:var(--navy);font-weight:700;}
+  .caption{text-align:center;margin-top:14px;font-size:13px;color:var(--faint);font-weight:600;}
+</style></head><body>
+<div class="slide">
+  <div class="kicker">What I'd Build</div>
+  <div class="h1">A Growth Intelligence Agent</div>
+  <div class="lead" style="font-size:17.5px;">It watches the market and turns meaningful competitor moves into ready-to-review experiment briefs.</div>
+
+  <div class="stage">
+    <div class="left">
+      <div class="steps">
+        <div class="step">
+          <div class="rail"><span class="n">1</span><span class="ln"></span></div>
+          <div class="body">
+            <h3>It watches the market</h3>
+            <p>Competitor sites, Meta Ads Library, pricing, offers and funnels - <b>continuously</b>, not when someone finds the time.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="rail"><span class="n">2</span><span class="ln"></span></div>
+          <div class="body">
+            <h3>It filters what matters</h3>
+            <p>Most changes are noise. It flags the ones that matter - a new offer, a new value proposition, <b>several competitors moving the same way</b> - and checks they're relevant to us.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="rail"><span class="n">3</span></div>
+          <div class="body">
+            <h3>It hands the team a brief, not an alert</h3>
+            <p>Every recommendation arrives as an <b>experiment brief</b> - reviewed and approved by a PM before anything ships.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="briefwrap">
+      <div class="brief">
+        <div class="bh">
+          <span class="bt">Experiment Brief</span>
+          <span class="status">Awaiting PM review</span>
+        </div>
+        <div class="title">Competitors are moving to symptom-quiz entry flows</div>
+        <div class="rows">
+          <div class="br"><span class="bl">Insight</span><span class="bv">3 of 8 tracked competitors launched a quiz flow this quarter.</span></div>
+          <div class="br"><span class="bl">Assumption</span><span class="bv">Guided entry converts colder traffic better than a static PDP.</span></div>
+          <div class="br"><span class="bl">Hypothesis</span><span class="bv">A symptom-based entry step will lift PDP view rate.</span></div>
+          <div class="br"><span class="bl">Suggested test</span><span class="bv">Homepage popup A/B - discovery step vs. current.</span></div>
+          <div class="br"><span class="bl">Success metric</span><span class="bv"><b>PDP view rate</b>, purchase conversion as guardrail.</span></div>
+        </div>
+      </div>
+      <div class="caption">Example output - the agent drafts it, the PM decides.</div>
+    </div>
+  </div>
+
+  <div class="foot"><div class="zyg">ZyG</div><div class="stripes"><div class="word">Stripes</div><div class="beauty">BEAUTY</div></div></div>
+</div>
+</body></html>
