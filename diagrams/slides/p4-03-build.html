@@ -1,20 +1,22 @@
 <!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
 <style>
   .stage{display:flex;gap:40px;margin-top:14px;align-items:flex-start;}
-  .left{flex:1;padding-top:10px;}
-  .steps{display:flex;flex-direction:column;gap:0;margin-top:22px;}
+  .left{flex:1;padding-top:6px;}
+  .steps{display:flex;flex-direction:column;gap:0;margin-top:18px;}
   .step{display:flex;gap:18px;}
   .step .rail{display:flex;flex-direction:column;align-items:center;}
   .step .n{width:38px;height:38px;border-radius:11px;background:var(--blue-soft);color:var(--blue);font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .step .ln{width:2px;flex:1;background:#E4EAF6;margin:6px 0;}
-  .step .body{padding-bottom:26px;}
-  .step h3{font-size:21px;font-weight:700;color:var(--navy);padding-top:6px;}
-  .step p{font-size:15.5px;color:var(--muted);line-height:1.5;margin-top:7px;max-width:520px;}
+  .step .body{padding-bottom:22px;}
+  .step h3{font-size:20px;font-weight:700;color:var(--navy);padding-top:6px;}
+  .step p{font-size:14.5px;color:var(--muted);line-height:1.5;margin-top:7px;max-width:530px;}
   .step p b{color:var(--navy);font-weight:700;}
   .step:last-child .body{padding-bottom:0;}
   .step:last-child .ln{display:none;}
+  .mini{margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:5px 22px;max-width:500px;}
+  .mini .m{display:flex;gap:9px;align-items:center;font-size:14px;color:var(--ink);}
+  .mini .m .d{width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0;}
 
-  /* the brief mockup */
   .briefwrap{flex:0 0 470px;}
   .brief{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 50px rgba(16,42,77,.12);padding:30px 34px;}
   .brief .bh{display:flex;align-items:center;justify-content:space-between;}
@@ -23,7 +25,7 @@
   .brief .title{font-size:20px;font-weight:700;color:var(--navy);margin-top:14px;line-height:1.3;}
   .brief .rows{margin-top:18px;display:flex;flex-direction:column;gap:13px;}
   .brief .br{display:flex;gap:12px;align-items:baseline;}
-  .brief .bl{flex:0 0 118px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--faint);}
+  .brief .bl{flex:0 0 122px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--faint);}
   .brief .bv{font-size:14px;color:var(--ink);line-height:1.45;}
   .brief .bv b{color:var(--navy);font-weight:700;}
   .caption{text-align:center;margin-top:14px;font-size:13px;color:var(--faint);font-weight:600;}
@@ -31,7 +33,7 @@
 <div class="slide">
   <div class="kicker">What I'd Build</div>
   <div class="h1">A Growth Intelligence Agent</div>
-  <div class="lead" style="font-size:17.5px;">Instead of helping the team create assets faster, it helps them discover their next experiment.</div>
+  <div class="lead" style="font-size:17.5px;">Instead of helping the team create assets faster, it helps them discover the next experiment worth running.</div>
 
   <div class="stage">
     <div class="left">
@@ -40,21 +42,27 @@
           <div class="rail"><span class="n">1</span><span class="ln"></span></div>
           <div class="body">
             <h3>It watches the market</h3>
-            <p>Competitor websites and landing pages, Meta Ad Library, pricing, promotions, new funnels and messaging - <b>continuously</b>.</p>
+            <p>Competitor websites, landing pages, Meta Ads Library, pricing, promotions, messaging and new funnels - <b>continuously</b>.</p>
           </div>
         </div>
         <div class="step">
           <div class="rail"><span class="n">2</span><span class="ln"></span></div>
           <div class="body">
-            <h3>It filters the noise</h3>
-            <p>Most changes don't matter. Its job isn't to report everything - it's to spot the <b>meaningful market shifts</b>.</p>
+            <h3>It spots meaningful changes</h3>
+            <p>It ignores most updates and focuses on the few that actually matter:</p>
+            <div class="mini">
+              <div class="m"><span class="d"></span>new offers</div>
+              <div class="m"><span class="d"></span>new messaging</div>
+              <div class="m"><span class="d"></span>new acquisition flows</div>
+              <div class="m"><span class="d"></span>patterns across competitors</div>
+            </div>
           </div>
         </div>
         <div class="step">
           <div class="rail"><span class="n">3</span></div>
           <div class="body">
-            <h3>It writes experiment briefs</h3>
-            <p>Each shift is turned into an <b>experiment brief</b>, ready for the team to review.</p>
+            <h3>It turns insights into experiments</h3>
+            <p>Every relevant market change becomes a <b>ready-to-review experiment brief</b> instead of another Slack message.</p>
           </div>
         </div>
       </div>
@@ -66,15 +74,15 @@
           <span class="bt">Experiment Brief</span>
           <span class="status">Awaiting PM review</span>
         </div>
-        <div class="title">Competitors are moving to symptom-quiz entry flows</div>
+        <div class="title">Competitors are moving to symptom-first entry flows</div>
         <div class="rows">
-          <div class="br"><span class="bl">Insight</span><span class="bv">3 competitors launched quiz-first acquisition flows.</span></div>
-          <div class="br"><span class="bl">Hypothesis</span><span class="bv">A guided symptom entry could increase PDP view rate.</span></div>
-          <div class="br"><span class="bl">Suggested experiment</span><span class="bv">Homepage discovery flow vs. current homepage.</span></div>
-          <div class="br"><span class="bl">Success metric</span><span class="bv"><b>PDP view rate</b></span></div>
+          <div class="br"><span class="bl">What changed</span><span class="bv">3 competitors introduced quiz-first acquisition flows.</span></div>
+          <div class="br"><span class="bl">Hypothesis</span><span class="bv">A symptom-first homepage could increase PDP visits.</span></div>
+          <div class="br"><span class="bl">Recommended test</span><span class="bv">Homepage discovery flow vs. current homepage.</span></div>
+          <div class="br"><span class="bl">Success metric</span><span class="bv"><b>PDP View Rate</b></span></div>
         </div>
       </div>
-      <div class="caption">Example output - the agent drafts it, the PM decides.</div>
+      <div class="caption">The agent drafts the brief. The PM decides whether to run it.</div>
     </div>
   </div>
 
