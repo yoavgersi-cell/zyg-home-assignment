@@ -1,57 +1,51 @@
 <!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
 <style>
-  .thesis{margin-top:24px;background:var(--blue-soft);border:1px solid #DCE3FB;border-radius:18px;padding:32px 38px;}
-  .thesis .t{font-size:30px;font-weight:700;color:var(--navy);line-height:1.35;letter-spacing:-.4px;max-width:1280px;}
-  .thesis .t b{color:var(--blue);}
-
-  .two{display:flex;gap:24px;margin-top:26px;align-items:stretch;}
-  .box{flex:1;padding:28px 30px;}
+  .two{display:flex;gap:24px;margin-top:28px;align-items:stretch;}
+  .box{flex:1;padding:30px 32px;}
   .box .cap{font-size:12px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--faint);}
-  .box h3{font-size:22px;font-weight:700;color:var(--navy);margin-top:12px;line-height:1.25;}
-  .items{margin-top:16px;display:flex;flex-wrap:wrap;gap:9px;}
-  .it{font-size:14.5px;font-weight:600;color:var(--navy);background:#F7F9FC;border:1px solid var(--line-2);border-radius:999px;padding:9px 16px;}
-  .box p{font-size:15.5px;color:var(--muted);line-height:1.5;margin-top:14px;}
-  .box p b{color:var(--navy);font-weight:700;}
-  .box.gap{background:#fff;border:1.5px solid #C7D2F7;}
-  .box.gap .cap{color:var(--blue);}
+  .box h3{font-size:21px;font-weight:700;color:var(--navy);margin-top:12px;line-height:1.25;}
+  .items{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px;}
+  .it{font-size:15px;font-weight:600;color:var(--navy);background:#F7F9FC;border:1px solid var(--line-2);border-radius:999px;padding:10px 18px;}
+  .box p{font-size:15px;color:var(--muted);line-height:1.5;margin-top:18px;}
+
+  /* question shift box */
+  .shift{flex:1;background:var(--blue-soft);border:1px solid #DCE3FB;border-radius:18px;padding:30px 34px;display:flex;flex-direction:column;justify-content:center;}
+  .shift .q1{font-size:19px;color:var(--faint);font-weight:600;text-decoration:line-through;text-decoration-color:#C2CBD8;}
+  .shift .qarrow{color:var(--blue);font-size:22px;font-weight:700;margin:12px 0 10px;}
+  .shift .q2{font-size:30px;font-weight:700;color:var(--navy);line-height:1.25;letter-spacing:-.4px;}
+  .shift .q2 b{color:var(--blue);}
 
   .pick{margin-top:24px;background:var(--navy);border-radius:16px;padding:22px 30px;display:flex;align-items:center;gap:18px;}
   .pick .lbl{font-size:12px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#9FC0FF;flex-shrink:0;}
-  .pick .t{font-size:19px;color:#EAF1FF;font-weight:500;line-height:1.45;}
+  .pick .t{font-size:18px;color:#EAF1FF;font-weight:500;line-height:1.45;}
   .pick .t b{color:#fff;font-weight:700;}
 </style></head><body>
 <div class="slide">
   <div class="kicker">The Opportunity</div>
-  <div class="h1">Where can AI create the biggest impact?</div>
-
-  <div class="thesis">
-    <div class="t">Building things is getting easier. <b>Deciding what to build next</b> is becoming the real competitive advantage.</div>
-  </div>
+  <div class="h1">Building faster is no longer the bottleneck</div>
 
   <div class="two">
     <div class="box card">
-      <div class="cap">Already fast with AI</div>
-      <h3>Execution</h3>
+      <div class="cap">AI already makes it easy to create</div>
       <div class="items">
-        <span class="it">Creative angles</span>
         <span class="it">Landing pages</span>
-        <span class="it">Funnel analysis</span>
-        <span class="it">Test variants</span>
+        <span class="it">Ad creatives</span>
+        <span class="it">Copy variations</span>
+        <span class="it">A/B test variants</span>
       </div>
-      <p>All of these are becoming cheap and fast to produce. Speed here is quickly becoming <b>table stakes</b>.</p>
+      <p>Producing assets is fast and cheap now. Speed of execution is no longer the constraint.</p>
     </div>
 
-    <div class="box gap card">
-      <div class="cap">Still slow and manual</div>
-      <h3>Knowing what to test next</h3>
-      <p>Competitive research today is <b>manual, occasional and reactive</b> - someone checks a few competitor sites when they find the time.</p>
-      <p>Meanwhile, the market moves every week: new offers, new funnels, new messaging.</p>
+    <div class="shift">
+      <div class="q1">"How do we build this?"</div>
+      <div class="qarrow">&darr;</div>
+      <div class="q2">"<b>What should we build next?</b>"</div>
     </div>
   </div>
 
   <div class="pick">
-    <span class="lbl">My pick</span>
-    <div class="t">So instead of building faster, I'd automate the input: <b>what should we test next?</b></div>
+    <span class="lbl">My focus</span>
+    <div class="t">That decision still depends on <b>manually monitoring competitors</b>, spotting patterns, and turning them into good hypotheses. That's where I'd focus.</div>
   </div>
 
   <div class="foot"><div class="zyg">ZyG</div><div class="stripes"><div class="word">Stripes</div><div class="beauty">BEAUTY</div></div></div>

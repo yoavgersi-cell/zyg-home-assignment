@@ -1,42 +1,49 @@
 <!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
 <style>
-  .big{margin-top:30px;font-size:40px;font-weight:700;color:var(--navy);letter-spacing:-.8px;line-height:1.2;}
-  .big b{color:var(--blue);}
-  .why3{display:flex;gap:22px;margin-top:38px;align-items:stretch;}
-  .w{flex:1;padding:26px 28px 28px;}
-  .w h3{font-size:18px;font-weight:700;color:var(--navy);line-height:1.3;}
-  .w p{font-size:15px;color:var(--muted);line-height:1.5;margin-top:10px;}
-  .w p b{color:var(--navy);font-weight:700;}
+  .cols{display:flex;gap:24px;margin-top:26px;align-items:stretch;}
+  .col{flex:1;padding:26px 30px 28px;}
+  .col .cap{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint);}
+  .col.people .cap{color:var(--blue);}
+  .qs{margin-top:16px;display:flex;flex-direction:column;gap:12px;}
+  .qq{display:flex;gap:12px;align-items:flex-start;font-size:16.5px;color:var(--ink);line-height:1.4;}
+  .qq .d{width:7px;height:7px;border-radius:50%;background:#B7C2D3;margin-top:8px;flex-shrink:0;}
+  .col.people .qq{color:var(--navy);font-weight:600;}
+  .col.people .qq .d{background:var(--blue);}
+  .goal{margin-top:22px;font-size:15.5px;color:var(--muted);line-height:1.5;text-align:center;}
+  .goal b{color:var(--navy);font-weight:700;}
 
-  .close{margin-top:34px;background:var(--navy);border-radius:18px;padding:30px 38px;}
-  .close .lbl{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#9FC0FF;}
-  .close .t{font-size:24px;font-weight:600;color:#EAF1FF;line-height:1.4;margin-top:10px;max-width:1200px;}
+  .close{margin-top:22px;background:var(--navy);border-radius:18px;padding:28px 38px;text-align:center;}
+  .close .t{font-size:25px;font-weight:600;color:#EAF1FF;line-height:1.4;max-width:1100px;margin:0 auto;}
   .close .t b{color:#fff;font-weight:700;}
 </style></head><body>
 <div class="slide">
-  <div class="kicker">The Decision Point</div>
-  <div class="h1">Why a human still makes the decisions</div>
+  <div class="kicker">Human in the Loop</div>
+  <div class="h1">The agent recommends. The PM decides.</div>
 
-  <div class="big">The agent proposes. <b>The PM decides.</b></div>
-
-  <div class="why3">
-    <div class="w card">
-      <h3>It removes the busywork, not the judgment</h3>
-      <p>The agent takes over the <b>monitoring and drafting</b> - the part nobody has time for. The thinking stays with the team.</p>
+  <div class="cols">
+    <div class="col card">
+      <div class="cap">AI is good at answering</div>
+      <div class="qs">
+        <div class="qq"><span class="d"></span>What's changing?</div>
+        <div class="qq"><span class="d"></span>What patterns are emerging?</div>
+        <div class="qq"><span class="d"></span>What experiments are worth exploring?</div>
+      </div>
     </div>
-    <div class="w card">
-      <h3>Brand and positioning are human calls</h3>
-      <p>What Stripes says, promises and tests in front of customers is a <b>judgment call</b> - not something to delegate to a model.</p>
-    </div>
-    <div class="w card">
-      <h3>Every brief is reviewed before it ships</h3>
-      <p>Nothing runs automatically. A PM approves, edits or rejects <b>every recommendation</b>.</p>
+    <div class="col people card">
+      <div class="cap">People are responsible for</div>
+      <div class="qs">
+        <div class="qq"><span class="d"></span>Does this fit our strategy?</div>
+        <div class="qq"><span class="d"></span>Does it fit our brand?</div>
+        <div class="qq"><span class="d"></span>Is this the right priority?</div>
+        <div class="qq"><span class="d"></span>Should we invest engineering time?</div>
+      </div>
     </div>
   </div>
 
+  <div class="goal">The goal isn't to replace product thinking. It's to remove hours of repetitive competitive research so the team can spend more time <b>making better product decisions</b>.</div>
+
   <div class="close">
-    <div class="lbl">The takeaway</div>
-    <div class="t">Building things is getting easier. <b>Knowing what to build next is the real advantage</b> - and that's the part this agent automates.</div>
+    <div class="t">The biggest opportunity isn't using AI to build faster. It's using AI to help teams <b>decide what to build next</b>.</div>
   </div>
 
   <div class="foot"><div class="zyg">ZyG</div><div class="stripes"><div class="word">Stripes</div><div class="beauty">BEAUTY</div></div></div>
