@@ -66,10 +66,16 @@
   .blk p.mut{color:var(--muted);}
   .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;color:var(--navy);margin-top:8px;box-shadow:0 3px 10px rgba(16,42,77,.05);}
   .chip .d{width:7px;height:7px;border-radius:50%;background:var(--blue);}
-  .why{margin-top:8px;display:flex;flex-direction:column;gap:8px;}
-  .wr{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink);line-height:1.4;}
-  .wr .ck{width:18px;height:18px;border-radius:5px;background:var(--blue-soft);display:flex;align-items:center;justify-content:center;color:var(--blue);flex-shrink:0;margin-top:1px;}
-  .wr .ck svg{width:11px;height:11px;}
+  .kpi-primary{margin-top:9px;background:var(--navy);border-radius:11px;padding:12px 17px;}
+  .kpi-primary .kl{font-size:9.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#9FC0FF;}
+  .kpi-primary .kv{font-size:16px;font-weight:700;color:#fff;margin-top:3px;}
+  .kpi-row{margin-top:9px;display:flex;align-items:center;gap:10px;}
+  .kpi-row .ktag{font-size:9.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--blue);background:var(--blue-soft);border-radius:999px;padding:4px 11px;flex-shrink:0;}
+  .kpi-row .kt{font-size:13.5px;font-weight:700;color:var(--navy);}
+  .kpi-guard{margin-top:11px;}
+  .kpi-guard .kl2{font-size:9.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--faint);}
+  .kpi-guard .gl{margin-top:7px;display:flex;flex-wrap:wrap;gap:7px;}
+  .kpi-guard .gi{font-size:12px;font-weight:600;color:#4E6178;background:#F2F5F9;border:1px solid var(--line-2);border-radius:999px;padding:6px 12px;}
 
   .note{position:absolute;left:96px;right:96px;bottom:62px;border-top:1px solid var(--line-2);padding-top:9px;font-size:12px;color:#B6C0CD;font-weight:600;}
 </style></head><body>
@@ -173,23 +179,33 @@
     <div class="rail">
       <div class="blk">
         <div class="bl">Hypothesis</div>
-        <p>Instead of immediately asking for contact details, we first ask a <b>lightweight personalization question</b>. Letting users express their intent before asking for their information will <b>increase engagement</b> and improve completion of the existing onboarding flow.</p>
+        <p>Introducing a <b>lightweight personalization step</b> before the existing lead capture flow will <b>improve purchase conversion</b> by helping users express their intent before providing their contact details. Lead capture rate may decrease - we expect <b>higher-quality leads</b> and stronger downstream conversion.</p>
       </div>
       <div class="blk">
         <div class="bl">What changes</div>
-        <p class="mut">One new step, before the existing popup flow. The <b>email capture, phone step, coupon and CRM flow</b> remain exactly as they are today.</p>
+        <p class="mut">One lightweight personalization step is added before the existing email and phone capture flow. The <b>existing lead capture journey remains exactly as it is today</b>.</p>
       </div>
       <div class="blk">
         <div class="bl">Funnel stage</div>
         <div class="chip"><span class="d"></span>Homepage &middot; Paid Social</div>
       </div>
       <div class="blk">
-        <div class="bl">Why first?</div>
-        <div class="why">
-          <div class="wr"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span>High-impact Big Rock / Needle Mover</div>
-          <div class="wr"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span>Reduces early decision friction</div>
-          <div class="wr"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span>Creates a more personalized discovery journey</div>
-          <div class="wr"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span>Impacts every new visitor entering the funnel</div>
+        <div class="bl">Success metrics</div>
+        <div class="kpi-primary">
+          <div class="kl">Primary KPI</div>
+          <div class="kv">Purchase Conversion Rate</div>
+        </div>
+        <div class="kpi-row">
+          <span class="ktag">Secondary KPI</span>
+          <span class="kt">Revenue per Lead (RPL)</span>
+        </div>
+        <div class="kpi-guard">
+          <div class="kl2">Guardrails</div>
+          <div class="gl">
+            <span class="gi">Lead Capture Rate</span>
+            <span class="gi">Step 1 Completion Rate</span>
+            <span class="gi">Average Order Value (AOV)</span>
+          </div>
         </div>
       </div>
     </div>
