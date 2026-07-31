@@ -3,12 +3,10 @@
   .stage{display:flex;gap:40px;margin-top:14px;flex:1;align-items:flex-start;}
 
   /* ---- left: comparison ---- */
-  .mocks{display:flex;gap:30px;align-items:flex-start;}
+  .mocks{display:flex;gap:34px;align-items:flex-start;}
   .mcol{display:flex;flex-direction:column;align-items:center;}
   .steptag{font-size:11px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:var(--faint);background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px;margin-bottom:12px;}
   .steptag.new{color:var(--blue);border-color:#C7D2F7;background:var(--blue-soft);}
-  .cap{text-align:center;margin-top:11px;font-size:12.5px;font-weight:600;color:var(--faint);line-height:1.35;}
-  .cap b{display:block;font-size:14px;color:var(--navy);font-weight:700;margin-bottom:1px;}
   .jarrow{align-self:center;color:var(--blue);margin-top:190px;flex-shrink:0;}
   .jarrow svg{width:30px;height:30px;}
 
@@ -49,13 +47,15 @@
   .opt .ic svg{width:13px;height:13px;}
   .opt .lb{font-size:12px;font-weight:600;color:#20201f;}
 
-  /* mini journey flow under variant */
-  .flow{margin-top:14px;display:flex;flex-direction:column;align-items:center;gap:5px;}
-  .fchip{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;border-radius:999px;padding:7px 16px;border:1px solid var(--line);background:#fff;color:var(--navy);box-shadow:0 3px 10px rgba(16,42,77,.05);}
-  .fchip.new{background:var(--blue-soft);border-color:#C7D2F7;color:var(--blue);}
-  .fchip.keep{background:#FCF3EF;border-color:#F1D8CE;color:#B15738;}
-  .fchip .s{font-size:9.5px;font-weight:700;letter-spacing:.6px;opacity:.75;}
-  .fdown{color:#B7C2D3;font-size:13px;font-weight:700;line-height:1;}
+  /* journey chips */
+  .flow{margin-top:14px;display:flex;flex-direction:column;align-items:center;gap:4px;width:300px;}
+  .fchip{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;border-radius:999px;padding:6px 15px;border:1px solid var(--line);background:#fff;color:var(--navy);box-shadow:0 3px 10px rgba(16,42,77,.05);}
+  .fchip.new{background:var(--blue);border-color:var(--blue);color:#fff;}
+  .fchip.mut{color:var(--muted);background:#F7F9FC;border-color:var(--line-2);box-shadow:none;font-weight:600;}
+  .fdown{color:#B7C2D3;font-size:12px;font-weight:700;line-height:1;}
+  .existing{margin-top:4px;border:1.5px dashed #E3D5CC;border-radius:14px;padding:10px 14px 12px;display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;background:#FDFAF8;}
+  .existing .exlab{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#B15738;background:#FCF3EF;border:1px solid #F1D8CE;border-radius:999px;padding:3px 10px;position:absolute;top:-11px;left:50%;transform:translateX(-50%);white-space:nowrap;}
+  .existing .fchip{background:#fff;}
 
   /* ---- right: details ---- */
   .rail{flex:1;min-width:0;}
@@ -102,14 +102,20 @@
             <div class="btn">JOIN US</div>
           </div>
         </div>
-        <div class="cap"><b>Current experience</b>10% email popup on homepage</div>
+        <div class="flow">
+          <div class="fchip">10% Email Capture</div>
+          <div class="fdown">&darr;</div>
+          <div class="fchip">Phone Number (Optional)</div>
+          <div class="fdown">&darr;</div>
+          <div class="fchip mut">Continue Browsing</div>
+        </div>
       </div>
 
       <div class="jarrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
 
       <!-- VARIANT -->
       <div class="mcol">
-        <div class="steptag new">Variant</div>
+        <div class="steptag new">Variant &middot; one new step</div>
         <div class="pop">
           <div class="x">&times;</div>
           <div class="ban slim">
@@ -149,11 +155,16 @@
           </div>
         </div>
         <div class="flow">
-          <div class="fchip new">Guided Discovery</div>
+          <div class="fchip new">Guided Symptom Discovery</div>
           <div class="fdown">&darr;</div>
-          <div class="fchip">Relevant Category</div>
+          <div class="existing">
+            <span class="exlab">Existing flow &middot; unchanged</span>
+            <div class="fchip">10% Email Capture</div>
+            <div class="fdown">&darr;</div>
+            <div class="fchip">Phone Number (Optional)</div>
+          </div>
           <div class="fdown">&darr;</div>
-          <div class="fchip keep">Existing 10% Email Popup&nbsp;<span class="s">UNCHANGED</span></div>
+          <div class="fchip mut">Continue Browsing</div>
         </div>
       </div>
     </div>
@@ -162,11 +173,11 @@
     <div class="rail">
       <div class="blk">
         <div class="bl">Hypothesis</div>
-        <p>Helping users identify their primary symptom before browsing products will <b>increase engagement with relevant categories</b> and improve downstream conversion.</p>
+        <p>Instead of immediately asking for contact details, we first ask a <b>lightweight personalization question</b>. Letting users express their intent before asking for their information will <b>increase engagement</b> and improve completion of the existing onboarding flow.</p>
       </div>
       <div class="blk">
         <div class="bl">What changes</div>
-        <p class="mut">The entry experience - not the email popup. Users first complete a short <b>symptom discovery step</b>, then land on the most relevant category page. The existing 10% email popup <b>remains unchanged</b>, appearing later in the journey.</p>
+        <p class="mut">One new step, before the existing popup flow. The <b>email capture, phone step, coupon and CRM flow</b> remain exactly as they are today.</p>
       </div>
       <div class="blk">
         <div class="bl">Funnel stage</div>
