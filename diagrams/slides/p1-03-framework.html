@@ -1,17 +1,15 @@
 <!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
 <style>
-  .qrow{display:flex;align-items:stretch;gap:20px;margin-top:30px;}
-  .q{flex:1;padding:26px 28px;display:flex;align-items:center;gap:18px;}
+  .qrow{display:flex;align-items:stretch;gap:20px;margin-top:34px;}
+  .q{flex:1;padding:28px 30px;display:flex;align-items:center;gap:18px;}
   .qn{width:40px;height:40px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .qt{font-size:22px;font-weight:700;color:var(--navy);}
-  .qs{font-size:15px;color:var(--muted);margin-top:3px;}
+  .qs{font-size:15px;color:var(--muted);margin-top:4px;line-height:1.4;}
   .arrow{display:flex;align-items:center;color:#B7C2D3;font-size:30px;font-weight:700;}
   .result{background:var(--navy);color:#fff;border-radius:16px;padding:26px 30px;display:flex;flex-direction:column;justify-content:center;min-width:250px;}
   .result .r1{font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#9FC0FF;font-weight:700;}
   .result .r2{font-size:22px;font-weight:700;margin-top:6px;line-height:1.25;}
-  .note{font-size:16px;color:var(--muted);margin-top:22px;}
-  .note b{color:var(--navy);}
-  .defs{display:flex;gap:22px;margin-top:26px;}
+  .defs{display:flex;gap:22px;margin-top:28px;}
   .def{flex:1;padding:28px 30px;}
   .def .badge{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;padding:6px 13px;border-radius:999px;}
   .def.d .badge{background:var(--blue-soft);color:var(--blue);}
@@ -21,26 +19,25 @@
 </style></head><body>
 <div class="slide">
   <div class="kicker">Competitive Framework</div>
-  <div class="h1">How we define a competitor</div>
+  <div class="h1">How competitors were selected</div>
 
   <div class="qrow">
-    <div class="q card"><div class="qn">1</div><div><div class="qt">Same customer?</div><div class="qs">Aimed at a peri- or menopausal woman.</div></div></div>
-    <div class="q card"><div class="qn">2</div><div><div class="qt">Same problem?</div><div class="qs">Bought to ease her symptoms.</div></div></div>
+    <div class="q card"><div class="qn">1</div><div><div class="qt">Same customer?</div><div class="qs">Targets women experiencing peri- or menopause.</div></div></div>
+    <div class="q card"><div class="qn">2</div><div><div class="qt">Same problem?</div><div class="qs">Offers products intended to address menopause-related symptoms.</div></div></div>
     <div class="arrow">&#8594;</div>
-    <div class="result"><div class="r1">Both yes</div><div class="r2">Relevant<br>competitor</div></div>
+    <div class="result"><div class="r1">Both yes</div><div class="r2">Included in<br>the set</div></div>
   </div>
-  <div class="note">The lens is <b>customer intent</b>, not product similarity - so the set includes brands that don't look like Stripes but compete for the same woman.</div>
 
   <div class="defs">
     <div class="def d card">
       <span class="badge">Direct</span>
-      <h3>Menopause-native brands</h3>
-      <p>Menopause is the core positioning - the head-to-head set she would choose between.</p>
+      <h3>Direct competitors</h3>
+      <p>Brands positioned primarily around menopause wellness.</p>
     </div>
     <div class="def i card">
-      <span class="badge">Indirect</span>
-      <h3>Adjacent-symptom brands</h3>
-      <p>Own a neighboring symptom - hair, intimacy, hormones, gut - and compete for the same attention and acquisition channels.</p>
+      <span class="badge">Adjacent</span>
+      <h3>Adjacent competitors</h3>
+      <p>Brands solving related symptoms or competing for the same audience.</p>
     </div>
   </div>
 
