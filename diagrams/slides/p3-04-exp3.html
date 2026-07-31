@@ -1,0 +1,202 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
+<style>
+  .stage{display:flex;gap:38px;margin-top:14px;flex:1;align-items:flex-start;}
+
+  /* ---- left: comparison ---- */
+  .mocks{display:flex;gap:26px;align-items:flex-start;}
+  .mcol{display:flex;flex-direction:column;align-items:center;}
+  .steptag{font-size:11px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:var(--faint);background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px;margin-bottom:11px;}
+  .steptag.new{color:var(--blue);border-color:#C7D2F7;background:var(--blue-soft);}
+  .cap{text-align:center;margin-top:11px;font-size:12.5px;font-weight:600;color:var(--faint);line-height:1.35;}
+  .cap b{display:block;font-size:14px;color:var(--navy);font-weight:700;margin-bottom:1px;}
+  .jarrow{align-self:center;color:var(--blue);margin-top:230px;flex-shrink:0;}
+  .jarrow svg{width:28px;height:28px;}
+
+  .pdp{width:296px;background:#fff;border-radius:14px;border:1px solid #EDE9E4;box-shadow:0 18px 44px rgba(20,20,20,.13);
+    padding:18px 18px 18px;font-family:'Helvetica Neue',Arial,sans-serif;}
+  .ptitle{font-family:Georgia,serif;font-size:25px;font-weight:700;color:#151515;line-height:1;letter-spacing:.2px;}
+  .psub{font-size:10.5px;color:#6E1F26;font-weight:600;margin-top:6px;}
+  .pstars{color:#43607D;font-size:12px;letter-spacing:1px;margin-top:8px;}
+  .psize{font-size:10.5px;color:#454545;margin-top:9px;}
+
+  .opt{border:1px solid #E2DED8;border-radius:9px;padding:11px 12px;margin-top:9px;position:relative;}
+  .opt.sel{border:1.5px solid #43607D;}
+  .orow{display:flex;align-items:center;gap:8px;}
+  .radio{width:15px;height:15px;border-radius:50%;border:1.5px solid #C4BEB6;flex-shrink:0;}
+  .radio.on{border:4px solid #43607D;}
+  .oname{font-size:13px;font-weight:700;color:#151515;}
+  .oprice{margin-left:auto;font-size:13px;font-weight:700;color:#151515;}
+  .oprice .old{color:#9a9a9a;text-decoration:line-through;font-weight:500;font-size:11px;margin-left:4px;}
+  .save{position:absolute;top:0;right:0;background:#6E1F26;color:#fff;font-size:8px;font-weight:700;letter-spacing:.6px;padding:4px 8px;border-radius:0 8px 0 8px;}
+  .obul{margin-top:8px;display:flex;flex-direction:column;gap:4px;}
+  .ob{display:flex;gap:7px;align-items:center;font-size:10px;color:#555;}
+  .ob .d{width:3px;height:3px;border-radius:50%;background:#9a9a9a;flex-shrink:0;}
+
+  /* recommended pill (control) */
+  .recpill{display:inline-block;margin-top:8px;font-size:8.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#43607D;background:#EDF1F6;border:1px solid #DCE3EC;border-radius:999px;padding:4px 10px;}
+  /* trust signal (variant) */
+  .trust{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:9.5px;font-weight:700;color:#8A4B2E;background:#FBF2EB;border:1px solid #F0DFD2;border-radius:999px;padding:5px 11px;box-shadow:0 0 0 3px rgba(192,96,63,.08);}
+  .trust svg{width:11px;height:11px;color:#C0603F;}
+
+  .addbtn{margin-top:12px;background:#43607D;color:#fff;text-align:center;border-radius:999px;padding:12px;font-size:12px;font-weight:700;letter-spacing:.8px;}
+  .assure{display:flex;gap:8px;margin-top:9px;}
+  .as{flex:1;border:1px solid #EDE9E4;border-radius:8px;padding:8px 6px;display:flex;align-items:center;gap:6px;}
+  .as svg{width:14px;height:14px;color:#151515;flex-shrink:0;}
+  .as .t{font-size:8px;font-weight:700;color:#151515;line-height:1.2;}
+
+  /* ---- right rail ---- */
+  .rail{flex:1;min-width:0;}
+  .blk{margin-bottom:12px;}
+  .blk .bl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);}
+  .blk p{font-size:12.5px;color:var(--ink);line-height:1.46;margin-top:6px;}
+  .blk p b{color:var(--navy);font-weight:700;}
+  .blk p.mut{color:var(--muted);}
+  .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:700;color:var(--navy);margin-top:7px;box-shadow:0 3px 10px rgba(16,42,77,.05);}
+  .chip .d{width:6px;height:6px;border-radius:50%;background:var(--blue);}
+  .swap{margin-top:8px;display:flex;flex-direction:column;gap:6px;}
+  .sw{display:flex;gap:9px;align-items:center;font-size:12px;color:var(--ink);}
+  .sw .lb{font-size:8.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;border-radius:999px;padding:3px 9px;flex-shrink:0;}
+  .sw .lb.pref{color:#8A4B2E;background:#FBF2EB;border:1px solid #F0DFD2;}
+  .sw .lb.fall{color:var(--faint);background:#F2F5F9;border:1px solid var(--line-2);}
+  .sw .v{font-weight:600;color:var(--navy);}
+
+  .kpi-primary{margin-top:8px;background:var(--navy);border-radius:10px;padding:11px 16px;}
+  .kpi-primary .kl{font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#9FC0FF;}
+  .kpi-primary .kv{font-size:15px;font-weight:700;color:#fff;margin-top:3px;}
+  .kpi-row{margin-top:8px;display:flex;align-items:center;gap:9px;}
+  .kpi-row .ktag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--blue);background:var(--blue-soft);border-radius:999px;padding:4px 10px;flex-shrink:0;}
+  .kpi-row .kt{font-size:12.5px;font-weight:700;color:var(--navy);}
+  .kpi-guard{margin-top:10px;}
+  .kpi-guard .kl2{font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--faint);}
+  .kpi-guard .gl{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;}
+  .kpi-guard .gi{font-size:11.5px;font-weight:600;color:#4E6178;background:#F2F5F9;border:1px solid var(--line-2);border-radius:999px;padding:5px 11px;}
+
+  .note{position:absolute;left:96px;right:96px;bottom:62px;border-top:1px solid var(--line-2);padding-top:9px;font-size:12px;color:#B6C0CD;font-weight:600;}
+</style></head><body>
+<div class="slide">
+  <div class="kicker">Part 3 &middot; Experiment #3</div>
+  <div class="h1" style="font-size:34px;">Subscription Trust Signals</div>
+
+  <div class="stage">
+    <!-- left: comparison -->
+    <div class="mocks">
+      <!-- CONTROL -->
+      <div class="mcol">
+        <div class="steptag">Control &middot; today</div>
+        <div class="pdp">
+          <div class="ptitle">Rich &amp; Tight</div>
+          <div class="psub">Ultra Hydrating &amp; Firming Peptide Body Butter</div>
+          <div class="pstars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="psize">Size (250ml/8.5 fl oz)</div>
+
+          <div class="opt sel">
+            <div class="save">SAVE 15%</div>
+            <div class="orow"><span class="radio on"></span><span class="oname">Subscribe &amp; Save</span><span class="oprice">$57.80<span class="old">$68.00</span></span></div>
+            <div class="recpill">Recommended</div>
+            <div class="obul">
+              <div class="ob"><span class="d"></span>Delivery every 1 month</div>
+              <div class="ob"><span class="d"></span>Free shipping on all orders</div>
+              <div class="ob"><span class="d"></span>Easy cancel or modify</div>
+              <div class="ob"><span class="d"></span>90-day money-back guarantee</div>
+            </div>
+          </div>
+
+          <div class="opt">
+            <div class="orow"><span class="radio"></span><span class="oname">One-Time Purchase</span><span class="oprice">$68.00</span></div>
+            <div class="obul">
+              <div class="ob"><span class="d"></span>90-day money-back guarantee</div>
+              <div class="ob"><span class="d"></span>Free shipping above $69.9</div>
+            </div>
+          </div>
+
+          <div class="addbtn">ADD TO BAG&nbsp;&nbsp;|&nbsp;&nbsp;$57.80</div>
+        </div>
+        <div class="cap"><b>Current experience</b>"Recommended" badge</div>
+      </div>
+
+      <div class="jarrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
+
+      <!-- VARIANT -->
+      <div class="mcol">
+        <div class="steptag new">Variant &middot; social proof</div>
+        <div class="pdp">
+          <div class="ptitle">Rich &amp; Tight</div>
+          <div class="psub">Ultra Hydrating &amp; Firming Peptide Body Butter</div>
+          <div class="pstars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="psize">Size (250ml/8.5 fl oz)</div>
+
+          <div class="opt sel">
+            <div class="save">SAVE 15%</div>
+            <div class="orow"><span class="radio on"></span><span class="oname">Subscribe &amp; Save</span><span class="oprice">$57.80<span class="old">$68.00</span></span></div>
+            <div class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s4 4 4 8a4 4 0 0 1-8 0c0-1.5.7-2.8 1.3-3.7"/><path d="M12 22a6 6 0 0 0 6-6c0-2-1-3.5-2-5"/></svg>1,214 new subscribers joined this week</div>
+            <div class="obul">
+              <div class="ob"><span class="d"></span>Delivery every 1 month</div>
+              <div class="ob"><span class="d"></span>Free shipping on all orders</div>
+              <div class="ob"><span class="d"></span>Easy cancel or modify</div>
+              <div class="ob"><span class="d"></span>90-day money-back guarantee</div>
+            </div>
+          </div>
+
+          <div class="opt">
+            <div class="orow"><span class="radio"></span><span class="oname">One-Time Purchase</span><span class="oprice">$68.00</span></div>
+            <div class="obul">
+              <div class="ob"><span class="d"></span>90-day money-back guarantee</div>
+              <div class="ob"><span class="d"></span>Free shipping above $69.9</div>
+            </div>
+          </div>
+
+          <div class="addbtn">ADD TO BAG&nbsp;&nbsp;|&nbsp;&nbsp;$57.80</div>
+        </div>
+        <div class="cap"><b>Social proof signal</b>Replaces the "Recommended" badge</div>
+      </div>
+    </div>
+
+    <!-- right rail -->
+    <div class="rail">
+      <div class="blk">
+        <div class="bl">Problem</div>
+        <p class="mut">Users understand the financial benefits of subscribing, but they have <b>little evidence that other customers actually choose it</b>. Without visible social proof, the subscription can feel like a bigger commitment than it really is.</p>
+      </div>
+      <div class="blk">
+        <div class="bl">Hypothesis</div>
+        <p>Showing <b>real customer adoption</b> at the moment of purchase will increase confidence in the subscription, lifting <b>Subscription Adoption</b> and ultimately contributing to higher <b>Customer Lifetime Value (LTV)</b>.</p>
+      </div>
+      <div class="blk">
+        <div class="bl">What changes</div>
+        <p class="mut">Replace the "Recommended" badge with a customer adoption trust signal. Pricing, discounts, terms and layout are unchanged - only the trust signal updates.</p>
+        <div class="swap">
+          <div class="sw"><span class="lb pref">Preferred &middot; live</span><span class="v">1,214 new subscribers joined this week</span></div>
+          <div class="sw"><span class="lb fall">Fallback</span><span class="v">72% of customers choose Subscribe &amp; Save</span></div>
+        </div>
+      </div>
+      <div class="blk">
+        <div class="bl">Funnel stage</div>
+        <div class="chip"><span class="d"></span>Product Detail Page &middot; Purchase Decision</div>
+      </div>
+      <div class="blk">
+        <div class="bl">Success metrics</div>
+        <div class="kpi-primary">
+          <div class="kl">Primary KPI</div>
+          <div class="kv">Subscription Adoption Rate</div>
+        </div>
+        <div class="kpi-row">
+          <span class="ktag">Secondary KPI</span>
+          <span class="kt">Revenue per Visitor</span>
+        </div>
+        <div class="kpi-guard">
+          <div class="kl2">Guardrails</div>
+          <div class="gl">
+            <span class="gi">Overall Purchase Conversion</span>
+            <span class="gi">One-Time Purchase Conversion</span>
+            <span class="gi">Average Order Value</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">Note &middot;</div>
+
+  <div class="foot"><div class="zyg">ZyG</div><div class="stripes"><div class="word">Stripes</div><div class="beauty">BEAUTY</div></div></div>
+</div>
+</body></html>
