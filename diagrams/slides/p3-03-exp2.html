@@ -1,0 +1,170 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
+<style>
+  .stage{display:flex;gap:38px;margin-top:12px;flex:1;align-items:flex-start;}
+
+  /* ---- left: stacked comparison ---- */
+  .mstack{display:flex;flex-direction:column;align-items:center;}
+  .steptag{font-size:11px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:var(--faint);background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 14px;margin-bottom:9px;}
+  .steptag.new{color:var(--blue);border-color:#C7D2F7;background:var(--blue-soft);}
+  .darr{color:var(--blue);margin:10px 0 9px;}
+  .darr svg{width:22px;height:22px;}
+
+  /* carousel mockup (Stripes PLP style) */
+  .caro{width:660px;background:#fff;border-radius:14px;border:1px solid #EEE7E3;box-shadow:0 14px 36px rgba(20,20,20,.12);
+    padding:16px 18px 15px;font-family:'Helvetica Neue',Arial,sans-serif;display:flex;gap:14px;overflow:hidden;position:relative;}
+  .pcard{flex:0 0 192px;}
+  .pcard.cut{flex:0 0 178px;margin-right:-96px;}
+  .photo{height:150px;background:#F5F2EF;border-radius:4px;position:relative;overflow:hidden;}
+  /* product shapes */
+  .jar{position:absolute;bottom:22px;left:24%;width:72px;height:42px;background:#4A2028;border-radius:8px 8px 10px 10px;}
+  .jar::before{content:"";position:absolute;top:-7px;left:0;right:0;height:10px;background:#3E1A22;border-radius:8px 8px 2px 2px;}
+  .jar::after{content:"Stripes";position:absolute;left:10px;top:13px;font-family:Georgia,serif;font-size:11px;color:#EFE3DC;font-style:italic;}
+  .bottle{position:absolute;bottom:22px;left:68%;width:24px;height:94px;background:#4A2028;border-radius:5px 5px 4px 4px;box-shadow:-3px 0 6px rgba(0,0,0,.08);}
+  .bottle::before{content:"";position:absolute;top:-11px;left:4px;right:4px;height:13px;background:#3E1A22;border-radius:3px;}
+  .cream{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);width:44px;height:104px;background:#F3EDE2;border-radius:14px 14px 16px 16px;box-shadow:inset -6px 0 10px rgba(0,0,0,.05);}
+  .cream::before{content:"";position:absolute;top:-14px;left:8px;right:8px;height:18px;background:#EFE8DB;border-radius:6px 6px 2px 2px;}
+  .cream::after{content:"Stripes";position:absolute;left:50%;top:52%;transform:translate(-50%,-50%) rotate(-90deg);font-family:Georgia,serif;font-size:10px;color:#D98A80;letter-spacing:.5px;}
+  .jar2{position:absolute;bottom:20px;left:50%;transform:translateX(-40%);width:86px;height:58px;background:#4A2028;border-radius:9px 9px 11px 11px;}
+  .jar2::before{content:"";position:absolute;top:-8px;left:0;right:0;height:12px;background:#3E1A22;border-radius:9px 9px 2px 2px;}
+  .jar2::after{content:"Stripes";position:absolute;left:14px;top:20px;font-family:Georgia,serif;font-size:12px;color:#EFE3DC;font-style:italic;}
+  .bag{position:absolute;right:8px;bottom:8px;width:18px;height:18px;border:1.5px solid #454545;border-radius:3px;background:#fff;}
+  .bag::before{content:"";position:absolute;top:-5px;left:4px;right:4px;height:7px;border:1.5px solid #454545;border-bottom:none;border-radius:5px 5px 0 0;}
+
+  /* rec tag (variant only) */
+  .rec{display:inline-flex;align-items:center;gap:5px;margin-top:9px;font-size:8.5px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:#B15738;background:#FCF3EF;border:1px solid #F1D8CE;border-radius:999px;padding:4px 10px;}
+  .rec .rd{width:4px;height:4px;border-radius:50%;background:#D0674A;}
+  .rec-space{height:0;}
+
+  .pname{font-family:Georgia,serif;font-size:17px;font-weight:700;color:#2E5F6A;margin-top:9px;letter-spacing:.2px;}
+  .pname.tight{margin-top:9px;}
+  .prices{display:flex;gap:8px;align-items:baseline;margin-top:6px;}
+  .pr{font-size:12.5px;color:#151515;font-weight:600;}
+  .pr.old{color:#8a8a8a;text-decoration:line-through;font-weight:500;}
+  .stars{display:flex;align-items:center;gap:5px;margin-top:5px;}
+  .st{font-size:11px;color:#E89B3C;letter-spacing:1px;}
+  .st .dim{color:#EDD9BC;}
+  .rc{font-size:10.5px;color:#454545;}
+
+  /* ---- right rail ---- */
+  .rail{flex:1;min-width:0;}
+  .blk{margin-bottom:13px;}
+  .blk .bl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);}
+  .blk p{font-size:12.5px;color:var(--ink);line-height:1.48;margin-top:6px;}
+  .blk p b{color:var(--navy);font-weight:700;}
+  .blk p.mut{color:var(--muted);}
+  .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:700;color:var(--navy);margin-top:7px;box-shadow:0 3px 10px rgba(16,42,77,.05);}
+  .chip .d{width:6px;height:6px;border-radius:50%;background:var(--blue);}
+  .kpi-primary{margin-top:8px;background:var(--navy);border-radius:10px;padding:11px 16px;}
+  .kpi-primary .kl{font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#9FC0FF;}
+  .kpi-primary .kv{font-size:15px;font-weight:700;color:#fff;margin-top:3px;}
+  .kpi-row{margin-top:8px;display:flex;align-items:center;gap:9px;}
+  .kpi-row .ktag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--blue);background:var(--blue-soft);border-radius:999px;padding:4px 10px;flex-shrink:0;}
+  .kpi-row .kt{font-size:12.5px;font-weight:700;color:var(--navy);}
+  .kpi-guard{margin-top:10px;}
+  .kpi-guard .kl2{font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--faint);}
+  .kpi-guard .gl{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;}
+  .kpi-guard .gi{font-size:11.5px;font-weight:600;color:#4E6178;background:#F2F5F9;border:1px solid var(--line-2);border-radius:999px;padding:5px 11px;}
+
+  .note{position:absolute;left:96px;right:96px;bottom:62px;border-top:1px solid var(--line-2);padding-top:9px;font-size:12px;color:#B6C0CD;font-weight:600;}
+</style></head><body>
+<div class="slide">
+  <div class="kicker">Part 3 &middot; Experiment #2</div>
+  <div class="h1" style="font-size:34px;">Symptom-Based Product Discovery</div>
+
+  <div class="stage">
+    <!-- left: stacked mockups -->
+    <div class="mstack">
+      <div class="steptag">Control &middot; today</div>
+      <div class="caro">
+        <div class="pcard">
+          <div class="photo"><span class="jar"></span><span class="bottle"></span><span class="bag"></span></div>
+          <div class="pname">The (Body) Works</div>
+          <div class="prices"><span class="pr">$114.00</span><span class="pr old">$133.00</span></div>
+          <div class="stars"><span class="st">&#9733;&#9733;&#9733;&#9733;<span class="dim">&#9733;</span></span><span class="rc">(362)</span></div>
+        </div>
+        <div class="pcard">
+          <div class="photo"><span class="cream"></span><span class="bag"></span></div>
+          <div class="pname">Vag of Honor</div>
+          <div class="prices"><span class="pr">$50.00</span></div>
+          <div class="stars"><span class="st">&#9733;&#9733;&#9733;&#9733;<span class="dim">&#9733;</span></span><span class="rc">(873)</span></div>
+        </div>
+        <div class="pcard cut">
+          <div class="photo"><span class="jar2"></span><span class="bag"></span></div>
+          <div class="pname">Rich &amp; Tight</div>
+          <div class="prices"><span class="pr">$68.00</span></div>
+          <div class="stars"><span class="st">&#9733;&#9733;&#9733;&#9733;<span class="dim">&#9733;</span></span><span class="rc">(362)</span></div>
+        </div>
+      </div>
+
+      <div class="darr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></svg></div>
+
+      <div class="steptag new">Variant &middot; symptom-based discovery</div>
+      <div class="caro">
+        <div class="pcard">
+          <div class="photo"><span class="jar"></span><span class="bottle"></span><span class="bag"></span></div>
+          <div class="rec"><span class="rd"></span>Best for Crepey Skin</div>
+          <div class="pname tight">The (Body) Works</div>
+          <div class="prices"><span class="pr">$114.00</span><span class="pr old">$133.00</span></div>
+          <div class="stars"><span class="st">&#9733;&#9733;&#9733;&#9733;<span class="dim">&#9733;</span></span><span class="rc">(362)</span></div>
+        </div>
+        <div class="pcard">
+          <div class="photo"><span class="cream"></span><span class="bag"></span></div>
+          <div class="rec"><span class="rd"></span>Best for Vaginal Dryness</div>
+          <div class="pname tight">Vag of Honor</div>
+          <div class="prices"><span class="pr">$50.00</span></div>
+          <div class="stars"><span class="st">&#9733;&#9733;&#9733;&#9733;<span class="dim">&#9733;</span></span><span class="rc">(873)</span></div>
+        </div>
+        <div class="pcard cut">
+          <div class="photo"><span class="jar2"></span><span class="bag"></span></div>
+          <div class="rec"><span class="rd"></span>Best for Firm Skin</div>
+          <div class="pname tight">Rich &amp; Tight</div>
+          <div class="prices"><span class="pr">$68.00</span></div>
+          <div class="stars"><span class="st">&#9733;&#9733;&#9733;&#9733;<span class="dim">&#9733;</span></span><span class="rc">(362)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- right rail -->
+    <div class="rail">
+      <div class="blk">
+        <div class="bl">Problem</div>
+        <p class="mut">Homepage carousel products look <b>visually similar</b>, and for first-time visitors the names alone don't say which product addresses their concern. That adds <b>decision friction</b> at one of the earliest product selection moments.</p>
+      </div>
+      <div class="blk">
+        <div class="bl">Hypothesis</div>
+        <p>Adding lightweight <b>symptom-based recommendation labels</b> to homepage product cards will help users quickly identify the most relevant product - <b>reducing decision friction</b>, increasing click-through to relevant PDPs, and ultimately improving <b>purchase conversion</b>.</p>
+      </div>
+      <div class="blk">
+        <div class="bl">What changes</div>
+        <p class="mut">A subtle recommendation tag above each product name, native to the Stripes design system. <b>Products, pricing, order and layout stay exactly the same.</b></p>
+      </div>
+      <div class="blk">
+        <div class="bl">Funnel stage</div>
+        <div class="chip"><span class="d"></span>Homepage Product Carousel</div>
+      </div>
+      <div class="blk">
+        <div class="bl">Success metrics</div>
+        <div class="kpi-primary">
+          <div class="kl">Primary KPI</div>
+          <div class="kv">Homepage Product Card CTR</div>
+        </div>
+        <div class="kpi-row">
+          <span class="ktag">Secondary KPI</span>
+          <span class="kt">Homepage &rarr; Purchase Conversion Rate</span>
+        </div>
+        <div class="kpi-guard">
+          <div class="kl2">Guardrails</div>
+          <div class="gl">
+            <span class="gi">PDP Add-to-Cart Rate</span>
+            <span class="gi">Homepage Engagement</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">Note &middot;</div>
+
+  <div class="foot"><div class="zyg">ZyG</div><div class="stripes"><div class="word">Stripes</div><div class="beauty">BEAUTY</div></div></div>
+</div>
+</body></html>
