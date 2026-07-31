@@ -1,0 +1,380 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+  :root{
+    --burg:#6E1F26; --burg-d:#4A2028; --ink:#151515; --body:#2e2e2e; --mut:#6b6560;
+    --cream:#F7F5F2; --stone:#F1EFEA; --coral:#EE9077; --line:#E8E4DF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{width:390px;font-family:'Helvetica Neue',Arial,'Liberation Sans',sans-serif;color:var(--ink);background:#fff;}
+  .serif{font-family:Georgia,'Times New Roman',serif;}
+  img{display:block;}
+
+  /* ---------- header ---------- */
+  .hdr{display:flex;align-items:center;padding:14px 18px;background:#fff;border-bottom:1px solid var(--line);}
+  .burger{width:20px;display:flex;flex-direction:column;gap:5px;}
+  .burger span{height:2px;background:#111;border-radius:1px;}
+  .logo{margin-left:16px;line-height:1;}
+  .logo .w{font-family:Georgia,serif;font-weight:700;font-size:21px;letter-spacing:.2px;}
+  .logo .b{font-size:9px;font-weight:700;letter-spacing:3px;margin-top:1px;}
+  .hicons{margin-left:auto;display:flex;gap:16px;color:#111;}
+  .hicons svg{width:20px;height:20px;}
+
+  /* ---------- hero ---------- */
+  .heroimg{height:330px;position:relative;background:linear-gradient(165deg,#F3F0EA 0%,#EDE7DE 60%,#E6DDD0 100%);overflow:hidden;}
+  /* dresser + flowers (echoes the provided Naomi photo) */
+  .heroimg .dresser{position:absolute;right:0;bottom:0;width:210px;height:74px;background:#D9B98C;border-top:3px solid #CBA878;}
+  .heroimg .lamp{position:absolute;right:130px;bottom:74px;width:64px;height:52px;background:#F6F3EC;border-radius:50% 50% 8% 8%;box-shadow:0 2px 0 #E4DED2;}
+  .heroimg .vase{position:absolute;right:52px;bottom:74px;width:14px;height:26px;background:#EFEBE2;border-radius:4px;}
+  .heroimg .fl{position:absolute;border-radius:50%;background:#EE9077;}
+  .heroimg .fl.f1{right:44px;bottom:102px;width:12px;height:12px;}
+  .heroimg .fl.f2{right:58px;bottom:110px;width:10px;height:10px;background:#F2A78F;}
+  .heroimg .fl.f3{right:66px;bottom:99px;width:9px;height:9px;}
+  /* figure: blonde hair, skin, black slip */
+  .heroimg .hair{position:absolute;left:96px;top:26px;width:104px;height:96px;border-radius:48% 52% 55% 45%;background:#E4C186;}
+  .heroimg .face{position:absolute;left:122px;top:52px;width:64px;height:66px;border-radius:50% 50% 46% 54%;background:#EDCBAF;}
+  .heroimg .arm{position:absolute;left:150px;top:118px;width:44px;height:150px;border-radius:22px;background:#EBC5A8;transform:rotate(14deg);}
+  .heroimg .slip{position:absolute;left:22px;top:128px;width:170px;height:230px;border-radius:44% 40% 0 0;background:#141414;transform:rotate(-6deg);}
+  .heroimg .lace{position:absolute;left:44px;top:150px;width:120px;height:14px;border-radius:8px;background:#2a2a2a;transform:rotate(-14deg);}
+  .heroimg .tagimg{position:absolute;left:14px;top:14px;font-size:9px;font-weight:700;letter-spacing:1px;color:#8a7a64;background:rgba(255,255,255,.8);border-radius:999px;padding:5px 10px;z-index:5;}
+  .heroimg .bottle{position:absolute;right:22px;bottom:30px;width:52px;height:126px;background:var(--burg);border-radius:9px 9px 7px 7px;box-shadow:0 10px 24px rgba(0,0,0,.22);z-index:4;}
+  .heroimg .bottle::before{content:"";position:absolute;top:-14px;left:11px;right:11px;height:16px;background:var(--burg-d);border-radius:4px;}
+  .heroimg .bottle::after{content:"Stripes";position:absolute;left:50%;top:56%;transform:translate(-50%,-50%) rotate(-90deg);font-family:Georgia,serif;font-size:15px;color:#EFDFD8;letter-spacing:.5px;}
+
+  .hero{background:var(--cream);padding:26px 20px 30px;}
+  .hero h1{font-size:34px;line-height:1.12;font-weight:700;letter-spacing:.2px;}
+  .hero h1 .it{font-style:italic;font-weight:600;}
+  .hero .sub{font-size:15px;line-height:1.55;color:var(--body);margin-top:14px;}
+  .hero .div{height:1px;background:#DDD8D1;margin:20px 0 16px;}
+  .bullets{display:flex;flex-direction:column;gap:12px;}
+  .bl{display:flex;gap:11px;align-items:center;}
+  .bl .pc{width:22px;height:22px;border-radius:50%;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;font-weight:700;}
+  .bl .t{font-size:15px;font-weight:600;}
+  .cta{margin-top:20px;background:#111;color:#fff;border-radius:999px;text-align:center;padding:17px;font-size:14px;font-weight:700;letter-spacing:1.2px;}
+  .cta.burg{background:var(--burg);}
+  .ctanote{text-align:center;font-size:10px;color:#9a938c;margin-top:8px;letter-spacing:.4px;}
+  .assure{display:flex;justify-content:center;gap:8px;margin-top:14px;flex-wrap:wrap;}
+  .asx{font-size:11px;font-weight:600;color:#3d3a37;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 12px;}
+  .asx b{color:#111;}
+  .asx .st{color:#C99A2E;letter-spacing:1px;}
+
+  /* ---------- section base ---------- */
+  .sect{padding:40px 20px 44px;}
+  .sect h2{font-size:27px;line-height:1.18;font-weight:700;text-align:center;font-family:Georgia,serif;}
+  .sect h2 .it{font-style:italic;font-weight:600;}
+  .sect .lead{font-size:14.5px;line-height:1.55;color:var(--body);text-align:center;margin-top:12px;}
+
+  /* empathy */
+  .emp{background:#fff;}
+  .egrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px;}
+  .ec{background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:16px 12px;text-align:center;}
+  .ec .ic{width:34px;height:34px;border-radius:50%;border:1.5px solid #111;display:flex;align-items:center;justify-content:center;margin:0 auto;}
+  .ec .ic svg{width:16px;height:16px;}
+  .ec .t{font-size:13px;font-weight:700;margin-top:9px;}
+  .ec.wide{grid-column:1 / -1;display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;}
+  .ec.wide .ic{margin:0;}
+  .ec.wide .t{margin-top:0;font-size:14px;}
+
+  /* solution */
+  .sol{background:var(--stone);}
+  .prodshot{height:210px;background:#F4EFE9;border-radius:14px;position:relative;margin-top:22px;overflow:hidden;}
+  .prodshot .bottle{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:64px;height:148px;background:var(--burg);border-radius:10px 10px 8px 8px;box-shadow:0 12px 26px rgba(0,0,0,.15);}
+  .prodshot .bottle::before{content:"";position:absolute;top:-15px;left:13px;right:13px;height:17px;background:var(--burg-d);border-radius:4px;}
+  .prodshot .bottle::after{content:"Stripes";position:absolute;left:50%;top:54%;transform:translate(-50%,-50%) rotate(-90deg);font-family:Georgia,serif;font-size:17px;color:#EFDFD8;}
+  .prodshot .pl{position:absolute;left:14px;top:12px;font-size:9px;font-weight:700;letter-spacing:1.2px;color:#fff;background:var(--burg);border-radius:999px;padding:5px 11px;}
+  .bgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;}
+  .bc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 13px;text-align:center;}
+  .bc .ic{width:36px;height:36px;border-radius:50%;border:1.5px solid #111;display:flex;align-items:center;justify-content:center;margin:0 auto;}
+  .bc .ic svg{width:17px;height:17px;}
+  .bc .h{font-size:11.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin-top:10px;line-height:1.35;}
+
+  /* what's inside */
+  .inside{background:#fff;}
+  .caro{display:flex;gap:12px;margin-top:22px;overflow:hidden;}
+  .icard{flex:0 0 262px;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:14px 14px 18px;}
+  .icard .im{height:120px;border-radius:10px;background:linear-gradient(150deg,#EFE6DA,#E2D2BF);position:relative;}
+  .icard .im::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.5);}
+  .icard .tag{display:inline-block;margin-top:12px;font-size:9px;font-weight:700;letter-spacing:1px;color:#fff;background:var(--burg);border-radius:999px;padding:4px 10px;}
+  .icard .n{font-size:14px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin-top:9px;}
+  .icard .d{font-size:12.5px;color:var(--body);line-height:1.5;margin-top:6px;}
+  .dots{display:flex;gap:6px;justify-content:center;margin-top:16px;}
+  .dots span{width:16px;height:3px;border-radius:2px;background:#DAD5CE;}
+  .dots span.on{background:#111;}
+
+  /* results */
+  .res{background:#0e0d0c;color:#fff;padding:44px 20px 46px;}
+  .res h2{font-family:Georgia,serif;font-size:27px;text-align:center;line-height:1.2;}
+  .res .big{text-align:center;margin-top:24px;}
+  .res .big .n{font-family:Georgia,serif;font-size:52px;font-weight:700;}
+  .res .big .l{font-size:13.5px;color:#D8D4CF;margin-top:4px;}
+  .rgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px 16px;margin-top:26px;}
+  .rs{text-align:center;}
+  .rs .n{font-family:Georgia,serif;font-size:31px;font-weight:700;}
+  .rs .l{font-size:11.5px;color:#C9C4BE;line-height:1.45;margin-top:4px;}
+  .res .note{font-size:9.5px;color:#7d7872;text-align:center;margin-top:24px;letter-spacing:.3px;}
+
+  /* ugc */
+  .ugc{background:#fff;}
+  .vrow{display:flex;gap:12px;margin-top:22px;overflow:hidden;}
+  .vc{flex:0 0 235px;height:360px;border-radius:14px;position:relative;overflow:hidden;background:linear-gradient(165deg,#D9CCC3,#BFAA9D);}
+  .vc.v2{background:linear-gradient(165deg,#CBB9AE,#A98F80);}
+  .vc .tk{position:absolute;left:12px;top:12px;color:#fff;}
+  .vc .tk .a{font-size:12px;font-weight:700;}
+  .vc .tk .b{font-size:9.5px;opacity:.85;margin-top:2px;}
+  .vc .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:rgba(20,20,20,.55);display:flex;align-items:center;justify-content:center;}
+  .vc .play::after{content:"";border-left:14px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px;}
+  .vc .cap{position:absolute;left:12px;right:12px;bottom:12px;font-size:10.5px;color:#fff;background:rgba(0,0,0,.35);border-radius:8px;padding:7px 9px;line-height:1.4;}
+
+  /* founder */
+  .founder{background:var(--coral);color:#fff;padding:26px 20px 36px;}
+  .fimg{height:250px;border-radius:14px;background:linear-gradient(160deg,#F3D9CE,#DBB4A2);position:relative;overflow:hidden;}
+  .fimg::after{content:"";position:absolute;left:50%;top:34%;transform:translate(-50%,-50%);width:82px;height:82px;border-radius:50%;background:rgba(255,255,255,.4);}
+  .fimg::before{content:"";position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);width:190px;height:150px;border-radius:50% 50% 0 0;background:rgba(255,255,255,.32);}
+  .fimg .ph{position:absolute;left:12px;top:12px;font-size:9px;font-weight:700;letter-spacing:1px;color:#a06b56;background:rgba(255,255,255,.8);border-radius:999px;padding:5px 10px;}
+  .founder h2{font-family:Georgia,serif;font-size:28px;margin-top:22px;}
+  .founder h2 .it{font-style:italic;}
+  .founder h3{font-family:Georgia,serif;font-size:17px;margin-top:12px;}
+  .founder p{font-size:14px;line-height:1.6;margin-top:12px;color:#FFF3EE;}
+  .founder .sig{font-family:Georgia,serif;font-style:italic;font-size:17px;margin-top:14px;}
+  .founder .cta{background:#111;}
+
+  /* purchase */
+  .buy{background:#fff;padding:36px 20px 40px;}
+  .buyshot{height:230px;background:#F4EFE9;border-radius:14px;position:relative;overflow:hidden;}
+  .buyshot .bottle{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);width:70px;height:160px;background:var(--burg);border-radius:11px 11px 9px 9px;box-shadow:0 12px 28px rgba(0,0,0,.16);}
+  .buyshot .bottle::before{content:"";position:absolute;top:-16px;left:14px;right:14px;height:18px;background:var(--burg-d);border-radius:4px;}
+  .buyshot .bottle::after{content:"Stripes";position:absolute;left:50%;top:54%;transform:translate(-50%,-50%) rotate(-90deg);font-family:Georgia,serif;font-size:18px;color:#EFDFD8;}
+  .buy h2{font-family:Georgia,serif;font-size:31px;margin-top:20px;text-align:left;}
+  .buy .subred{font-size:14px;font-weight:700;color:var(--burg);margin-top:8px;line-height:1.45;}
+  .buy .rate{display:flex;align-items:center;gap:8px;margin-top:8px;}
+  .buy .rate .st{color:#C99A2E;font-size:13px;letter-spacing:1px;}
+  .buy .rate .rc{font-size:12px;color:#555;}
+  .buy .plan{font-size:14px;font-weight:700;margin-top:16px;}
+  .buy .plan .it{font-style:italic;font-weight:400;font-family:Georgia,serif;}
+  .opt{border:1px solid #DAD5CE;border-radius:12px;padding:15px 15px;margin-top:12px;position:relative;}
+  .opt.sel{border:1.7px solid #43607D;}
+  .orow{display:flex;align-items:center;gap:10px;}
+  .radio{width:17px;height:17px;border-radius:50%;border:1.5px solid #C4BEB6;flex-shrink:0;}
+  .radio.on{border:5px solid #43607D;}
+  .oname{font-size:15px;font-weight:700;}
+  .oprice{margin-left:auto;font-size:15px;font-weight:700;}
+  .oprice .old{color:#9a9a9a;text-decoration:line-through;font-weight:500;font-size:12.5px;margin-left:5px;}
+  .save{position:absolute;top:0;right:0;background:var(--burg);color:#fff;font-size:9px;font-weight:700;letter-spacing:.6px;padding:5px 10px;border-radius:0 11px 0 11px;}
+  .obul{margin-top:10px;display:flex;flex-direction:column;gap:6px;}
+  .ob{display:flex;gap:8px;align-items:center;font-size:12.5px;color:#444;}
+  .ob .d{width:3.5px;height:3.5px;border-radius:50%;background:#999;flex-shrink:0;}
+  .tiles{display:flex;gap:10px;margin-top:14px;}
+  .tile{flex:1;border:1px solid var(--line);border-radius:11px;padding:12px 10px;display:flex;align-items:center;gap:9px;}
+  .tile svg{width:20px;height:20px;flex-shrink:0;}
+  .tile .t{font-size:11px;font-weight:700;line-height:1.3;}
+  .tile .t small{display:block;font-weight:400;color:#666;font-size:10px;}
+  .acc{margin-top:20px;border-top:1px solid var(--line);}
+  .arow{border-bottom:1px solid var(--line);padding:15px 2px;}
+  .arow .h{display:flex;align-items:center;font-size:14px;font-weight:700;letter-spacing:.4px;}
+  .arow .h .chev{margin-left:auto;color:#111;font-size:13px;}
+  .arow .body{font-size:13px;color:var(--body);line-height:1.55;margin-top:10px;}
+
+  /* faq */
+  .faq{background:var(--cream);padding:40px 20px 46px;}
+  .faq h2{font-family:Georgia,serif;font-size:27px;text-align:center;}
+  .frow{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 16px;display:flex;align-items:center;margin-top:10px;}
+  .frow .q{font-size:14px;font-weight:700;}
+  .frow .chev{margin-left:auto;font-size:13px;}
+  .faq .cta{margin-top:22px;}
+
+  .foot{background:#fff;padding:26px 20px 30px;text-align:center;border-top:1px solid var(--line);}
+  .foot .w{font-family:Georgia,serif;font-weight:700;font-size:18px;}
+  .foot .b{font-size:8px;font-weight:700;letter-spacing:2.6px;margin-top:2px;}
+  .foot .c{font-size:10px;color:#9a938c;margin-top:10px;}
+</style></head><body>
+
+<!-- header -->
+<div class="hdr">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><div class="w">Stripes</div><div class="b">BEAUTY</div></div>
+  <div class="hicons">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 14H5z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+  </div>
+</div>
+
+<!-- 1 HERO -->
+<div class="heroimg">
+  <span class="tagimg">NAOMI WATTS &middot; HERO IMAGE (PROVIDED)</span>
+  <div class="dresser"></div><div class="lamp"></div><div class="vase"></div>
+  <span class="fl f1"></span><span class="fl f2"></span><span class="fl f3"></span>
+  <div class="slip"></div><div class="lace"></div>
+  <div class="hair"></div><div class="face"></div><div class="arm"></div>
+  <div class="bottle"></div>
+</div>
+<div class="hero">
+  <h1>Your daily addition.<br><span class="it">Feel like yourself again.</span></h1>
+  <div class="sub">Instead of being just another menopause supplement, The Inside Addition becomes a simple daily habit that naturally fits into a woman's routine and supports her from the inside out.</div>
+  <div class="div"></div>
+  <div class="bullets">
+    <div class="bl"><span class="pc">+</span><span class="t">Hormone-Free</span></div>
+    <div class="bl"><span class="pc">+</span><span class="t">Daily Menopause Support</span></div>
+    <div class="bl"><span class="pc">+</span><span class="t">Helps relieve stress, brain fog &amp; hot flashes</span></div>
+  </div>
+  <div class="cta">START YOUR DAILY RITUAL</div>
+  <div class="ctanote">Scrolls to the purchase section below</div>
+  <div class="assure">
+    <span class="asx"><span class="st">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <b>4.8/5</b> Customer Rating</span>
+    <span class="asx">Free Shipping</span>
+    <span class="asx">90-Day Money-Back Guarantee</span>
+  </div>
+</div>
+
+<!-- 2 EMPATHY -->
+<div class="sect emp">
+  <h2>Does any of this <span class="it">sound familiar?</span></h2>
+  <div class="egrid">
+    <div class="ec"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18a6 6 0 1 1 6 0M9 18h6M10 22h4"/></svg></div><div class="t">Brain fog</div></div>
+    <div class="ec"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 15s1.5-2 4-2 4 2 4 2M9 9h.01M15 9h.01"/></svg></div><div class="t">Mood changes</div></div>
+    <div class="ec"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s4 4 4 8a4 4 0 0 1-8 0c0-1.5.7-2.8 1.3-3.7"/><path d="M12 22a6 6 0 0 0 6-6c0-2-1-3.5-2-5"/></svg></div><div class="t">Hot flashes</div></div>
+    <div class="ec"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div><div class="t">Low energy</div></div>
+    <div class="ec"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.2 2.2M3 12h3M18 12h3M16.2 7.8l2.2-2.2M8 20a4 4 0 0 1 8 0z"/></svg></div><div class="t">Stress</div></div>
+    <div class="ec"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg></div><div class="t">Not feeling like yourself</div></div>
+  </div>
+</div>
+
+<!-- 3 SOLUTION -->
+<div class="sect sol">
+  <h2>That's why we created<br><span class="it">The Inside Addition.</span></h2>
+  <div class="lead">One simple daily habit that supports women through perimenopause and menopause.</div>
+  <div class="prodshot"><span class="pl">THE INSIDE ADDITION</span><div class="bottle"></div></div>
+  <div class="bgrid">
+    <div class="bc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/></svg></div><div class="h">Hormone-free</div></div>
+    <div class="bc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18a6 6 0 1 1 6 0M9 18h6M10 22h4"/></svg></div><div class="h">Helps support brain fog &amp; stress</div></div>
+    <div class="bc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s4 4 4 8a4 4 0 0 1-8 0c0-1.5.7-2.8 1.3-3.7"/><path d="M12 22a6 6 0 0 0 6-6c0-2-1-3.5-2-5"/></svg></div><div class="h">Supports hot flashes</div></div>
+    <div class="bc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><div class="h">Fits naturally into your daily routine</div></div>
+  </div>
+</div>
+
+<!-- 4 WHAT'S INSIDE -->
+<div class="sect inside">
+  <h2>What's inside <span class="it">matters.</span></h2>
+  <div class="caro">
+    <div class="icard">
+      <div class="im"></div>
+      <span class="tag">THE INSIDE ADDITION</span>
+      <div class="n">Ashwagandha</div>
+      <div class="d">An adaptogen traditionally used to help the body manage everyday stress.</div>
+    </div>
+    <div class="icard">
+      <div class="im"></div>
+      <span class="tag">THE INSIDE ADDITION</span>
+      <div class="n">Probiotics</div>
+      <div class="d">Supports gut balance - where a lot of daily wellbeing starts.</div>
+    </div>
+  </div>
+  <div class="dots"><span class="on"></span><span></span><span></span><span></span></div>
+  <div class="lead" style="margin-top:14px;font-size:12.5px;color:#8a837c;">Also inside: Vitamins B, D &amp; E and botanical extracts.</div>
+</div>
+
+<!-- 5 RESULTS -->
+<div class="res">
+  <h2>Results women<br><span style="font-style:italic;">actually noticed.</span></h2>
+  <div class="big">
+    <div class="n">100%</div>
+    <div class="l">said it fit easily into their daily routine</div>
+  </div>
+  <div class="rgrid">
+    <div class="rs"><div class="n">91%</div><div class="l">felt more like themselves within 8 weeks</div></div>
+    <div class="rs"><div class="n">88%</div><div class="l">noticed clearer, more focused days</div></div>
+    <div class="rs"><div class="n">82%</div><div class="l">felt calmer under everyday stress</div></div>
+    <div class="rs"><div class="n">79%</div><div class="l">reported fewer disruptive hot flashes</div></div>
+  </div>
+  <div class="note">Concept mockup - figures follow the existing Stripes results format and would be replaced with validated study data.</div>
+</div>
+
+<!-- 6 SOCIAL PROOF -->
+<div class="sect ugc">
+  <h2>Real women.<br><span class="it">Real routines.</span></h2>
+  <div class="vrow">
+    <div class="vc">
+      <div class="tk"><div class="a">&#9835; TikTok</div><div class="b">@stripesbeauty</div></div>
+      <div class="play"></div>
+      <div class="cap">"It's just part of my morning now - coffee, vitamins, done."</div>
+    </div>
+    <div class="vc v2">
+      <div class="tk"><div class="a">&#9835; TikTok</div><div class="b">@stripesbeauty</div></div>
+      <div class="play"></div>
+      <div class="cap">"Week 6. The 3pm brain fog isn't running my day anymore."</div>
+    </div>
+  </div>
+  <div class="dots"><span class="on"></span><span></span><span></span><span></span></div>
+</div>
+
+<!-- 7 FOUNDER -->
+<div class="founder">
+  <div class="fimg"><span class="ph">NAOMI &middot; FOUNDER IMAGE</span></div>
+  <h2>Why I created <span class="it">Stripes.</span></h2>
+  <h3>Midlife is a lot more than just menopause.</h3>
+  <p>My symptoms started at 36, and nobody had prepared me. When I learned it was perimenopause, I was angry - why didn't I know it could start so early?</p>
+  <p>I created Stripes because we deserve support, solutions, and the space to figure it all out.</p>
+  <div class="sig">Naomi</div>
+  <div class="cta">START YOUR DAILY RITUAL</div>
+</div>
+
+<!-- 8 PURCHASE -->
+<div class="buy">
+  <div class="buyshot"><div class="bottle"></div></div>
+  <h2>The Inside Addition</h2>
+  <div class="subred">Daily menopause support &middot; 60 capsules</div>
+  <div class="rate"><span class="st">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rc">4.8/5</span></div>
+  <div class="plan">Select Plan: <span class="it">Subscribe to feel the difference with consistent use.</span></div>
+
+  <div class="opt sel">
+    <div class="save">SAVE 15%</div>
+    <div class="orow"><span class="radio on"></span><span class="oname">Subscribe &amp; Save</span><span class="oprice">$34.00<span class="old">$40.00</span></span></div>
+    <div class="obul">
+      <div class="ob"><span class="d"></span>Delivery every 1 month</div>
+      <div class="ob"><span class="d"></span>Free shipping on all orders</div>
+      <div class="ob"><span class="d"></span>Easy cancel or modify</div>
+      <div class="ob"><span class="d"></span>90-day money-back guarantee</div>
+    </div>
+  </div>
+  <div class="opt">
+    <div class="orow"><span class="radio"></span><span class="oname">One-Time Purchase</span><span class="oprice">$40.00</span></div>
+    <div class="obul">
+      <div class="ob"><span class="d"></span>90-day money-back guarantee</div>
+      <div class="ob"><span class="d"></span>Free shipping above $69.9</div>
+    </div>
+  </div>
+
+  <div class="cta burg">ADD TO CART&nbsp;&nbsp;|&nbsp;&nbsp;$34.00</div>
+  <div class="tiles">
+    <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8h13v9H1zM14 11h4l3 3v3h-7z"/><circle cx="6" cy="19" r="1.8"/><circle cx="17" cy="19" r="1.8"/></svg><div class="t">Free Shipping<small>on all subscription orders</small></div></div>
+    <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h18v12H3zM3 8l2-4h14l2 4M12 8v12"/></svg><div class="t">90-day Money-back<small>Guarantee</small></div></div>
+  </div>
+
+  <div class="acc">
+    <div class="arow">
+      <div class="h">DETAILS <span class="chev">&#9650;</span></div>
+      <div class="body">A daily supplement built for the menopause journey - ashwagandha, probiotics and vitamins B, D &amp; E to help with stress, brain fog and hot flashes. Hormone-free.</div>
+    </div>
+    <div class="arow"><div class="h">BENEFITS <span class="chev">&#9660;</span></div></div>
+    <div class="arow"><div class="h">HOW TO USE <span class="chev">&#9660;</span></div></div>
+    <div class="arow"><div class="h">INGREDIENTS <span class="chev">&#9660;</span></div></div>
+  </div>
+</div>
+
+<!-- 9 FAQ -->
+<div class="faq">
+  <h2>Frequently asked questions</h2>
+  <div class="frow"><span class="q">Is it hormone-free?</span><span class="chev">&#9660;</span></div>
+  <div class="frow"><span class="q">When will I notice a difference?</span><span class="chev">&#9660;</span></div>
+  <div class="frow"><span class="q">How do I take it?</span><span class="chev">&#9660;</span></div>
+  <div class="frow"><span class="q">Is this only for menopause?</span><span class="chev">&#9660;</span></div>
+  <div class="frow"><span class="q">Can I take it with other supplements?</span><span class="chev">&#9660;</span></div>
+  <div class="frow"><span class="q">What if it doesn't work for me?</span><span class="chev">&#9660;</span></div>
+  <div class="cta">START YOUR DAILY RITUAL</div>
+</div>
+
+<div class="foot">
+  <div class="w">Stripes</div>
+  <div class="b">BEAUTY</div>
+  <div class="c">Campaign landing page concept &middot; The Inside Addition</div>
+</div>
+
+</body></html>
