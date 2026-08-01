@@ -1,0 +1,85 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
+<style>
+  .stage{display:flex;gap:56px;margin-top:22px;flex:1;align-items:flex-start;}
+
+  /* left: phone + url */
+  .left{flex:0 0 340px;display:flex;flex-direction:column;align-items:center;}
+  .phone{width:290px;border-radius:34px;background:#0A2540;padding:10px;box-shadow:0 26px 60px rgba(16,42,77,.22);}
+  .phone .screen{border-radius:26px;overflow:hidden;background:#fff;position:relative;height:560px;}
+  .phone .screen img{width:100%;display:block;}
+  .phone .notch{position:absolute;left:50%;top:8px;transform:translateX(-50%);width:96px;height:18px;background:#0A2540;border-radius:0 0 12px 12px;z-index:3;}
+  .phone .fade{position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(to bottom,rgba(255,255,255,0),#fff);}
+  .urlwrap{margin-top:24px;text-align:center;}
+  .urlwrap .lab{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--faint);}
+  .urlwrap .link{margin-top:9px;display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 18px;box-shadow:0 4px 14px rgba(16,42,77,.06);}
+  .urlwrap .link .dot{width:8px;height:8px;border-radius:50%;background:#28C76F;flex-shrink:0;}
+  .urlwrap .link .u{font-size:14.5px;font-weight:600;color:var(--blue);}
+
+  /* right: journey flow */
+  .flow{flex:1;min-width:0;position:relative;padding-left:6px;}
+  .flow::before{content:"";position:absolute;left:20px;top:14px;bottom:16px;width:2px;background:#E4EAF6;}
+  .step{display:flex;gap:20px;align-items:flex-start;position:relative;}
+  .step + .step{margin-top:16px;}
+  .step .node{width:40px;height:40px;border-radius:50%;background:#fff;border:2px solid #D8E0F0;color:var(--blue);font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:2;}
+  .step.last .node{background:var(--navy);border-color:var(--navy);color:#fff;}
+  .step .body{padding-top:2px;}
+  .step .stg{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--blue);}
+  .step.last .stg{color:var(--navy);}
+  .step .d{font-size:16px;color:var(--ink);line-height:1.4;margin-top:3px;font-weight:600;}
+  .step .d b{color:var(--navy);font-weight:700;}
+</style></head><body>
+<div class="slide">
+  <div class="kicker">Part 2 &middot; Launch Strategy</div>
+  <div class="h1">Landing Page Concept</div>
+  <div class="lead" style="font-size:18px;">A mobile-first landing page designed to guide social traffic through a clear conversion journey.</div>
+
+  <div class="stage">
+    <div class="left">
+      <div class="phone">
+        <div class="screen">
+          <div class="notch"></div>
+          <img src="assets/lp-hero-shot.png" alt="Landing page">
+          <div class="fade"></div>
+        </div>
+      </div>
+      <div class="urlwrap">
+        <div class="lab">Live prototype</div>
+        <div class="link"><span class="dot"></span><span class="u">zyg-home-assignment.vercel.app</span></div>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="step">
+        <div class="node">1</div>
+        <div class="body"><div class="stg">Attention</div><div class="d">Hero with <b>Naomi Watts</b> &amp; clear positioning</div></div>
+      </div>
+      <div class="step">
+        <div class="node">2</div>
+        <div class="body"><div class="stg">Recognition</div><div class="d">Common menopause symptoms users identify with</div></div>
+      </div>
+      <div class="step">
+        <div class="node">3</div>
+        <div class="body"><div class="stg">Solution</div><div class="d">The Inside Addition as a <b>simple daily habit</b></div></div>
+      </div>
+      <div class="step">
+        <div class="node">4</div>
+        <div class="body"><div class="stg">Why it works</div><div class="d">Benefits + key ingredients</div></div>
+      </div>
+      <div class="step">
+        <div class="node">5</div>
+        <div class="body"><div class="stg">Proof</div><div class="d">Results, TikTok content &amp; customer reviews</div></div>
+      </div>
+      <div class="step">
+        <div class="node">6</div>
+        <div class="body"><div class="stg">Trust</div><div class="d">Naomi's story and brand credibility</div></div>
+      </div>
+      <div class="step last">
+        <div class="node">7</div>
+        <div class="body"><div class="stg">Conversion</div><div class="d"><b>Focused purchase section</b> with minimal friction</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><div class="zyg">ZyG</div><div class="stripes"><div class="word">Stripes</div><div class="beauty">BEAUTY</div></div></div>
+</div>
+</body></html>
