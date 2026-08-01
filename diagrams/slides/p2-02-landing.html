@@ -60,7 +60,7 @@
   /* solution */
   .sol{background:var(--stone);}
   .prodshot{height:240px;background:#F4EFE9;border-radius:14px;position:relative;margin-top:22px;overflow:hidden;}
-  .prodshot img{width:100%;height:100%;object-fit:cover;object-position:center 62%;}
+  .prodshot img{width:100%;height:100%;object-fit:cover;object-position:center 48%;}
   .prodshot .pl{position:absolute;left:14px;top:12px;font-size:9px;font-weight:700;letter-spacing:1.2px;color:#fff;background:var(--burg);border-radius:999px;padding:5px 11px;}
   .bgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;}
   .bc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 13px;text-align:center;}
@@ -71,12 +71,10 @@
   /* what's inside */
   .inside{background:#fff;}
   .caro{display:flex;gap:12px;margin-top:22px;overflow:hidden;}
-  .icard{flex:0 0 262px;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:14px 14px 18px;}
-  .icard .im{height:120px;border-radius:10px;background:linear-gradient(150deg,#EFE6DA,#E2D2BF);position:relative;}
-  .icard .im::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.5);}
-  .icard .tag{display:inline-block;margin-top:12px;font-size:9px;font-weight:700;letter-spacing:1px;color:#fff;background:var(--burg);border-radius:999px;padding:4px 10px;}
-  .icard .n{font-size:14px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin-top:9px;}
-  .icard .d{font-size:12.5px;color:var(--body);line-height:1.5;margin-top:6px;}
+  .icard{flex:0 0 264px;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:16px 16px 18px;}
+  .icard .im{width:100%;height:82px;display:flex;align-items:center;}
+  .icard .im img{height:64px;width:auto;}
+  .icard .d{font-size:12.5px;color:var(--body);line-height:1.5;margin-top:10px;}
   .dots{display:flex;gap:6px;justify-content:center;margin-top:16px;}
   .dots span{width:16px;height:3px;border-radius:2px;background:#DAD5CE;}
   .dots span.on{background:#111;}
@@ -117,7 +115,7 @@
   /* purchase */
   .buy{background:#fff;padding:36px 20px 40px;}
   .buyshot{height:300px;background:#F4EFE9;border-radius:14px;position:relative;overflow:hidden;}
-  .buyshot img{width:100%;height:100%;object-fit:cover;object-position:center 58%;}
+  .buyshot img{width:100%;height:100%;object-fit:contain;background:#fff;}
   .buy h2{font-family:Georgia,serif;font-size:31px;margin-top:20px;text-align:left;}
   .buy .subred{font-size:14px;font-weight:700;color:var(--burg);margin-top:8px;line-height:1.45;}
   .buy .rate{display:flex;align-items:center;gap:8px;margin-top:8px;}
@@ -211,7 +209,7 @@
 <div class="sect sol">
   <h2>That's why we created<br><span class="it">The Inside Addition.</span></h2>
   <div class="lead">One simple daily habit that supports women through perimenopause and menopause.</div>
-  <div class="prodshot"><img src="assets/product-duo.png" alt=""><span class="pl">THE INSIDE ADDITION</span></div>
+  <div class="prodshot"><img src="assets/product-editorial.png" alt=""><span class="pl">THE INSIDE ADDITION</span></div>
   <div class="bgrid">
     <div class="bc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/></svg></div><div class="h">Hormone-free</div></div>
     <div class="bc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18a6 6 0 1 1 6 0M9 18h6M10 22h4"/></svg></div><div class="h">Helps support brain fog &amp; stress</div></div>
@@ -225,20 +223,19 @@
   <h2>What's inside <span class="it">matters.</span></h2>
   <div class="caro">
     <div class="icard">
-      <div class="im"></div>
-      <span class="tag">THE INSIDE ADDITION</span>
-      <div class="n">Ashwagandha</div>
+      <div class="im"><img src="assets/ing-ashwagandha.png" alt="Ashwagandha"></div>
       <div class="d">An adaptogen traditionally used to help the body manage everyday stress.</div>
     </div>
     <div class="icard">
-      <div class="im"></div>
-      <span class="tag">THE INSIDE ADDITION</span>
-      <div class="n">Probiotics</div>
+      <div class="im"><img src="assets/ing-probiotics.png" alt="Probiotics"></div>
       <div class="d">Supports gut balance - where a lot of daily wellbeing starts.</div>
     </div>
+    <div class="icard">
+      <div class="im"><img src="assets/ing-vitamins.png" alt="Vitamins D, B, E"></div>
+      <div class="d">Everyday nutrients that support energy, mood and immune health.</div>
+    </div>
   </div>
-  <div class="dots"><span class="on"></span><span></span><span></span><span></span></div>
-  <div class="lead" style="margin-top:14px;font-size:12.5px;color:#8a837c;">Also inside: Vitamins B, D &amp; E and botanical extracts.</div>
+  <div class="dots"><span class="on"></span><span></span><span></span></div>
 </div>
 
 <!-- 5 RESULTS -->
@@ -285,7 +282,7 @@
 
 <!-- 8 PURCHASE -->
 <div class="buy">
-  <div class="buyshot"><img src="assets/product-duo.png" alt=""></div>
+  <div class="buyshot"><img src="assets/product-bottle.png" alt=""></div>
   <h2>Build Your Daily Ritual</h2>
   <div class="subred">The Inside Addition &middot; Daily menopause support &middot; 60 capsules</div>
   <div class="rate"><span class="st">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rc">4.8/5</span></div>
