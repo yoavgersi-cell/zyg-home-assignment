@@ -15,9 +15,16 @@
   .urlwrap .link .dot{width:8px;height:8px;border-radius:50%;background:#28C76F;flex-shrink:0;}
   .urlwrap .link .u{font-size:14.5px;font-weight:600;color:var(--blue);}
 
-  /* right: journey flow */
-  .flow{flex:1;min-width:0;position:relative;padding-left:6px;}
+  /* right: journey flow + rationale */
+  .rightcol{flex:1;min-width:0;display:flex;flex-direction:column;}
+  .flow{position:relative;padding-left:6px;}
   .flow::before{content:"";position:absolute;left:20px;top:14px;bottom:16px;width:2px;background:#E4EAF6;}
+  .why{margin-top:26px;background:#F7F9FC;border:1px solid var(--line-2);border-radius:14px;padding:20px 26px 22px;}
+  .why h4{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--blue);}
+  .why ul{margin-top:14px;display:flex;flex-direction:column;gap:11px;}
+  .why li{list-style:none;display:flex;gap:11px;align-items:baseline;font-size:14px;color:var(--muted);line-height:1.4;}
+  .why li .dd{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;position:relative;top:6px;}
+  .why li b{color:var(--navy);font-weight:700;}
   .step{display:flex;gap:20px;align-items:flex-start;position:relative;}
   .step + .step{margin-top:16px;}
   .step .node{width:40px;height:40px;border-radius:50%;background:#fff;border:2px solid #D8E0F0;color:var(--blue);font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:2;}
@@ -48,6 +55,7 @@
       </div>
     </div>
 
+    <div class="rightcol">
     <div class="flow">
       <div class="step">
         <div class="node">1</div>
@@ -76,6 +84,17 @@
       <div class="step last">
         <div class="node">7</div>
         <div class="body"><div class="stg">Conversion</div><div class="d"><b>Focused purchase section</b> with minimal friction</div></div>
+      </div>
+    </div>
+
+      <div class="why">
+        <h4>Why this structure?</h4>
+        <ul>
+          <li><span class="dd"></span><span><b>Recognize before selling</b> - start with symptoms users immediately relate to.</span></li>
+          <li><span class="dd"></span><span><b>Educate before asking</b> - explain the product before presenting the purchase.</span></li>
+          <li><span class="dd"></span><span><b>Build trust progressively</b> - layer proof and credibility before the decision point.</span></li>
+          <li><span class="dd"></span><span><b>Reduce decision friction</b> - every section answers one question before introducing the next.</span></li>
+        </ul>
       </div>
     </div>
   </div>
