@@ -1,0 +1,112 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
+<style>
+  .flow{display:flex;align-items:stretch;gap:0;margin-top:26px;}
+  .fc{flex:1;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 12px 15px;box-shadow:0 5px 18px rgba(16,42,77,.05);display:flex;flex-direction:column;align-items:center;text-align:center;}
+  .fc.last{background:var(--navy);border-color:var(--navy);}
+  .fc .ic{width:38px;height:38px;border-radius:10px;background:var(--blue-soft);display:flex;align-items:center;justify-content:center;color:var(--blue);}
+  .fc.last .ic{background:#1B3A5C;color:#9FC0FF;}
+  .fc .ic svg{width:20px;height:20px;}
+  .fc .nm{font-size:13.5px;font-weight:700;color:var(--navy);margin-top:11px;line-height:1.2;}
+  .fc.last .nm{color:#fff;}
+  .fc .pl{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--faint);margin-top:9px;}
+  .fc.last .pl{color:#8FA9C9;}
+  .fc .pp{font-size:11px;color:var(--muted);line-height:1.4;margin-top:4px;}
+  .fc.last .pp{color:#C6D4E6;}
+  .fa{display:flex;align-items:center;color:#C2CBD8;font-size:16px;font-weight:700;flex-shrink:0;padding:0 5px;}
+
+  .opps{display:flex;gap:22px;margin-top:26px;}
+  .oc{flex:1;padding:22px 26px 24px;}
+  .oc .hd{display:flex;align-items:center;gap:11px;}
+  .oc .hd .oi{width:32px;height:32px;border-radius:9px;background:var(--blue-soft);display:flex;align-items:center;justify-content:center;color:var(--blue);flex-shrink:0;}
+  .oc .hd .oi svg{width:17px;height:17px;}
+  .oc .hd h3{font-size:16.5px;font-weight:700;color:var(--navy);}
+  .oc ul{margin-top:14px;display:flex;flex-direction:column;gap:9px;}
+  .oc li{list-style:none;display:flex;gap:10px;align-items:center;font-size:14.5px;color:var(--ink);font-weight:500;}
+  .oc li .d{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;}
+</style></head><body>
+<div class="slide">
+  <div class="kicker">Part 2 &middot; Launch Strategy</div>
+  <div class="h1">Funnel Wireframe</div>
+  <div class="lead" style="font-size:18px;">A simple customer journey designed to maximize conversion, trust and long-term value.</div>
+
+  <div class="flow">
+    <div class="fc">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h3l4 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a3 3 0 0 1 0 6"/></svg></div>
+      <div class="nm">Social Ad</div>
+      <div class="pl">Purpose</div>
+      <div class="pp">Capture attention and drive qualified traffic.</div>
+    </div>
+    <div class="fa">&rarr;</div>
+    <div class="fc">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8h18"/></svg></div>
+      <div class="nm">Campaign<br>Landing Page</div>
+      <div class="pl">Purpose</div>
+      <div class="pp">Build trust, explain the product and answer key questions before asking for the purchase.</div>
+    </div>
+    <div class="fa">&rarr;</div>
+    <div class="fc">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10z"/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/></svg></div>
+      <div class="nm">Purchase<br>Section</div>
+      <div class="pl">Purpose</div>
+      <div class="pp">Help users choose the right plan with minimal friction.</div>
+    </div>
+    <div class="fa">&rarr;</div>
+    <div class="fc">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+      <div class="nm">Checkout</div>
+      <div class="pl">Purpose</div>
+      <div class="pp">Complete the purchase quickly and confidently.</div>
+    </div>
+    <div class="fa">&rarr;</div>
+    <div class="fc">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></div>
+      <div class="nm">Order<br>Confirmation</div>
+      <div class="pl">Purpose</div>
+      <div class="pp">Reassure the customer and clearly explain what happens next.</div>
+    </div>
+    <div class="fa">&rarr;</div>
+    <div class="fc">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg></div>
+      <div class="nm">Post-Purchase</div>
+      <div class="pl">Purpose</div>
+      <div class="pp">Help customers get started and increase product adoption.</div>
+    </div>
+    <div class="fa">&rarr;</div>
+    <div class="fc last">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v5h-5"/></svg></div>
+      <div class="nm">Retention</div>
+      <div class="pl">Purpose</div>
+      <div class="pp">Stay connected, encourage repeat purchases and make subscription management effortless.</div>
+    </div>
+  </div>
+
+  <div class="opps">
+    <div class="oc card">
+      <div class="hd"><span class="oi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v5h-5"/></svg></span><h3>Revenue Opportunities</h3></div>
+      <ul>
+        <li><span class="d"></span>Subscription</li>
+        <li><span class="d"></span>Product bundles</li>
+        <li><span class="d"></span>Post-purchase offers</li>
+      </ul>
+    </div>
+    <div class="oc card">
+      <div class="hd"><span class="oi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Trust Opportunities</h3></div>
+      <ul>
+        <li><span class="d"></span>Customer reviews</li>
+        <li><span class="d"></span>Founder story</li>
+        <li><span class="d"></span>Money-back guarantee</li>
+      </ul>
+    </div>
+    <div class="oc card">
+      <div class="hd"><span class="oi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v5h-5"/></svg></span><h3>Retention Opportunities</h3></div>
+      <ul>
+        <li><span class="d"></span>Welcome emails</li>
+        <li><span class="d"></span>Helpful product tips</li>
+        <li><span class="d"></span>Easy subscription management</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot"><div class="zyg">ZyG</div><div class="stripes"><div class="word">Stripes</div><div class="beauty">BEAUTY</div></div></div>
+</div>
+</body></html>
