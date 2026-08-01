@@ -6,3 +6,7 @@ deck/package-lock.json
 .DS_Store
 diagrams/node_modules/
 diagrams/package*.json
+
+.next/
+out/
+.vercel/
