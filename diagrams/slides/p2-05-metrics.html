@@ -1,0 +1,86 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
+<style>
+  .flow{display:flex;align-items:stretch;gap:0;margin-top:26px;}
+  .kc{flex:1;background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 22px 22px;display:flex;flex-direction:column;box-shadow:0 5px 18px rgba(16,42,77,.05);}
+  .kc.primary{border:1.5px solid #C7D2F7;box-shadow:0 8px 26px rgba(62,99,221,.12);}
+  .kc .stg{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--blue);}
+  .mcs{margin-top:14px;display:flex;flex-direction:column;gap:8px;}
+  .mc{font-size:15px;font-weight:700;color:var(--navy);background:#F2F5FE;border:1px solid #E1E8FB;border-radius:9px;padding:10px 13px;display:flex;align-items:center;gap:8px;}
+  .mc.kpi{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .mc.kpi svg{width:14px;height:14px;color:#FFD36A;flex-shrink:0;}
+  .mc .tag{margin-left:auto;font-size:8.5px;font-weight:700;letter-spacing:.8px;color:#0A2540;background:#FFD36A;border-radius:999px;padding:3px 8px;}
+  .suplab{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--faint);margin-top:14px;}
+  .sup{margin-top:8px;display:flex;flex-wrap:wrap;gap:7px;}
+  .sc{font-size:12.5px;font-weight:600;color:#4E6178;background:#F5F7FA;border:1px solid var(--line-2);border-radius:999px;padding:6px 12px;}
+  .pp{font-size:13px;color:var(--muted);line-height:1.45;margin-top:auto;padding-top:16px;}
+  .fa{display:flex;align-items:center;color:#C2CBD8;font-size:17px;font-weight:700;flex-shrink:0;padding:0 8px;}
+
+  .primarybar{margin-top:26px;background:var(--navy);border-radius:16px;padding:22px 32px;display:flex;align-items:center;gap:22px;}
+  .primarybar .star{width:40px;height:40px;border-radius:11px;background:#1B3A5C;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .primarybar .star svg{width:22px;height:22px;color:#FFD36A;}
+  .primarybar .lbl{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#9FC0FF;}
+  .primarybar .kpi{font-size:23px;font-weight:800;color:#fff;margin-top:2px;}
+  .primarybar .def{margin-left:auto;font-size:16px;color:#C6D4E6;font-style:italic;max-width:520px;text-align:right;line-height:1.4;}
+</style></head><body>
+<div class="slide">
+  <div class="kicker">Part 2 &middot; Launch Strategy</div>
+  <div class="h1">Measuring Success</div>
+  <div class="lead" style="font-size:18px;">How I'd measure the launch end to end - from the first ad impression to the final business outcome. Each KPI builds on the stage before it.</div>
+
+  <div class="flow">
+    <div class="kc">
+      <div class="stg">Ad Performance</div>
+      <div class="mcs">
+        <div class="mc">CTR</div>
+        <div class="mc">CPC</div>
+      </div>
+      <div class="pp">Is the creative bringing the right audience at a healthy cost?</div>
+    </div>
+    <div class="fa">&rarr;</div>
+
+    <div class="kc">
+      <div class="stg">Landing Page</div>
+      <div class="mcs">
+        <div class="mc">CTA Click Rate</div>
+      </div>
+      <div class="suplab">Supporting</div>
+      <div class="sup">
+        <span class="sc">Scroll Depth</span>
+        <span class="sc">Engagement Time</span>
+      </div>
+      <div class="pp">Does the page keep users engaged and move them toward buying?</div>
+    </div>
+    <div class="fa">&rarr;</div>
+
+    <div class="kc primary">
+      <div class="stg">Purchase</div>
+      <div class="mcs">
+        <div class="mc">Checkout Start Rate</div>
+        <div class="mc kpi"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3L22 9.3l-5 4.7 1.2 6.9L12 17.6 5.8 20.9 7 14 2 9.3l7.1-1z"/></svg>Purchase Conversion Rate<span class="tag">PRIMARY</span></div>
+      </div>
+      <div class="pp">How many visitors become customers?</div>
+    </div>
+    <div class="fa">&rarr;</div>
+
+    <div class="kc">
+      <div class="stg">Business Impact</div>
+      <div class="mcs">
+        <div class="mc">Subscription Rate</div>
+        <div class="mc">Average Order Value</div>
+      </div>
+      <div class="pp">What's the long-term quality and value of the customers we acquire?</div>
+    </div>
+  </div>
+
+  <div class="primarybar">
+    <div class="star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3L22 9.3l-5 4.7 1.2 6.9L12 17.6 5.8 20.9 7 14 2 9.3l7.1-1z"/></svg></div>
+    <div>
+      <div class="lbl">Primary KPI</div>
+      <div class="kpi">Purchase Conversion Rate</div>
+    </div>
+    <div class="def">The percentage of landing page visitors who complete a purchase.</div>
+  </div>
+
+  <div class="foot"><div class="zyg">ZyG</div><div class="stripes"><div class="word">Stripes</div><div class="beauty">BEAUTY</div></div></div>
+</div>
+</body></html>
