@@ -10,3 +10,6 @@ diagrams/package*.json
 .next/
 out/
 .vercel/
+
+.env
+.env*.local

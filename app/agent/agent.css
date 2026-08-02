@@ -1,0 +1,128 @@
+/*
+ * Scoped reset for the Growth Intelligence app (.gia).
+ * Tailwind preflight is disabled globally so the marketing page at "/"
+ * keeps its own styles; this reproduces the essentials under .gia only.
+ *
+ * ORDER MATTERS: the reset must precede @tailwind utilities so that
+ * utility classes (same specificity) win via source order.
+ */
+
+@tailwind base;
+
+.gia {
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Inter, 'Helvetica Neue', Arial, sans-serif;
+  color: #0a2540;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'cv11', 'ss01';
+}
+.gia *,
+.gia *::before,
+.gia *::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e7ebf1;
+  margin: 0;
+  padding: 0;
+}
+.gia ul,
+.gia ol {
+  list-style: none;
+}
+.gia a {
+  color: inherit;
+  text-decoration: none;
+}
+.gia button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.gia button:disabled {
+  cursor: not-allowed;
+}
+.gia input,
+.gia textarea,
+.gia select {
+  font: inherit;
+  color: inherit;
+  background-color: #fff;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.gia textarea {
+  resize: none;
+}
+.gia svg {
+  display: block;
+}
+.gia ::placeholder {
+  color: #9aa6b5;
+  opacity: 1;
+}
+.gia :focus {
+  outline: none;
+}
+
+/* custom select chevron */
+.gia select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238A97A8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.65rem center;
+}
+
+@tailwind components;
+@tailwind utilities;
+
+/* ---- custom pieces (may extend utilities, so they come after) ---- */
+
+.gia .focusable:focus-visible {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(62, 99, 221, 0.45);
+}
+
+/* skeleton shimmer */
+.gia .skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #eef1f5;
+  border-radius: 6px;
+}
+.gia .skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.65) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: gia-shimmer 1.4s infinite;
+}
+@keyframes gia-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* subtle scrollbar */
+.gia ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.gia ::-webkit-scrollbar-thumb {
+  background: #dde3ea;
+  border-radius: 8px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+.gia ::-webkit-scrollbar-track {
+  background: transparent;
+}
