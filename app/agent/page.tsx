@@ -73,7 +73,10 @@ type Brief = {
   primaryKPI: string;
   secondaryKPI: string;
   confidence: 'High' | 'Medium' | 'Low';
+  confidenceReason: string;
 };
+
+type GenMode = 'live' | 'demo' | 'fallback';
 
 type Phase = 'empty' | 'loading' | 'ready';
 type Review = 'awaiting' | 'approved' | 'revision';
@@ -91,6 +94,8 @@ export default function AgentPage() {
   const [step, setStep] = React.useState(0);
   const [brief, setBrief] = React.useState<Brief | null>(null);
   const [briefMeta, setBriefMeta] = React.useState({ source: '', competitor: '' });
+  const [genMode, setGenMode] = React.useState<GenMode>('demo');
+  const [genError, setGenError] = React.useState<string | null>(null);
   const [review, setReview] = React.useState<Review>('awaiting');
   const [stats, setStats] = React.useState({ signals: 12, experiments: 4, awaiting: 2 });
   const [error, setError] = React.useState<string | null>(null);
@@ -133,6 +138,8 @@ export default function AgentPage() {
       const data = await res.json();
       setBrief(data.brief as Brief);
       setBriefMeta({ source, competitor });
+      setGenMode((data.mode as GenMode) || 'demo');
+      setGenError(typeof data.error === 'string' ? data.error : null);
       setReview('awaiting');
       setPhase('ready');
       setStats((s) => ({
@@ -311,6 +318,8 @@ export default function AgentPage() {
             <BriefCard
               brief={brief}
               meta={briefMeta}
+              mode={genMode}
+              genError={genError}
               review={review}
               onApprove={approve}
               onNeedsReview={needsReview}
@@ -449,6 +458,8 @@ function LoadingState({ step }: { step: number }) {
 function BriefCard({
   brief,
   meta,
+  mode,
+  genError,
   review,
   onApprove,
   onNeedsReview,
@@ -456,6 +467,8 @@ function BriefCard({
 }: {
   brief: Brief;
   meta: { source: string; competitor: string };
+  mode: GenMode;
+  genError: string | null;
   review: Review;
   onApprove: () => void;
   onNeedsReview: () => void;
@@ -468,9 +481,20 @@ function BriefCard({
     <Card className="animate-fade-up p-7">
       {/* header */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <span className="text-[11.5px] font-bold uppercase tracking-[0.12em] text-accent">
-          Experiment Brief
-        </span>
+        <div className="flex items-center gap-2.5">
+          <span className="text-[11.5px] font-bold uppercase tracking-[0.12em] text-accent">
+            Experiment Brief
+          </span>
+          {mode === 'live' ? (
+            <Badge tone="green" dot>
+              Live AI Generated
+            </Badge>
+          ) : (
+            <Badge tone="gray" dot>
+              Demo Fallback
+            </Badge>
+          )}
+        </div>
         {review === 'awaiting' && (
           <Badge tone="orange" dot>
             Awaiting PM Review
@@ -487,6 +511,12 @@ function BriefCard({
           </Badge>
         )}
       </div>
+
+      {mode === 'fallback' && genError && (
+        <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3.5 py-2.5 text-[12px] leading-relaxed text-amber-800">
+          Live generation failed — showing a curated fallback. ({genError})
+        </div>
+      )}
 
       <h3 className="mt-4 max-w-xl text-[20px] font-bold leading-snug tracking-[-0.01em]">
         {brief.title}
@@ -524,6 +554,11 @@ function BriefCard({
           <div className="mt-1.5">
             <Badge tone={confidenceTone}>{brief.confidence}</Badge>
           </div>
+          {brief.confidenceReason && (
+            <p className="mt-2 text-[11px] leading-snug text-[#8A97A8]">
+              {brief.confidenceReason}
+            </p>
+          )}
         </div>
       </div>
 

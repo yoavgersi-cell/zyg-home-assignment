@@ -10,6 +10,7 @@ type Brief = {
   primaryKPI: string;
   secondaryKPI: string;
   confidence: 'High' | 'Medium' | 'Low';
+  confidenceReason: string;
 };
 
 const SYSTEM_PROMPT = `You are the reasoning engine of "Growth Intelligence", an internal tool used by the growth team at Stripes Beauty (a DTC menopause wellness brand, stripesbeauty.us). Product managers feed you a single competitor signal; you turn it into one structured, review-ready A/B experiment brief for the Stripes site.
@@ -22,10 +23,12 @@ Rules:
 - recommendedTest: one sentence, "variant vs. control" phrasing.
 - KPIs: choose from realistic e-commerce metrics (Purchase Conversion Rate, Homepage -> PDP CTR, PDP Add-to-Cart Rate, Subscription Adoption Rate, Average Order Value, Revenue per Visitor, Lead Capture Rate, Checkout Start Rate). Primary and secondary must differ.
 - confidence: High, Medium, or Low - based on how directly the signal maps to a testable change for Stripes.
+- confidenceReason: one short sentence explaining the confidence rating.
 - Title: short headline (max 9 words), states the market movement, not the test.
+- Ground everything in the specific competitor, source and signal you are given - never generic.
 
 Respond with ONLY a minified JSON object, no markdown fences, matching exactly:
-{"title":"","insight":"","hypothesis":"","recommendedTest":"","primaryKPI":"","secondaryKPI":"","confidence":""}`;
+{"title":"","insight":"","hypothesis":"","recommendedTest":"","primaryKPI":"","secondaryKPI":"","confidence":"","confidenceReason":""}`;
 
 /* Curated briefs: used when no API key is configured (demo mode) and as a
  * safety net if the live call fails mid-presentation. */
@@ -43,6 +46,8 @@ const CURATED: Array<{ match: RegExp; brief: Brief }> = [
       primaryKPI: 'Homepage → PDP CTR',
       secondaryKPI: 'Purchase Conversion Rate',
       confidence: 'High',
+      confidenceReason:
+        'The pattern maps directly to an existing Stripes funnel step and is cheap to test.',
     },
   },
   {
@@ -58,6 +63,8 @@ const CURATED: Array<{ match: RegExp; brief: Brief }> = [
       primaryKPI: 'Average Order Value',
       secondaryKPI: 'Purchase Conversion Rate',
       confidence: 'Medium',
+      confidenceReason:
+        'Bundles lift AOV in comparable catalogs, but discount depth for Stripes is untested.',
     },
   },
   {
@@ -73,6 +80,8 @@ const CURATED: Array<{ match: RegExp; brief: Brief }> = [
       primaryKPI: 'Homepage → PDP CTR',
       secondaryKPI: 'Purchase Conversion Rate',
       confidence: 'Medium',
+      confidenceReason:
+        'Messaging tests are low-risk, but outcome claims need compliance review first.',
     },
   },
 ];
@@ -87,6 +96,8 @@ const GENERIC: Brief = {
   primaryKPI: 'Purchase Conversion Rate',
   secondaryKPI: 'Homepage → PDP CTR',
   confidence: 'Medium',
+  confidenceReason:
+    'The signal is directional; the exact funnel stage it affects needs confirmation.',
 };
 
 function curatedFor(signal: string): Brief {
@@ -108,6 +119,7 @@ function sanitize(raw: unknown, fallback: Brief): Brief {
     primaryKPI: str('primaryKPI', fallback.primaryKPI),
     secondaryKPI: str('secondaryKPI', fallback.secondaryKPI),
     confidence: (['High', 'Medium', 'Low'].includes(conf) ? conf : 'Medium') as Brief['confidence'],
+    confidenceReason: str('confidenceReason', fallback.confidenceReason),
   };
 }
 
@@ -155,14 +167,20 @@ export async function POST(req: Request) {
       signal: AbortSignal.timeout(25_000),
     });
 
-    if (!res.ok) throw new Error(`Anthropic API ${res.status}`);
+    if (!res.ok) {
+      const errBody = await res.text().catch(() => '');
+      throw new Error(`Anthropic API ${res.status}: ${errBody.slice(0, 500)}`);
+    }
     const data = await res.json();
     const text: string = data?.content?.[0]?.text ?? '';
     const jsonText = text.replace(/^```(?:json)?/m, '').replace(/```\s*$/m, '').trim();
     const parsed = JSON.parse(jsonText.slice(jsonText.indexOf('{'), jsonText.lastIndexOf('}') + 1));
     return NextResponse.json({ brief: sanitize(parsed, fallback), mode: 'live' });
-  } catch {
-    // Never fail the demo: fall back to the curated brief.
-    return NextResponse.json({ brief: fallback, mode: 'fallback' });
+  } catch (err) {
+    // Log the full error server-side; return a readable message with the
+    // fallback so the UI can show that live generation failed.
+    console.error('[agent/generate] live call failed:', err);
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    return NextResponse.json({ brief: fallback, mode: 'fallback', error: message });
   }
 }
