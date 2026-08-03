@@ -44,6 +44,16 @@ type Snapshot = {
   simulated?: boolean;
 };
 
+type AdsEvidence = {
+  id: string;
+  url: string;
+  capturedAt: string;
+  screenshot?: string;
+  approxCount?: string;
+  visibleAdCards?: number;
+  textSample?: string;
+};
+
 type Tracker = {
   competitor: string;
   url: string;
@@ -51,6 +61,7 @@ type Tracker = {
   notes: string;
   baseline: Snapshot | null;
   latest: Snapshot | null;
+  ads?: AdsEvidence | null;
 };
 
 type Brief = {
@@ -165,6 +176,8 @@ export default function AgentPage() {
   const [stored, setStored] = React.useState<StoredBrief | null>(null);
 
   const [scanning, setScanning] = React.useState<'baseline' | 'scan' | null>(null);
+  const [capturingAds, setCapturingAds] = React.useState(false);
+  const [adsError, setAdsError] = React.useState<string | null>(null);
   const [scanError, setScanError] = React.useState<string | null>(null);
   const [generating, setGenerating] = React.useState(false);
   const [step, setStep] = React.useState(0);
@@ -197,7 +210,12 @@ export default function AgentPage() {
       try {
         localStorage.setItem(
           TRACKER_KEY,
-          JSON.stringify({ ...t, baseline: strip(t.baseline), latest: strip(t.latest) }),
+          JSON.stringify({
+            ...t,
+            baseline: strip(t.baseline),
+            latest: strip(t.latest),
+            ads: t.ads ? { ...t.ads, screenshot: undefined } : t.ads,
+          }),
         );
       } catch {
         /* give up persisting silently; state still lives in memory */
@@ -247,6 +265,26 @@ export default function AgentPage() {
     }
   };
 
+  const captureAds = async () => {
+    if (!tracker || capturingAds) return;
+    setCapturingAds(true);
+    setAdsError(null);
+    try {
+      const res = await fetch('/api/agent/ads', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ competitor: tracker.competitor }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Ad capture failed');
+      saveTracker({ ...tracker, ads: data.ads as AdsEvidence });
+    } catch (err) {
+      setAdsError(err instanceof Error ? err.message : 'Ad capture failed');
+    } finally {
+      setCapturingAds(false);
+    }
+  };
+
   const simulateChange = () => {
     if (!tracker?.baseline) return;
     const latest: Snapshot = {
@@ -281,6 +319,9 @@ export default function AgentPage() {
             baseline: { ...tracker.baseline, screenshot: undefined },
             current: { ...tracker.latest, screenshot: undefined },
             detectedChange: comparison.summary,
+            adsContext: tracker.ads
+              ? `Captured ${tracker.ads.capturedAt} from ${tracker.ads.url}. Approximate active ads: ${tracker.ads.approxCount || 'unknown'}. Visible ad text sample: ${tracker.ads.textSample || 'n/a'}`
+              : undefined,
           }),
         }),
         delay(2700),
@@ -436,15 +477,10 @@ export default function AgentPage() {
                   <Button variant="ghost" onClick={simulateChange} disabled={!!scanning}>
                     Demo: simulate a change
                   </Button>
-                  <a
-                    href={`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=${encodeURIComponent(tracker.competitor)}&search_type=keyword_unordered`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="focusable inline-flex h-9 items-center gap-2 rounded-lg border border-[#D8DFE8] bg-white px-3.5 text-[13.5px] font-semibold text-ink transition-all hover:bg-[#F5F7FA]"
-                  >
-                    <ExternalLink className="h-3.5 w-3.5 text-[#8A97A8]" />
-                    Live ads · Meta Ad Library
-                  </a>
+                  <Button variant="outline" loading={capturingAds} onClick={captureAds}>
+                    {!capturingAds && <Camera className="h-4 w-4" />}
+                    {capturingAds ? 'Capturing ads…' : 'Capture live ads'}
+                  </Button>
                 </>
               )}
             </div>
@@ -479,6 +515,64 @@ export default function AgentPage() {
                   <span className="mt-1.5 block font-mono text-[10.5px] text-amber-700/80">
                     {tracker.baseline.captureError}
                   </span>
+                )}
+              </div>
+            )}
+
+            {adsError && (
+              <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-[12.5px] leading-relaxed text-amber-800">
+                <span className="font-bold">Ad capture failed.</span> {adsError}{' '}
+                <a
+                  href={`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=${encodeURIComponent(tracker.competitor)}&search_type=keyword_unordered`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-semibold underline"
+                >
+                  Open the Ad Library directly
+                </a>
+                .
+              </div>
+            )}
+
+            {tracker.ads && (
+              <div className="mt-4 rounded-xl border border-[#E7EBF1] bg-[#FAFBFC] p-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="text-[10.5px] font-bold uppercase tracking-[0.1em] text-[#8A97A8]">
+                    Live ad evidence · Meta Ad Library · #{tracker.ads.id} ·{' '}
+                    {fmt(tracker.ads.capturedAt)}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Badge tone="blue">
+                      ~{tracker.ads.approxCount || '?'} active ads
+                    </Badge>
+                    <a
+                      href={tracker.ads.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="focusable text-[11.5px] font-semibold text-accent hover:underline"
+                    >
+                      Open source ↗
+                    </a>
+                  </div>
+                </div>
+                {tracker.ads.screenshot ? (
+                  <figure className="mt-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={tracker.ads.screenshot}
+                      alt={`Live ads of ${tracker.competitor} in the Meta Ad Library`}
+                      className="max-h-[420px] w-full rounded-lg border border-[#E3E8EF] object-cover object-top shadow-card"
+                    />
+                    <figcaption className="mt-1.5 text-[10.5px] text-[#9AA6B5]">
+                      Captured render of the public Ad Library results for
+                      &ldquo;{tracker.competitor}&rdquo;. Feeds the reasoning
+                      layer alongside the page snapshots.
+                    </figcaption>
+                  </figure>
+                ) : (
+                  <p className="mt-3 text-[12px] text-[#9AA6B5]">
+                    Captured without a screenshot (text only).
+                  </p>
                 )}
               </div>
             )}

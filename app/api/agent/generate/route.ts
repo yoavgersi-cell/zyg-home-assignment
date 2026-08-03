@@ -23,7 +23,7 @@ type SnapshotIn = {
   copy?: string;
 };
 
-const SYSTEM_PROMPT = `You are the reasoning engine of "Growth Intelligence", an internal tool used by the growth team at Stripes Beauty (a DTC menopause wellness brand, stripesbeauty.us). The tool monitors one competitor web page over time. You receive the page's BASELINE snapshot, its CURRENT snapshot, and a summary of the detected change. Turn that change into one structured, review-ready A/B experiment brief for the Stripes site.
+const SYSTEM_PROMPT = `You are the reasoning engine of "Growth Intelligence", an internal tool used by the growth team at Stripes Beauty (a DTC menopause wellness brand, stripesbeauty.us). The tool monitors one competitor web page over time. You receive the page's BASELINE snapshot, its CURRENT snapshot, and a summary of the detected change. You may also receive LIVE ADS context captured from the competitor's public Meta Ad Library page; when present, factor it into the insight and hypothesis. Turn that change into one structured, review-ready A/B experiment brief for the Stripes site.
 
 Rules:
 - Be concrete and credible. No hype, no marketing language. Write like a senior growth PM.
@@ -134,6 +134,7 @@ export async function POST(req: Request) {
     baseline?: SnapshotIn;
     current?: SnapshotIn;
     detectedChange?: string;
+    adsContext?: string;
   };
   try {
     body = await req.json();
@@ -164,7 +165,9 @@ ${snapLines('BASELINE', body.baseline)}
 
 ${snapLines('CURRENT', body.current)}
 
-DETECTED CHANGE: ${detectedChange}`;
+DETECTED CHANGE: ${detectedChange}${
+    body.adsContext ? `\n\nLIVE ADS (public Meta Ad Library capture):\n${String(body.adsContext).slice(0, 1800)}` : ''
+  }`;
 
   try {
     let lastErr: unknown = null;
