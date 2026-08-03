@@ -1,5 +1,6 @@
 import Purchase from '../components/Purchase';
 import Faq from '../components/Faq';
+import Carousel from '../components/Carousel';
 
 export default function Home() {
   return (
@@ -68,12 +69,11 @@ export default function Home() {
       {/* 4 what's inside */}
       <section className="sect inside">
         <h2>What&apos;s inside <span className="it">matters.</span></h2>
-        <div className="caro">
+        <Carousel className="caro" withDots label="ingredient">
           <div className="icard"><div className="im"><img src="/assets/ing-ashwagandha.png" alt="Ashwagandha" /></div><div className="d">An adaptogen traditionally used to help the body manage everyday stress.</div></div>
           <div className="icard"><div className="im"><img src="/assets/ing-probiotics.png" alt="Probiotics" /></div><div className="d">Supports gut balance — where a lot of daily wellbeing starts.</div></div>
           <div className="icard"><div className="im"><img src="/assets/ing-vitamins.png" alt="Vitamins D, B, E" /></div><div className="d">Everyday nutrients that support energy, mood and immune health.</div></div>
-        </div>
-        <div className="dots"><span className="on" /><span /><span /></div>
+        </Carousel>
       </section>
 
       {/* 5 results */}
@@ -92,16 +92,15 @@ export default function Home() {
       {/* 6 social proof */}
       <section className="sect ugc">
         <h2>Real women.<br /><span className="it">Real routines.</span></h2>
-        <div className="vrow">
+        <Carousel className="vrow" withDots label="customer video">
           <div className="vc"><img src="/assets/ugc-1.png" alt="Customer TikTok" /></div>
           <div className="vc"><img src="/assets/ugc-2.png" alt="Customer TikTok" /></div>
           <div className="vc"><img src="/assets/ugc-3.png" alt="Customer TikTok" /></div>
-        </div>
-        <div className="dots"><span className="on" /><span /><span /></div>
-        <div className="rrow">
+        </Carousel>
+        <Carousel className="rrow" label="customer review">
           <div className="rev"><img src="/assets/review-1.png" alt="Customer review" /></div>
           <div className="rev"><img src="/assets/review-2.png" alt="Customer review" /></div>
-        </div>
+        </Carousel>
       </section>
 
       {/* 7 founder */}

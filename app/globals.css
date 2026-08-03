@@ -175,3 +175,19 @@ button{font-family:inherit;border:none;background:none;cursor:pointer;}
 .foot .c{font-size:10px;color:#9a938c;margin-top:10px;}
 
 .chev svg{width:14px;height:14px;}
+
+/* live carousels: arrows + drag */
+.carowrap{position:relative;}
+.carowrap .caro,.carowrap .vrow,.carowrap .rrow{cursor:grab;}
+.carowrap [data-dragging],.carowrap .caro[data-dragging],.carowrap .vrow[data-dragging],.carowrap .rrow[data-dragging]{cursor:grabbing;scroll-behavior:auto;}
+.carowrap img{-webkit-user-drag:none;user-select:none;}
+.cbtn{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:38px;height:38px;border-radius:50%;
+  background:rgba(255,255,255,.95);border:1px solid var(--line);box-shadow:0 2px 12px rgba(0,0,0,.12);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);padding:0;
+  transition:opacity .15s ease, transform .15s ease;}
+.cbtn svg{width:16px;height:16px;}
+.cbtn.prev{left:8px;}
+.cbtn.next{right:8px;}
+.cbtn:hover{transform:translateY(-50%) scale(1.06);}
+.cbtn:disabled{opacity:0;pointer-events:none;}
+@media (hover:none){.cbtn{display:none;}}
