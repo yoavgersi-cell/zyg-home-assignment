@@ -55,7 +55,9 @@ function extract(url: string, html: string): Snapshot {
   const om = bodyText.match(OFFER_PATTERN);
   if (om && om.index !== undefined) {
     const start = Math.max(0, om.index - 40);
-    offer = norm(bodyText.slice(start, om.index + om[0].length + 40));
+    let snippet = bodyText.slice(start, om.index + om[0].length + 40);
+    if (start > 0) snippet = snippet.replace(/^\S*\s/, ''); // drop partial leading word
+    offer = norm(snippet).slice(0, 120);
   }
 
   // Prices: first distinct currency amounts on the page

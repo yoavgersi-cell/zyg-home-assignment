@@ -111,6 +111,38 @@ function compare(baseline: Snapshot, latest: Snapshot, competitor: string) {
   return { changed, meaningful, summary };
 }
 
+const compact = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+/* Competitor-to-source consistency: the UI must never present content as the
+ * competitor's when the tracked URL or the scanned content clearly is not.
+ * Returns a human-readable reason when inconsistent, else null. */
+function sourceMismatch(tracker: Tracker): string | null {
+  let host = '';
+  try {
+    host = new URL(tracker.url).hostname.toLowerCase();
+  } catch {
+    return 'The tracked URL is not a valid URL.';
+  }
+  const name = compact(tracker.competitor);
+  const isStripes = name.includes('stripes');
+  const demoHost =
+    /^(localhost|127\.|0\.0\.0\.0)/.test(host) ||
+    host.endsWith('.vercel.app') ||
+    host.includes('stripesbeauty');
+  const nameInHost = name.length >= 4 && compact(host).includes(name);
+  if (demoHost && !nameInHost) {
+    return `The tracked URL (${host}) is a demo or Stripes host, not a ${tracker.competitor} property.`;
+  }
+  const b = tracker.baseline;
+  if (b && !isStripes) {
+    const txt = compact(`${b.title} ${b.headline} ${b.copy}`);
+    if (txt.includes('stripes')) {
+      return `The scanned content looks like a Stripes page, but the competitor is set to ${tracker.competitor}.`;
+    }
+  }
+  return null;
+}
+
 const fmt = (iso: string) =>
   new Date(iso).toLocaleString('en-US', {
     month: 'short',
@@ -210,8 +242,11 @@ export default function AgentPage() {
       ? compare(tracker.baseline, tracker.latest, tracker.competitor)
       : null;
 
+  const mismatch = tracker ? sourceMismatch(tracker) : null;
+
   const generate = async () => {
     if (!tracker?.baseline || !tracker.latest || !comparison?.meaningful || generating) return;
+    if (mismatch) return; // never generate a brief from an inconsistent source
     setGenerating(true);
     try {
       const [res] = await Promise.all([
@@ -385,6 +420,14 @@ export default function AgentPage() {
               <p className="mt-3 text-[12.5px] font-medium text-red-600">{scanError}</p>
             )}
 
+            {mismatch && (
+              <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-[13px] leading-relaxed text-amber-800">
+                <span className="font-bold">Source mismatch.</span> {mismatch}{' '}
+                Experiment brief generation is disabled until the tracked URL
+                and competitor match.
+              </div>
+            )}
+
             {tracker.baseline && !tracker.latest && !scanError && (
               <div className="mt-4 flex items-center gap-2.5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-[13px] font-medium text-emerald-800">
                 <Check className="h-4 w-4 shrink-0" strokeWidth={2.5} />
@@ -422,6 +465,11 @@ export default function AgentPage() {
                   Snapshot comparison
                 </span>
                 <div className="flex items-center gap-2">
+                  {mismatch && (
+                    <Badge tone="amber" dot>
+                      Source mismatch
+                    </Badge>
+                  )}
                   {tracker.latest?.simulated && (
                     <Badge tone="amber" dot>
                       Simulated change · demo
@@ -486,10 +534,17 @@ export default function AgentPage() {
                   </div>
 
                   {!stored && !generating && (
-                    <Button size="lg" className="mt-5" onClick={generate}>
-                      <Sparkles className="h-4 w-4" />
-                      Generate experiment brief
-                    </Button>
+                    <div className="mt-5 flex flex-wrap items-center gap-3">
+                      <Button size="lg" onClick={generate} disabled={!!mismatch}>
+                        <Sparkles className="h-4 w-4" />
+                        Generate experiment brief
+                      </Button>
+                      {mismatch && (
+                        <span className="text-[12px] font-medium text-amber-700">
+                          Disabled — competitor and tracked source don&apos;t match.
+                        </span>
+                      )}
+                    </div>
                   )}
                 </>
               ) : (
