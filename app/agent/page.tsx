@@ -1,17 +1,19 @@
 'use client';
 
 import * as React from 'react';
-import type { LucideIcon } from 'lucide-react';
 import {
-  Radio,
-  FlaskConical,
-  Inbox,
-  Sparkles,
+  Globe,
+  Camera,
+  RefreshCw,
   Check,
   Loader2,
   CircleDashed,
-  FileText,
-  ArrowRight,
+  Eye,
+  EyeOff,
+  Sparkles,
+  FlaskConical,
+  RotateCcw,
+  ExternalLink,
   ShieldCheck,
 } from 'lucide-react';
 import {
@@ -24,46 +26,28 @@ import {
   Skeleton,
 } from '../../components/agent/ui';
 
-/* ----------------------------------- data ---------------------------------- */
+/* ---------------------------------- types ---------------------------------- */
 
-const SOURCES = [
-  'Meta Ads Library',
-  'Competitor Website',
-  'Landing Page',
-  'Pricing',
-  'Manual Input',
-];
+type Snapshot = {
+  url: string;
+  fetchedAt: string;
+  title: string;
+  headline: string;
+  cta: string;
+  offer: string;
+  prices: string;
+  copy: string;
+  simulated?: boolean;
+};
 
-const COMPETITORS = ['Bonafide', 'Alloy', 'O Positiv', 'Happy Mammoth', 'Kindra'];
-
-const DEMO_SIGNALS = [
-  {
-    label: 'Bonafide Quiz',
-    source: 'Competitor Website',
-    competitor: 'Bonafide',
-    text: 'Bonafide launched a symptom-first quiz on their homepage that visitors complete before any email capture or product browsing.',
-  },
-  {
-    label: 'Happy Mammoth Bundle',
-    source: 'Pricing',
-    competitor: 'Happy Mammoth',
-    text: 'Happy Mammoth introduced a 3-product "Menopause Reset" bundle with a 20% discount, promoted on the PDP and at checkout.',
-  },
-  {
-    label: 'O Positiv New Messaging',
-    source: 'Landing Page',
-    competitor: 'O Positiv',
-    text: 'O Positiv shifted homepage messaging from product benefits to symptom outcomes ("Wake up without night sweats").',
-  },
-];
-
-const PROGRESS_STEPS = [
-  'Analyzing competitor…',
-  'Extracting behavioral pattern…',
-  'Comparing with historical signals…',
-  'Generating experiment…',
-  'Preparing PM brief…',
-];
+type Tracker = {
+  competitor: string;
+  url: string;
+  frequency: string;
+  notes: string;
+  baseline: Snapshot | null;
+  latest: Snapshot | null;
+};
 
 type Brief = {
   title: string;
@@ -77,409 +61,639 @@ type Brief = {
 };
 
 type GenMode = 'live' | 'demo' | 'fallback';
-
-type Phase = 'empty' | 'loading' | 'ready';
 type Review = 'awaiting' | 'approved' | 'revision';
+
+type StoredBrief = {
+  brief: Brief;
+  mode: GenMode;
+  error: string | null;
+  review: Review;
+  changeSummary: string;
+  generatedAt: string;
+};
+
+const TRACKER_KEY = 'growth-intel-tracker-v1';
+const BRIEF_KEY = 'growth-intel-brief-v1';
+
+const PROGRESS_STEPS = [
+  'Reading baseline snapshot…',
+  'Reading current snapshot…',
+  'Isolating the change…',
+  'Generating experiment…',
+  'Preparing PM brief…',
+];
+
+const FIELDS: Array<{ key: keyof Snapshot; label: string }> = [
+  { key: 'title', label: 'Page title' },
+  { key: 'headline', label: 'Headline' },
+  { key: 'cta', label: 'Main CTA' },
+  { key: 'offer', label: 'Visible offer' },
+  { key: 'prices', label: 'Prices' },
+];
+
+const norm = (s: string | undefined) => (s || '').replace(/\s+/g, ' ').trim().toLowerCase();
+
+function compare(baseline: Snapshot, latest: Snapshot, competitor: string) {
+  const changed = FIELDS.filter(
+    (f) => norm(baseline[f.key] as string) !== norm(latest[f.key] as string),
+  ).map((f) => ({
+    key: f.key,
+    label: f.label,
+    before: (baseline[f.key] as string) || '—',
+    after: (latest[f.key] as string) || '—',
+  }));
+  const meaningful = changed.length > 0;
+  const summary = latest.simulated
+    ? `${competitor} added a symptom-first quiz CTA above its product grid.`
+    : meaningful
+      ? `${competitor} updated its ${changed.map((c) => c.label.toLowerCase()).join(', ')} on the tracked page.`
+      : '';
+  return { changed, meaningful, summary };
+}
+
+const fmt = (iso: string) =>
+  new Date(iso).toLocaleString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  });
 
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 /* ---------------------------------- page ----------------------------------- */
 
 export default function AgentPage() {
-  const [source, setSource] = React.useState(SOURCES[0]);
-  const [competitor, setCompetitor] = React.useState(COMPETITORS[0]);
-  const [signal, setSignal] = React.useState('');
+  const [mounted, setMounted] = React.useState(false);
+  const [tracker, setTracker] = React.useState<Tracker | null>(null);
+  const [stored, setStored] = React.useState<StoredBrief | null>(null);
 
-  const [phase, setPhase] = React.useState<Phase>('empty');
+  const [scanning, setScanning] = React.useState<'baseline' | 'scan' | null>(null);
+  const [scanError, setScanError] = React.useState<string | null>(null);
+  const [generating, setGenerating] = React.useState(false);
   const [step, setStep] = React.useState(0);
-  const [brief, setBrief] = React.useState<Brief | null>(null);
-  const [briefMeta, setBriefMeta] = React.useState({ source: '', competitor: '' });
-  const [genMode, setGenMode] = React.useState<GenMode>('demo');
-  const [genError, setGenError] = React.useState<string | null>(null);
-  const [review, setReview] = React.useState<Review>('awaiting');
-  const [stats, setStats] = React.useState({ signals: 12, experiments: 4, awaiting: 2 });
-  const [error, setError] = React.useState<string | null>(null);
+  const [showBaseline, setShowBaseline] = React.useState(false);
 
-  const loading = phase === 'loading';
-
-  // staged progress while loading
+  // hydrate from localStorage (client only)
   React.useEffect(() => {
-    if (!loading) return;
+    try {
+      const t = localStorage.getItem(TRACKER_KEY);
+      if (t) setTracker(JSON.parse(t));
+      const b = localStorage.getItem(BRIEF_KEY);
+      if (b) setStored(JSON.parse(b));
+    } catch {
+      /* corrupted storage -> start fresh */
+    }
+    setMounted(true);
+  }, []);
+
+  const saveTracker = (t: Tracker | null) => {
+    setTracker(t);
+    if (t) localStorage.setItem(TRACKER_KEY, JSON.stringify(t));
+    else localStorage.removeItem(TRACKER_KEY);
+  };
+  const saveBrief = (b: StoredBrief | null) => {
+    setStored(b);
+    if (b) localStorage.setItem(BRIEF_KEY, JSON.stringify(b));
+    else localStorage.removeItem(BRIEF_KEY);
+  };
+
+  React.useEffect(() => {
+    if (!generating) return;
     setStep(0);
     const id = setInterval(
       () => setStep((s) => Math.min(s + 1, PROGRESS_STEPS.length - 1)),
       520,
     );
     return () => clearInterval(id);
-  }, [loading]);
+  }, [generating]);
 
-  const loadDemo = (d: (typeof DEMO_SIGNALS)[number]) => {
-    setSource(d.source);
-    setCompetitor(d.competitor);
-    setSignal(d.text);
-    setError(null);
+  const runScan = async (kind: 'baseline' | 'scan') => {
+    if (!tracker || scanning) return;
+    setScanning(kind);
+    setScanError(null);
+    try {
+      const res = await fetch('/api/agent/scan', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ url: tracker.url }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Scan failed');
+      const snap: Snapshot = data.snapshot;
+      if (kind === 'baseline') {
+        saveTracker({ ...tracker, baseline: snap, latest: null });
+        saveBrief(null);
+      } else {
+        saveTracker({ ...tracker, latest: snap });
+      }
+    } catch (err) {
+      setScanError(err instanceof Error ? err.message : 'Scan failed');
+    } finally {
+      setScanning(null);
+    }
   };
 
+  const simulateChange = () => {
+    if (!tracker?.baseline) return;
+    const latest: Snapshot = {
+      ...tracker.baseline,
+      fetchedAt: new Date().toISOString(),
+      cta: 'TAKE THE SYMPTOM QUIZ',
+      simulated: true,
+    };
+    saveTracker({ ...tracker, latest });
+  };
+
+  const comparison =
+    tracker?.baseline && tracker?.latest
+      ? compare(tracker.baseline, tracker.latest, tracker.competitor)
+      : null;
+
   const generate = async () => {
-    if (!signal.trim() || loading) return;
-    setError(null);
-    setPhase('loading');
-    setBrief(null);
+    if (!tracker?.baseline || !tracker.latest || !comparison?.meaningful || generating) return;
+    setGenerating(true);
     try {
       const [res] = await Promise.all([
         fetch('/api/agent/generate', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ source, competitor, signal }),
+          body: JSON.stringify({
+            competitor: tracker.competitor,
+            url: tracker.url,
+            baseline: tracker.baseline,
+            current: tracker.latest,
+            detectedChange: comparison.summary,
+          }),
         }),
-        delay(2700), // let the progress sequence play out
+        delay(2700),
       ]);
-      if (!res.ok) throw new Error('Request failed');
       const data = await res.json();
-      setBrief(data.brief as Brief);
-      setBriefMeta({ source, competitor });
-      setGenMode((data.mode as GenMode) || 'demo');
-      setGenError(typeof data.error === 'string' ? data.error : null);
-      setReview('awaiting');
-      setPhase('ready');
-      setStats((s) => ({
-        signals: s.signals + 1,
-        experiments: s.experiments + 1,
-        awaiting: s.awaiting + 1,
-      }));
-    } catch {
-      setPhase(brief ? 'ready' : 'empty');
-      setError('Something went wrong generating the brief. Try again.');
+      if (!res.ok) throw new Error(data.error || 'Generation failed');
+      saveBrief({
+        brief: data.brief as Brief,
+        mode: (data.mode as GenMode) || 'demo',
+        error: typeof data.error === 'string' ? data.error : null,
+        review: 'awaiting',
+        changeSummary: comparison.summary,
+        generatedAt: new Date().toISOString(),
+      });
+    } catch (err) {
+      setScanError(err instanceof Error ? err.message : 'Generation failed');
+    } finally {
+      setGenerating(false);
     }
   };
 
-  const approve = () => {
-    if (review !== 'awaiting') return;
-    setReview('approved');
-    setStats((s) => ({ ...s, awaiting: Math.max(0, s.awaiting - 1) }));
-  };
-
-  const needsReview = () => setReview('revision');
-
-  const dismiss = () => {
-    setPhase('empty');
-    setBrief(null);
-    setReview('awaiting');
-    setStats((s) => ({ ...s, awaiting: Math.max(0, s.awaiting - 1) }));
-  };
+  if (!mounted) {
+    return (
+      <div className="space-y-6">
+        <Skeleton className="h-8 w-72" />
+        <Skeleton className="h-40 w-full rounded-2xl" />
+        <Skeleton className="h-64 w-full rounded-2xl" />
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-7">
+    <div className="space-y-6">
       {/* Page header */}
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-[24px] font-bold tracking-[-0.02em]">
-            Growth Intelligence Agent
+            Growth Intelligence
           </h1>
-          <p className="mt-1.5 max-w-xl text-[13.5px] leading-relaxed text-[#667085]">
-            Monitor competitor activity and automatically generate review-ready
-            experiment briefs.
+          <p className="mt-1.5 max-w-2xl text-[13.5px] leading-relaxed text-[#667085]">
+            Monitor one competitor, detect meaningful changes, and turn them
+            into review-ready experiments.
           </p>
         </div>
-        <div className="flex items-center gap-2 rounded-full border border-[#E3E8EF] bg-white px-3 py-1.5 text-[12px] font-semibold text-[#5A6B7E] shadow-card">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-          </span>
-          Monitoring 5 competitors
-        </div>
-      </div>
-
-      {/* Summary cards */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <StatCard
-          icon={Radio}
-          label="Signals detected"
-          value={stats.signals}
-          hint="+3 this week"
-        />
-        <StatCard
-          icon={FlaskConical}
-          label="Experiments generated"
-          value={stats.experiments}
-          hint="from 12 signals"
-        />
-        <StatCard
-          icon={Inbox}
-          label="Awaiting PM review"
-          value={stats.awaiting}
-          hint="oldest 2 days"
-          accent
-        />
-      </div>
-
-      {/* Main split */}
-      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[440px_minmax(0,1fr)]">
-        {/* LEFT — signal input */}
-        <Card className="p-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-[15px] font-bold tracking-[-0.01em]">
-              New Competitor Signal
-            </h2>
-            <Badge tone="gray">Simulated feed</Badge>
+        {tracker?.baseline && (
+          <div className="flex items-center gap-2 rounded-full border border-[#E3E8EF] bg-white px-3 py-1.5 text-[12px] font-semibold text-[#5A6B7E] shadow-card">
+            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            Tracking 1 page · manual scans
           </div>
+        )}
+      </div>
 
-          <div className="mt-5 space-y-4">
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-1.5">
-                <Label htmlFor="source">Input source</Label>
-                <Select
-                  id="source"
-                  value={source}
-                  disabled={loading}
-                  onChange={(e) => setSource(e.target.value)}
-                >
-                  {SOURCES.map((s) => (
-                    <option key={s}>{s}</option>
-                  ))}
-                </Select>
+      {!tracker ? (
+        <SetupCard onCreate={(t) => saveTracker(t)} />
+      ) : (
+        <>
+          {/* Competitor status card */}
+          <Card className="p-6">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="flex items-start gap-3.5">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft">
+                  <Globe className="h-5 w-5 text-accent" strokeWidth={2} />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2.5">
+                    <h2 className="text-[17px] font-bold tracking-[-0.01em]">
+                      {tracker.competitor}
+                    </h2>
+                    <Badge tone="blue">{tracker.frequency}</Badge>
+                  </div>
+                  <a
+                    href={tracker.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="focusable mt-1 inline-flex items-center gap-1.5 text-[12.5px] font-medium text-[#667085] hover:text-accent"
+                  >
+                    {tracker.url}
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                  {tracker.notes && (
+                    <p className="mt-1.5 max-w-xl text-[12px] leading-relaxed text-[#8A97A8]">
+                      {tracker.notes}
+                    </p>
+                  )}
+                </div>
               </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="competitor">Competitor</Label>
-                <Select
-                  id="competitor"
-                  value={competitor}
-                  disabled={loading}
-                  onChange={(e) => setCompetitor(e.target.value)}
-                >
-                  {COMPETITORS.map((c) => (
-                    <option key={c}>{c}</option>
-                  ))}
-                </Select>
-              </div>
+              <button
+                onClick={() => {
+                  saveTracker(null);
+                  saveBrief(null);
+                  setScanError(null);
+                }}
+                className="focusable flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] font-semibold text-[#8A97A8] transition-colors hover:bg-[#F2F4F8] hover:text-ink"
+              >
+                <RotateCcw className="h-3.5 w-3.5" />
+                Reset tracker
+              </button>
             </div>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="signal">Signal</Label>
-              <Textarea
-                id="signal"
-                rows={5}
-                placeholder='Paste a competitor signal… e.g. "Bonafide launched a symptom-first quiz before collecting email."'
-                value={signal}
-                disabled={loading}
-                onChange={(e) => setSignal(e.target.value)}
+            <div className="mt-5 grid grid-cols-1 gap-3 border-t border-[#EDF0F5] pt-5 sm:grid-cols-3">
+              <MetaTile
+                label="Baseline"
+                value={
+                  tracker.baseline ? fmt(tracker.baseline.fetchedAt) : 'Not created yet'
+                }
+                ok={!!tracker.baseline}
               />
+              <MetaTile
+                label="Last scan"
+                value={
+                  tracker.latest
+                    ? fmt(tracker.latest.fetchedAt)
+                    : tracker.baseline
+                      ? fmt(tracker.baseline.fetchedAt)
+                      : '—'
+                }
+                ok={!!(tracker.latest || tracker.baseline)}
+              />
+              <MetaTile label="Monitoring" value="Manual · prototype" ok />
             </div>
 
-            <div className="flex items-center gap-3 pt-1">
-              <div className="h-px flex-1 bg-[#EDF0F5]" />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#8A97A8]">
-                or load a demo signal
-              </span>
-              <div className="h-px flex-1 bg-[#EDF0F5]" />
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {DEMO_SIGNALS.map((d) => (
-                <button
-                  key={d.label}
-                  disabled={loading}
-                  onClick={() => loadDemo(d)}
-                  className="focusable rounded-full border border-[#D8DFE8] bg-white px-3.5 py-2 text-[12.5px] font-semibold text-[#3D4E62] shadow-[0_1px_2px_rgba(16,42,77,.05)] transition-all hover:border-accent-line hover:bg-accent-soft hover:text-accent disabled:opacity-50"
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              {!tracker.baseline ? (
+                <Button
+                  size="lg"
+                  loading={scanning === 'baseline'}
+                  onClick={() => runScan('baseline')}
                 >
-                  {d.label}
-                </button>
-              ))}
+                  {!scanning && <Camera className="h-4 w-4" />}
+                  {scanning === 'baseline'
+                    ? 'Scanning page…'
+                    : 'Create baseline snapshot'}
+                </Button>
+              ) : (
+                <>
+                  <Button loading={scanning === 'scan'} onClick={() => runScan('scan')}>
+                    {!scanning && <RefreshCw className="h-4 w-4" />}
+                    {scanning === 'scan' ? 'Scanning page…' : 'Run scan now'}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowBaseline((v) => !v)}
+                  >
+                    {showBaseline ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                    {showBaseline ? 'Hide baseline' : 'View baseline'}
+                  </Button>
+                  <Button variant="ghost" onClick={simulateChange} disabled={!!scanning}>
+                    Demo: simulate a change
+                  </Button>
+                </>
+              )}
             </div>
 
-            <Button
-              size="lg"
-              className="mt-1 w-full"
-              disabled={!signal.trim()}
-              loading={loading}
-              onClick={generate}
-            >
-              {!loading && <Sparkles className="h-4 w-4" />}
-              {loading ? 'Generating…' : 'Generate Experiment'}
-            </Button>
-
-            {error && (
-              <p className="text-[12.5px] font-medium text-red-600">{error}</p>
+            {scanError && (
+              <p className="mt-3 text-[12.5px] font-medium text-red-600">{scanError}</p>
             )}
 
-            <p className="flex items-center gap-1.5 pt-1 text-[11.5px] leading-relaxed text-[#8A97A8]">
-              <ShieldCheck className="h-3.5 w-3.5 shrink-0" />
-              The agent prepares recommendations. A Product Manager approves
-              every experiment before it runs.
-            </p>
-          </div>
-        </Card>
+            {tracker.baseline && !tracker.latest && !scanError && (
+              <div className="mt-4 flex items-center gap-2.5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-[13px] font-medium text-emerald-800">
+                <Check className="h-4 w-4 shrink-0" strokeWidth={2.5} />
+                Baseline created · {fmt(tracker.baseline.fetchedAt)}. Run a scan
+                later to compare the live page against it.
+              </div>
+            )}
 
-        {/* RIGHT — brief */}
-        <div className="min-w-0">
-          {phase === 'empty' && <EmptyState />}
-          {phase === 'loading' && <LoadingState step={step} />}
-          {phase === 'ready' && brief && (
+            {showBaseline && tracker.baseline && (
+              <div className="mt-4 rounded-xl border border-[#E7EBF1] bg-[#FAFBFC] p-4">
+                <div className="text-[10.5px] font-bold uppercase tracking-[0.1em] text-[#8A97A8]">
+                  Baseline snapshot · {fmt(tracker.baseline.fetchedAt)}
+                </div>
+                <dl className="mt-3 space-y-2.5">
+                  {FIELDS.map((f) => (
+                    <div key={f.key} className="grid grid-cols-[110px_minmax(0,1fr)] gap-3">
+                      <dt className="text-[11px] font-bold uppercase tracking-[0.06em] text-[#8A97A8]">
+                        {f.label}
+                      </dt>
+                      <dd className="text-[12.5px] leading-relaxed text-[#3D4E62]">
+                        {(tracker.baseline![f.key] as string) || '—'}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            )}
+          </Card>
+
+          {/* Comparison result */}
+          {comparison && (
+            <Card className="p-6">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <span className="text-[11.5px] font-bold uppercase tracking-[0.12em] text-accent">
+                  Snapshot comparison
+                </span>
+                <div className="flex items-center gap-2">
+                  {tracker.latest?.simulated && (
+                    <Badge tone="amber" dot>
+                      Simulated change · demo
+                    </Badge>
+                  )}
+                  {comparison.meaningful ? (
+                    <Badge tone="orange" dot>
+                      Change detected
+                    </Badge>
+                  ) : (
+                    <Badge tone="green" dot>
+                      No meaningful change
+                    </Badge>
+                  )}
+                </div>
+              </div>
+
+              <p className="mt-2 text-[12px] text-[#8A97A8]">
+                Baseline {fmt(tracker.baseline!.fetchedAt)} · Latest scan{' '}
+                {fmt(tracker.latest!.fetchedAt)} · Compared: page title,
+                headline, main CTA, visible offer, prices
+              </p>
+
+              {comparison.meaningful ? (
+                <>
+                  <div className="mt-5 space-y-3">
+                    {comparison.changed.map((c) => (
+                      <div
+                        key={c.key}
+                        className="grid grid-cols-1 gap-2 rounded-xl border border-[#E7EBF1] bg-[#FAFBFC] p-4 sm:grid-cols-[110px_minmax(0,1fr)_minmax(0,1fr)] sm:gap-4"
+                      >
+                        <div className="text-[11px] font-bold uppercase tracking-[0.06em] text-[#8A97A8]">
+                          {c.label}
+                        </div>
+                        <div>
+                          <div className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#B0BAC7]">
+                            Before
+                          </div>
+                          <div className="mt-1 text-[13px] leading-relaxed text-[#5A6B7E] line-through decoration-[#C7D0DB]">
+                            {c.before}
+                          </div>
+                        </div>
+                        <div>
+                          <div className="text-[10px] font-bold uppercase tracking-[0.08em] text-accent">
+                            After
+                          </div>
+                          <div className="mt-1 text-[13px] font-semibold leading-relaxed text-ink">
+                            {c.after}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-4 rounded-xl bg-accent-soft px-4 py-3.5">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.1em] text-accent">
+                      Detected change
+                    </div>
+                    <p className="mt-1 text-[13.5px] font-semibold text-ink">
+                      {comparison.summary}
+                    </p>
+                  </div>
+
+                  {!stored && !generating && (
+                    <Button size="lg" className="mt-5" onClick={generate}>
+                      <Sparkles className="h-4 w-4" />
+                      Generate experiment brief
+                    </Button>
+                  )}
+                </>
+              ) : (
+                <p className="mt-4 text-[13.5px] leading-relaxed text-[#5A6B7E]">
+                  The tracked elements are unchanged since the baseline. The
+                  agent stays quiet unless something meaningful moves — no
+                  noise, no busywork.
+                </p>
+              )}
+            </Card>
+          )}
+
+          {/* Generating */}
+          {generating && (
+            <Card className="p-7">
+              <div className="flex items-center justify-between">
+                <span className="text-[11.5px] font-bold uppercase tracking-[0.12em] text-accent">
+                  Experiment Brief
+                </span>
+                <Badge tone="gray">Generating</Badge>
+              </div>
+              <ul className="mt-6 space-y-3.5">
+                {PROGRESS_STEPS.map((label, i) => {
+                  const done = i < step;
+                  const current = i === step;
+                  return (
+                    <li key={label} className="flex items-center gap-3">
+                      {done ? (
+                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
+                          <Check className="h-3 w-3 text-emerald-600" strokeWidth={3} />
+                        </span>
+                      ) : current ? (
+                        <Loader2 className="h-5 w-5 animate-spin text-accent" strokeWidth={2.2} />
+                      ) : (
+                        <CircleDashed className="h-5 w-5 text-[#C7D0DB]" strokeWidth={2} />
+                      )}
+                      <span
+                        className={
+                          done
+                            ? 'text-[13.5px] font-medium text-[#8A97A8] line-through decoration-[#C7D0DB]'
+                            : current
+                              ? 'text-[13.5px] font-semibold text-ink'
+                              : 'text-[13.5px] font-medium text-[#B0BAC7]'
+                        }
+                      >
+                        {label}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="mt-7 space-y-4 border-t border-[#EDF0F5] pt-6">
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-5/6" />
+                <Skeleton className="h-4 w-2/3" />
+              </div>
+            </Card>
+          )}
+
+          {/* Brief */}
+          {stored && !generating && (
             <BriefCard
-              brief={brief}
-              meta={briefMeta}
-              mode={genMode}
-              genError={genError}
-              review={review}
-              onApprove={approve}
-              onNeedsReview={needsReview}
-              onDismiss={dismiss}
+              stored={stored}
+              competitor={tracker.competitor}
+              url={tracker.url}
+              onApprove={() => saveBrief({ ...stored, review: 'approved' })}
+              onNeedsReview={() => saveBrief({ ...stored, review: 'revision' })}
+              onDismiss={() => saveBrief(null)}
             />
           )}
-        </div>
-      </div>
+        </>
+      )}
+
+      <p className="flex items-center gap-1.5 text-[11.5px] leading-relaxed text-[#9AA6B5]">
+        <ShieldCheck className="h-3.5 w-3.5 shrink-0" />
+        The agent prepares recommendations. A Product Manager approves every
+        experiment before it runs.
+      </p>
     </div>
   );
 }
 
 /* ------------------------------- subcomponents ------------------------------ */
 
-function StatCard({
-  icon: Icon,
-  label,
-  value,
-  hint,
-  accent = false,
-}: {
-  icon: LucideIcon;
-  label: string;
-  value: number;
-  hint: string;
-  accent?: boolean;
-}) {
+function MetaTile({ label, value, ok }: { label: string; value: string; ok: boolean }) {
   return (
-    <Card className="flex items-center gap-4 p-5">
+    <div className="rounded-xl border border-[#E7EBF1] bg-[#FAFBFC] px-4 py-3">
+      <div className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#8A97A8]">
+        {label}
+      </div>
       <div
         className={
-          accent
-            ? 'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFF4ED] text-[#B15738]'
-            : 'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-accent'
+          ok
+            ? 'mt-1 text-[13px] font-semibold text-ink'
+            : 'mt-1 text-[13px] font-medium text-[#B0BAC7]'
         }
       >
-        <Icon className="h-[18px] w-[18px]" strokeWidth={2.1} />
-      </div>
-      <div className="min-w-0">
-        <div className="text-[12px] font-semibold text-[#667085]">{label}</div>
-        <div className="mt-0.5 flex items-baseline gap-2">
-          <span className="text-[24px] font-bold leading-none tracking-[-0.02em]">
-            {value}
-          </span>
-          <span className="text-[11px] font-medium text-[#9AA6B5]">{hint}</span>
-        </div>
-      </div>
-    </Card>
-  );
-}
-
-function EmptyState() {
-  return (
-    <div className="flex min-h-[460px] flex-col items-center justify-center rounded-2xl border border-dashed border-[#D8DFE8] bg-white/60 px-8 text-center">
-      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-soft">
-        <FileText className="h-5 w-5 text-accent" strokeWidth={2} />
-      </div>
-      <h3 className="mt-4 text-[15px] font-bold">No brief yet</h3>
-      <p className="mt-1.5 max-w-xs text-[13px] leading-relaxed text-[#8A97A8]">
-        Load a demo signal or paste competitor activity, then generate a
-        review-ready experiment brief.
-      </p>
-      <div className="mt-5 flex items-center gap-2 text-[12px] font-semibold text-[#B0BAC7]">
-        <span>Signal</span>
-        <ArrowRight className="h-3.5 w-3.5" />
-        <span>Brief</span>
-        <ArrowRight className="h-3.5 w-3.5" />
-        <span>PM review</span>
+        {value}
       </div>
     </div>
   );
 }
 
-function LoadingState({ step }: { step: number }) {
+function SetupCard({ onCreate }: { onCreate: (t: Tracker) => void }) {
+  const [competitor, setCompetitor] = React.useState('Happy Mammoth');
+  const [url, setUrl] = React.useState('https://happymammoth.com/');
+  const [frequency, setFrequency] = React.useState('Manual (prototype)');
+  const [notes, setNotes] = React.useState('');
+
   return (
-    <Card className="min-h-[460px] p-7">
-      <div className="flex items-center justify-between">
-        <span className="text-[11.5px] font-bold uppercase tracking-[0.12em] text-accent">
-          Experiment Brief
-        </span>
-        <Badge tone="gray">Generating</Badge>
-      </div>
-
-      <ul className="mt-6 space-y-3.5">
-        {PROGRESS_STEPS.map((label, i) => {
-          const done = i < step;
-          const current = i === step;
-          return (
-            <li key={label} className="flex items-center gap-3">
-              {done ? (
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
-                  <Check className="h-3 w-3 text-emerald-600" strokeWidth={3} />
-                </span>
-              ) : current ? (
-                <Loader2 className="h-5 w-5 animate-spin text-accent" strokeWidth={2.2} />
-              ) : (
-                <CircleDashed className="h-5 w-5 text-[#C7D0DB]" strokeWidth={2} />
-              )}
-              <span
-                className={
-                  done
-                    ? 'text-[13.5px] font-medium text-[#8A97A8] line-through decoration-[#C7D0DB]'
-                    : current
-                      ? 'text-[13.5px] font-semibold text-ink'
-                      : 'text-[13.5px] font-medium text-[#B0BAC7]'
-                }
-              >
-                {label}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
-
-      <div className="mt-8 space-y-5 border-t border-[#EDF0F5] pt-6">
-        <Skeleton className="h-6 w-3/4" />
-        <div className="space-y-2.5">
-          <Skeleton className="h-3.5 w-24" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-5/6" />
+    <Card className="p-6">
+      <h2 className="text-[15px] font-bold tracking-[-0.01em]">
+        Track a competitor page
+      </h2>
+      <p className="mt-1 text-[12.5px] text-[#8A97A8]">
+        One competitor, one page. The first scan creates the baseline snapshot
+        every future scan is compared against.
+      </p>
+      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="space-y-1.5">
+          <Label htmlFor="competitor">Competitor</Label>
+          <input
+            id="competitor"
+            value={competitor}
+            onChange={(e) => setCompetitor(e.target.value)}
+            className="focusable h-9 w-full rounded-lg border border-[#D8DFE8] bg-white px-3 text-[13.5px] font-medium text-ink transition-colors hover:border-[#C3CCD9]"
+          />
         </div>
-        <div className="space-y-2.5">
-          <Skeleton className="h-3.5 w-24" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-2/3" />
+        <div className="space-y-1.5">
+          <Label htmlFor="url">Tracked page URL</Label>
+          <input
+            id="url"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="https://…"
+            className="focusable h-9 w-full rounded-lg border border-[#D8DFE8] bg-white px-3 text-[13.5px] font-medium text-ink transition-colors hover:border-[#C3CCD9]"
+          />
         </div>
-        <div className="flex gap-3 pt-1">
-          <Skeleton className="h-9 w-36 rounded-lg" />
-          <Skeleton className="h-9 w-28 rounded-lg" />
+        <div className="space-y-1.5">
+          <Label htmlFor="frequency">Scan frequency</Label>
+          <Select
+            id="frequency"
+            value={frequency}
+            onChange={(e) => setFrequency(e.target.value)}
+          >
+            <option>Manual (prototype)</option>
+            <option>Daily (planned)</option>
+            <option>Weekly (planned)</option>
+          </Select>
+        </div>
+        <div className="space-y-1.5">
+          <Label htmlFor="notes">Notes (optional)</Label>
+          <input
+            id="notes"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            placeholder="e.g. Watching their homepage acquisition flow"
+            className="focusable h-9 w-full rounded-lg border border-[#D8DFE8] bg-white px-3 text-[13.5px] font-medium text-ink transition-colors hover:border-[#C3CCD9]"
+          />
         </div>
       </div>
+      <Button
+        size="lg"
+        className="mt-5"
+        disabled={!competitor.trim() || !/^https?:\/\//i.test(url.trim())}
+        onClick={() =>
+          onCreate({
+            competitor: competitor.trim(),
+            url: url.trim(),
+            frequency,
+            notes: notes.trim(),
+            baseline: null,
+            latest: null,
+          })
+        }
+      >
+        Start tracking
+      </Button>
     </Card>
   );
 }
 
 function BriefCard({
-  brief,
-  meta,
-  mode,
-  genError,
-  review,
+  stored,
+  competitor,
+  url,
   onApprove,
   onNeedsReview,
   onDismiss,
 }: {
-  brief: Brief;
-  meta: { source: string; competitor: string };
-  mode: GenMode;
-  genError: string | null;
-  review: Review;
+  stored: StoredBrief;
+  competitor: string;
+  url: string;
   onApprove: () => void;
   onNeedsReview: () => void;
   onDismiss: () => void;
 }) {
+  const { brief, mode, error, review } = stored;
   const confidenceTone =
     brief.confidence === 'High' ? 'green' : brief.confidence === 'Low' ? 'gray' : 'blue';
 
   return (
     <Card className="animate-fade-up p-7">
-      {/* header */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <span className="text-[11.5px] font-bold uppercase tracking-[0.12em] text-accent">
@@ -512,9 +726,9 @@ function BriefCard({
         )}
       </div>
 
-      {mode === 'fallback' && genError && (
+      {mode === 'fallback' && error && (
         <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3.5 py-2.5 text-[12px] leading-relaxed text-amber-800">
-          Live generation failed — showing a curated fallback. ({genError})
+          Live generation failed — showing a curated fallback. ({error})
         </div>
       )}
 
@@ -522,22 +736,18 @@ function BriefCard({
         {brief.title}
       </h3>
 
-      {/* sections */}
       <div className="mt-6 space-y-5">
         <BriefRow label="Insight" value={brief.insight} />
         <BriefRow label="Hypothesis" value={brief.hypothesis} />
         <BriefRow label="Recommended Test" value={brief.recommendedTest} />
       </div>
 
-      {/* KPIs */}
       <div className="mt-6 grid grid-cols-1 gap-3 border-t border-[#EDF0F5] pt-6 sm:grid-cols-3">
         <div className="rounded-xl bg-ink px-4 py-3.5">
           <div className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#9FC0FF]">
             Primary KPI
           </div>
-          <div className="mt-1 text-[14px] font-bold text-white">
-            {brief.primaryKPI}
-          </div>
+          <div className="mt-1 text-[14px] font-bold text-white">{brief.primaryKPI}</div>
         </div>
         <div className="rounded-xl border border-[#E7EBF1] bg-[#FAFBFC] px-4 py-3.5">
           <div className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#8A97A8]">
@@ -562,34 +772,32 @@ function BriefCard({
         </div>
       </div>
 
-      {/* meta */}
       <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[12px] font-medium text-[#8A97A8]">
         <span>
-          Source · <span className="text-[#5A6B7E]">{meta.source}</span>
+          Competitor · <span className="text-[#5A6B7E]">{competitor}</span>
         </span>
         <span>
-          Competitor · <span className="text-[#5A6B7E]">{meta.competitor}</span>
+          Source ·{' '}
+          <span className="text-[#5A6B7E] break-all">{url}</span>
         </span>
         <span>
-          Generated · <span className="text-[#5A6B7E]">Just now</span>
+          Generated · <span className="text-[#5A6B7E]">{fmt(stored.generatedAt)}</span>
         </span>
       </div>
 
-      {/* approval confirmation */}
       {review === 'approved' && (
         <div className="mt-5 flex items-center gap-2.5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-[13px] font-medium text-emerald-800 animate-fade-up">
           <Check className="h-4 w-4 shrink-0" strokeWidth={2.5} />
-          Approved and added to the Experiments backlog as EXP-013.
+          Approved. In production this would move to the experiments backlog.
         </div>
       )}
       {review === 'revision' && (
         <div className="mt-5 flex items-center gap-2.5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-[13px] font-medium text-amber-800 animate-fade-up">
-          Sent back to the agent with your feedback. It stays in the review
-          queue.
+          <FlaskConical className="h-4 w-4 shrink-0" />
+          Marked for revision — the PM wants changes before this can run.
         </div>
       )}
 
-      {/* actions */}
       <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-[#EDF0F5] pt-5">
         <Button
           variant={review === 'approved' ? 'success' : 'primary'}
