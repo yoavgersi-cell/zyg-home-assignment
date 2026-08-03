@@ -29,6 +29,7 @@ import {
 /* ---------------------------------- types ---------------------------------- */
 
 type Snapshot = {
+  id?: string;
   url: string;
   fetchedAt: string;
   title: string;
@@ -37,6 +38,8 @@ type Snapshot = {
   offer: string;
   prices: string;
   copy: string;
+  screenshot?: string;
+  capture?: 'browser' | 'html-only';
   simulated?: boolean;
 };
 
@@ -181,8 +184,24 @@ export default function AgentPage() {
 
   const saveTracker = (t: Tracker | null) => {
     setTracker(t);
-    if (t) localStorage.setItem(TRACKER_KEY, JSON.stringify(t));
-    else localStorage.removeItem(TRACKER_KEY);
+    if (!t) {
+      localStorage.removeItem(TRACKER_KEY);
+      return;
+    }
+    try {
+      localStorage.setItem(TRACKER_KEY, JSON.stringify(t));
+    } catch {
+      // Storage quota: persist without screenshots, keep them in memory.
+      const strip = (sn: Snapshot | null) => (sn ? { ...sn, screenshot: undefined } : sn);
+      try {
+        localStorage.setItem(
+          TRACKER_KEY,
+          JSON.stringify({ ...t, baseline: strip(t.baseline), latest: strip(t.latest) }),
+        );
+      } catch {
+        /* give up persisting silently; state still lives in memory */
+      }
+    }
   };
   const saveBrief = (b: StoredBrief | null) => {
     setStored(b);
@@ -230,6 +249,7 @@ export default function AgentPage() {
     if (!tracker?.baseline) return;
     const latest: Snapshot = {
       ...tracker.baseline,
+      id: 'sim' + Math.random().toString(16).slice(2, 5),
       fetchedAt: new Date().toISOString(),
       cta: 'TAKE THE SYMPTOM QUIZ',
       simulated: true,
@@ -256,8 +276,8 @@ export default function AgentPage() {
           body: JSON.stringify({
             competitor: tracker.competitor,
             url: tracker.url,
-            baseline: tracker.baseline,
-            current: tracker.latest,
+            baseline: { ...tracker.baseline, screenshot: undefined },
+            current: { ...tracker.latest, screenshot: undefined },
             detectedChange: comparison.summary,
           }),
         }),
@@ -362,7 +382,9 @@ export default function AgentPage() {
               <MetaTile
                 label="Baseline"
                 value={
-                  tracker.baseline ? fmt(tracker.baseline.fetchedAt) : 'Not created yet'
+                  tracker.baseline
+                    ? `${fmt(tracker.baseline.fetchedAt)}${tracker.baseline.id ? ` · #${tracker.baseline.id}` : ''}`
+                    : 'Not created yet'
                 }
                 ok={!!tracker.baseline}
               />
@@ -438,21 +460,57 @@ export default function AgentPage() {
 
             {showBaseline && tracker.baseline && (
               <div className="mt-4 rounded-xl border border-[#E7EBF1] bg-[#FAFBFC] p-4">
-                <div className="text-[10.5px] font-bold uppercase tracking-[0.1em] text-[#8A97A8]">
-                  Baseline snapshot · {fmt(tracker.baseline.fetchedAt)}
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="text-[10.5px] font-bold uppercase tracking-[0.1em] text-[#8A97A8]">
+                    Baseline snapshot
+                    {tracker.baseline.id ? ` · #${tracker.baseline.id}` : ''} ·{' '}
+                    {fmt(tracker.baseline.fetchedAt)}
+                  </div>
+                  <Badge tone={tracker.baseline.capture === 'browser' ? 'blue' : 'gray'}>
+                    {tracker.baseline.capture === 'browser'
+                      ? 'Browser capture'
+                      : 'HTML capture · no screenshot'}
+                  </Badge>
                 </div>
-                <dl className="mt-3 space-y-2.5">
-                  {FIELDS.map((f) => (
-                    <div key={f.key} className="grid grid-cols-[110px_minmax(0,1fr)] gap-3">
+                <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)]">
+                  {tracker.baseline.screenshot ? (
+                    <figure>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={tracker.baseline.screenshot}
+                        alt={`Screenshot of ${tracker.baseline.url}`}
+                        className="w-full rounded-lg border border-[#E3E8EF] shadow-card"
+                      />
+                      <figcaption className="mt-1.5 text-[10.5px] text-[#9AA6B5]">
+                        Captured render of {tracker.baseline.url}
+                      </figcaption>
+                    </figure>
+                  ) : (
+                    <div className="flex items-center justify-center rounded-lg border border-dashed border-[#D8DFE8] p-6 text-center text-[11.5px] text-[#9AA6B5]">
+                      No screenshot for this snapshot (text-only capture).
+                    </div>
+                  )}
+                  <dl className="space-y-2.5">
+                    {FIELDS.map((f) => (
+                      <div key={f.key} className="grid grid-cols-[110px_minmax(0,1fr)] gap-3">
+                        <dt className="text-[11px] font-bold uppercase tracking-[0.06em] text-[#8A97A8]">
+                          {f.label}
+                        </dt>
+                        <dd className="text-[12.5px] leading-relaxed text-[#3D4E62]">
+                          {(tracker.baseline![f.key] as string) || '—'}
+                        </dd>
+                      </div>
+                    ))}
+                    <div className="grid grid-cols-[110px_minmax(0,1fr)] gap-3">
                       <dt className="text-[11px] font-bold uppercase tracking-[0.06em] text-[#8A97A8]">
-                        {f.label}
+                        Source URL
                       </dt>
-                      <dd className="text-[12.5px] leading-relaxed text-[#3D4E62]">
-                        {(tracker.baseline![f.key] as string) || '—'}
+                      <dd className="break-all text-[12.5px] leading-relaxed text-[#3D4E62]">
+                        {tracker.baseline.url}
                       </dd>
                     </div>
-                  ))}
-                </dl>
+                  </dl>
+                </div>
               </div>
             )}
           </Card>
@@ -488,10 +546,52 @@ export default function AgentPage() {
               </div>
 
               <p className="mt-2 text-[12px] text-[#8A97A8]">
-                Baseline {fmt(tracker.baseline!.fetchedAt)} · Latest scan{' '}
-                {fmt(tracker.latest!.fetchedAt)} · Compared: page title,
-                headline, main CTA, visible offer, prices
+                Baseline {fmt(tracker.baseline!.fetchedAt)}
+                {tracker.baseline!.id ? ` (#${tracker.baseline!.id})` : ''} · Latest scan{' '}
+                {fmt(tracker.latest!.fetchedAt)}
+                {tracker.latest!.id ? ` (#${tracker.latest!.id})` : ''} · Compared: page
+                title, headline, main CTA, visible offer, prices
               </p>
+
+              {(tracker.baseline!.screenshot || tracker.latest!.screenshot) && (
+                <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <figure>
+                    <figcaption className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.08em] text-[#B0BAC7]">
+                      Baseline{tracker.baseline!.id ? ` · #${tracker.baseline!.id}` : ''}
+                    </figcaption>
+                    {tracker.baseline!.screenshot ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={tracker.baseline!.screenshot}
+                        alt="Baseline screenshot"
+                        className="w-full rounded-lg border border-[#E3E8EF]"
+                      />
+                    ) : (
+                      <div className="rounded-lg border border-dashed border-[#D8DFE8] p-6 text-center text-[11px] text-[#9AA6B5]">
+                        No screenshot
+                      </div>
+                    )}
+                  </figure>
+                  <figure>
+                    <figcaption className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.08em] text-accent">
+                      Latest{tracker.latest!.id ? ` · #${tracker.latest!.id}` : ''}
+                      {tracker.latest!.simulated ? ' (simulated fields)' : ''}
+                    </figcaption>
+                    {tracker.latest!.screenshot ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={tracker.latest!.screenshot}
+                        alt="Latest scan screenshot"
+                        className="w-full rounded-lg border border-[#E3E8EF]"
+                      />
+                    ) : (
+                      <div className="rounded-lg border border-dashed border-[#D8DFE8] p-6 text-center text-[11px] text-[#9AA6B5]">
+                        No screenshot
+                      </div>
+                    )}
+                  </figure>
+                </div>
+              )}
 
               {comparison.meaningful ? (
                 <>
