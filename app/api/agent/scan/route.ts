@@ -99,10 +99,22 @@ async function launchBrowser() {
     });
   }
   const chromium = (await import('@sparticuz/chromium')).default;
+  // If the bundler dropped the packaged binaries, fetch the official pack
+  // for the exact installed version instead (cached in /tmp across warm
+  // invocations).
+  let executablePath: string;
+  try {
+    executablePath = await chromium.executablePath();
+  } catch (e) {
+    console.warn('[agent/scan] packaged chromium missing, using remote pack:', e);
+    executablePath = await chromium.executablePath(
+      'https://github.com/Sparticuz/chromium/releases/download/v149.0.0/chromium-v149.0.0-pack.x64.tar',
+    );
+  }
   // sparticuz ships the headless *shell* build; puppeteer must be told so,
   // otherwise it passes new-headless flags and the launch fails on Vercel.
   return puppeteer.launch({
-    executablePath: await chromium.executablePath(),
+    executablePath,
     args: chromium.args,
     defaultViewport: { width: 1280, height: 900 },
     headless: 'shell',
