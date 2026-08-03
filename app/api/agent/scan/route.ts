@@ -28,6 +28,7 @@ export type Snapshot = {
   copy: string;
   screenshot?: string; // data:image/jpeg;base64,...
   capture: 'browser' | 'html-only';
+  captureError?: string;
 };
 
 const UA =
@@ -98,10 +99,13 @@ async function launchBrowser() {
     });
   }
   const chromium = (await import('@sparticuz/chromium')).default;
+  // sparticuz ships the headless *shell* build; puppeteer must be told so,
+  // otherwise it passes new-headless flags and the launch fails on Vercel.
   return puppeteer.launch({
     executablePath: await chromium.executablePath(),
     args: chromium.args,
-    headless: true,
+    defaultViewport: { width: 1280, height: 900 },
+    headless: 'shell',
   });
 }
 
@@ -158,6 +162,7 @@ export async function POST(req: Request) {
   let html = '';
   let screenshot: string | undefined;
   let capture: Snapshot['capture'] = 'browser';
+  let captureError: string | undefined;
 
   try {
     const r = await browserCapture(url);
@@ -165,6 +170,8 @@ export async function POST(req: Request) {
     screenshot = r.screenshot;
   } catch (browserErr) {
     console.error('[agent/scan] browser capture failed:', browserErr);
+    captureError =
+      browserErr instanceof Error ? browserErr.message.slice(0, 200) : 'Unknown browser error';
     const httpErr = browserErr instanceof Error && /^HTTP_(\d+)/.exec(browserErr.message);
     if (httpErr) {
       return NextResponse.json(
@@ -205,5 +212,5 @@ export async function POST(req: Request) {
     screenshot,
     capture,
   };
-  return NextResponse.json({ snapshot });
+  return NextResponse.json({ snapshot, captureError });
 }

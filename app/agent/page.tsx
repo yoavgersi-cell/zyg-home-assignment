@@ -40,6 +40,7 @@ type Snapshot = {
   copy: string;
   screenshot?: string;
   capture?: 'browser' | 'html-only';
+  captureError?: string;
   simulated?: boolean;
 };
 
@@ -231,7 +232,7 @@ export default function AgentPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Scan failed');
-      const snap: Snapshot = data.snapshot;
+      const snap: Snapshot = { ...data.snapshot, captureError: data.captureError };
       if (kind === 'baseline') {
         saveTracker({ ...tracker, baseline: snap, latest: null });
         saveBrief(null);
@@ -435,6 +436,15 @@ export default function AgentPage() {
                   <Button variant="ghost" onClick={simulateChange} disabled={!!scanning}>
                     Demo: simulate a change
                   </Button>
+                  <a
+                    href={`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=${encodeURIComponent(tracker.competitor)}&search_type=keyword_unordered`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="focusable inline-flex h-9 items-center gap-2 rounded-lg border border-[#D8DFE8] bg-white px-3.5 text-[13.5px] font-semibold text-ink transition-all hover:bg-[#F5F7FA]"
+                  >
+                    <ExternalLink className="h-3.5 w-3.5 text-[#8A97A8]" />
+                    Live ads · Meta Ad Library
+                  </a>
                 </>
               )}
             </div>
@@ -465,6 +475,11 @@ export default function AgentPage() {
                 <span className="font-bold">could not take a screenshot</span>{' '}
                 (the headless browser was unavailable). The extracted fields
                 below are still real. Re-run the scan to retry the screenshot.
+                {tracker.baseline.captureError && (
+                  <span className="mt-1.5 block font-mono text-[10.5px] text-amber-700/80">
+                    {tracker.baseline.captureError}
+                  </span>
+                )}
               </div>
             )}
 
