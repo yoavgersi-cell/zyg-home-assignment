@@ -235,6 +235,7 @@ export default function AgentPage() {
       if (kind === 'baseline') {
         saveTracker({ ...tracker, baseline: snap, latest: null });
         saveBrief(null);
+        setShowBaseline(true); // show the evidence immediately
       } else {
         saveTracker({ ...tracker, latest: snap });
       }
@@ -455,6 +456,15 @@ export default function AgentPage() {
                 <Check className="h-4 w-4 shrink-0" strokeWidth={2.5} />
                 Baseline created · {fmt(tracker.baseline.fetchedAt)}. Run a scan
                 later to compare the live page against it.
+              </div>
+            )}
+
+            {tracker.baseline && tracker.baseline.capture === 'html-only' && (
+              <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-[12.5px] leading-relaxed text-amber-800">
+                This scan captured the page&apos;s HTML but{' '}
+                <span className="font-bold">could not take a screenshot</span>{' '}
+                (the headless browser was unavailable). The extracted fields
+                below are still real. Re-run the scan to retry the screenshot.
               </div>
             )}
 
