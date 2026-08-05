@@ -90,11 +90,11 @@ async function browserCapture(url: string) {
     await page.setUserAgent(UA);
     await page.setViewport({ width: 1280, height: 900 });
     await page.setExtraHTTPHeaders({ 'accept-language': 'en-US,en;q=0.9' });
-    const resp = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    const resp = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 15_000 });
     const status = resp?.status() ?? 0;
     if (status >= 400) throw new Error(`HTTP_${status}`);
     // let hero content/fonts settle briefly
-    await new Promise((r) => setTimeout(r, 1500));
+    await new Promise((r) => setTimeout(r, 800));
     const html = await page.content();
     const shot = (await page.screenshot({
       type: 'jpeg',

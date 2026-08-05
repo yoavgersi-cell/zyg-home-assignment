@@ -168,6 +168,20 @@ const fmt = (iso: string) =>
 
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+/* Vercel returns plain-text error pages on function timeouts/crashes;
+ * parse defensively so the UI shows a readable message instead of a
+ * JSON.parse exception. */
+async function readJson(res: Response): Promise<Record<string, unknown>> {
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch {
+    throw new Error(
+      `The server function failed (HTTP ${res.status}) — likely a timeout. If this repeats, enable Fluid Compute in Vercel Settings → Functions and redeploy.`,
+    );
+  }
+}
+
 /* ---------------------------------- page ----------------------------------- */
 
 export default function AgentPage() {
@@ -248,9 +262,12 @@ export default function AgentPage() {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ url: tracker.url }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Scan failed');
-      const snap: Snapshot = { ...data.snapshot, captureError: data.captureError };
+      const data = await readJson(res);
+      if (!res.ok) throw new Error((data.error as string) || 'Scan failed');
+      const snap: Snapshot = {
+        ...(data.snapshot as Snapshot),
+        captureError: data.captureError as string | undefined,
+      };
       if (kind === 'baseline') {
         saveTracker({ ...tracker, baseline: snap, latest: null });
         saveBrief(null);
@@ -275,8 +292,8 @@ export default function AgentPage() {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ competitor: tracker.competitor }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Ad capture failed');
+      const data = await readJson(res);
+      if (!res.ok) throw new Error((data.error as string) || 'Ad capture failed');
       saveTracker({ ...tracker, ads: data.ads as AdsEvidence });
     } catch (err) {
       setAdsError(err instanceof Error ? err.message : 'Ad capture failed');
@@ -326,8 +343,8 @@ export default function AgentPage() {
         }),
         delay(2700),
       ]);
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Generation failed');
+      const data = await readJson(res);
+      if (!res.ok) throw new Error((data.error as string) || 'Generation failed');
       saveBrief({
         brief: data.brief as Brief,
         mode: (data.mode as GenMode) || 'demo',
