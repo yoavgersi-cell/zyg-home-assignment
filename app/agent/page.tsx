@@ -605,7 +605,7 @@ export default function AgentPage() {
                 </div>
                 {tracker.ads.top && tracker.ads.top.length > 0 ? (
                   <>
-                    <div className="mt-3 grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5">
+                    <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                       {tracker.ads.top.map((ad, i) => (
                         <div
                           key={ad.libraryId || i}
@@ -623,19 +623,19 @@ export default function AgentPage() {
                               No creative capture
                             </div>
                           )}
-                          <div className="space-y-1 p-2">
+                          <div className="space-y-1.5 p-3">
                             <div className="flex items-center justify-between">
-                              <span className="text-[9px] font-bold uppercase tracking-[0.06em] text-accent">
+                              <span className="text-[11px] font-bold uppercase tracking-[0.06em] text-accent">
                                 #{i + 1}
                               </span>
                               {ad.daysRunning !== undefined && (
-                                <span className="rounded-full bg-emerald-50 px-1.5 py-0.5 text-[9px] font-bold text-emerald-700">
+                                <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-bold text-emerald-700">
                                   {ad.daysRunning}d live
                                 </span>
                               )}
                             </div>
-                            <p className="line-clamp-3 text-[10px] leading-snug text-[#5A6B7E]">
-                              {ad.text.replace(/library id:?\s*\d+/i, '').slice(0, 120)}
+                            <p className="line-clamp-3 text-[12px] leading-snug text-[#5A6B7E]">
+                              {ad.text.replace(/library id:?\s*\d+/i, '').slice(0, 160)}
                             </p>
                           </div>
                         </div>

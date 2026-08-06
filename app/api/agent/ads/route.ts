@@ -202,21 +202,34 @@ export async function POST(req: Request) {
     parsed.sort((a, b) => (b.card.daysRunning ?? -1) - (a.card.daysRunning ?? -1));
     const winners = parsed.slice(0, 5);
 
+    // Clip a generous fixed region from each card's top downward instead of
+    // trusting Meta's obfuscated card containers - the creative sits below
+    // the text block and cannot escape a tall clip.
+    const docHeight: number = await page.evaluate(
+      () => document.documentElement.scrollHeight || document.body.scrollHeight,
+    );
     for (const w of winners) {
       try {
         const handle = await page.$(`[data-gi-card="${w.index}"]`);
-        if (handle) {
-          await handle.evaluate((el) => el.scrollIntoView({ block: 'center' }));
-          await new Promise((r) => setTimeout(r, 1500)); // let the creative load
-          const shot = (await handle.screenshot({
-            type: 'jpeg',
-            quality: 55,
-            encoding: 'base64',
-          })) as string;
-          w.card.screenshot = `data:image/jpeg;base64,${shot}`;
-        }
+        if (!handle) continue;
+        await handle.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+        await new Promise((r) => setTimeout(r, 1500)); // let the creative load
+        const box = await handle.evaluate((el) => {
+          const r = el.getBoundingClientRect();
+          return { x: r.x + window.scrollX, y: r.y + window.scrollY, w: r.width };
+        });
+        const clipX = Math.max(0, box.x - 6);
+        const clipY = Math.max(0, box.y - 6);
+        const clipH = Math.min(860, Math.max(300, docHeight - clipY - 4));
+        const shot = (await page.screenshot({
+          type: 'jpeg',
+          quality: 55,
+          encoding: 'base64',
+          clip: { x: clipX, y: clipY, width: Math.min(box.w + 12, 640), height: clipH },
+        })) as string;
+        w.card.screenshot = `data:image/jpeg;base64,${shot}`;
       } catch {
-        /* element screenshot is best-effort */
+        /* screenshot is best-effort */
       }
     }
     const top = winners.map((w) => w.card);
