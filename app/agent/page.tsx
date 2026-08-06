@@ -44,14 +44,25 @@ type Snapshot = {
   simulated?: boolean;
 };
 
+type TopAd = {
+  libraryId?: string;
+  startedRunning?: string;
+  daysRunning?: number;
+  text: string;
+  screenshot?: string;
+};
+
 type AdsEvidence = {
   id: string;
   url: string;
   capturedAt: string;
+  totalCount?: string;
+  rankedBy?: string;
+  top?: TopAd[];
+  textSample?: string;
+  // legacy v1 fields (older captures in localStorage)
   screenshot?: string;
   approxCount?: string;
-  visibleAdCards?: number;
-  textSample?: string;
 };
 
 type Tracker = {
@@ -59,6 +70,7 @@ type Tracker = {
   url: string;
   frequency: string;
   notes: string;
+  metaPageId?: string;
   baseline: Snapshot | null;
   latest: Snapshot | null;
   ads?: AdsEvidence | null;
@@ -228,7 +240,13 @@ export default function AgentPage() {
             ...t,
             baseline: strip(t.baseline),
             latest: strip(t.latest),
-            ads: t.ads ? { ...t.ads, screenshot: undefined } : t.ads,
+            ads: t.ads
+              ? {
+                  ...t.ads,
+                  screenshot: undefined,
+                  top: t.ads.top?.map((a) => ({ ...a, screenshot: undefined })),
+                }
+              : t.ads,
           }),
         );
       } catch {
@@ -290,7 +308,10 @@ export default function AgentPage() {
       const res = await fetch('/api/agent/ads', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ competitor: tracker.competitor }),
+        body: JSON.stringify({
+          competitor: tracker.competitor,
+          pageId: tracker.metaPageId || undefined,
+        }),
       });
       const data = await readJson(res);
       if (!res.ok) throw new Error((data.error as string) || 'Ad capture failed');
@@ -337,7 +358,17 @@ export default function AgentPage() {
             current: { ...tracker.latest, screenshot: undefined },
             detectedChange: comparison.summary,
             adsContext: tracker.ads
-              ? `Captured ${tracker.ads.capturedAt} from ${tracker.ads.url}. Approximate active ads: ${tracker.ads.approxCount || 'unknown'}. Visible ad text sample: ${tracker.ads.textSample || 'n/a'}`
+              ? `Captured ${tracker.ads.capturedAt} from ${tracker.ads.url}. Total active ads: ${tracker.ads.totalCount || tracker.ads.approxCount || 'unknown'}.${
+                  tracker.ads.top?.length
+                    ? ` Top ${tracker.ads.top.length} longest-running ads (performance proxy): ` +
+                      tracker.ads.top
+                        .map(
+                          (a, i) =>
+                            `${i + 1}) ${a.startedRunning ? `running since ${a.startedRunning}` : 'start date unknown'}: "${a.text.slice(0, 160)}"`,
+                        )
+                        .join(' ')
+                    : ` Visible ad text sample: ${tracker.ads.textSample || 'n/a'}`
+                }`
               : undefined,
           }),
         }),
@@ -560,7 +591,7 @@ export default function AgentPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Badge tone="blue">
-                      ~{tracker.ads.approxCount || '?'} active ads
+                      {tracker.ads.totalCount || tracker.ads.approxCount || '?'} active ads
                     </Badge>
                     <a
                       href={tracker.ads.url}
@@ -572,7 +603,52 @@ export default function AgentPage() {
                     </a>
                   </div>
                 </div>
-                {tracker.ads.screenshot ? (
+                {tracker.ads.top && tracker.ads.top.length > 0 ? (
+                  <>
+                    <div className="mt-3 grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5">
+                      {tracker.ads.top.map((ad, i) => (
+                        <div
+                          key={ad.libraryId || i}
+                          className="overflow-hidden rounded-lg border border-[#E3E8EF] bg-white"
+                        >
+                          {ad.screenshot ? (
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img
+                              src={ad.screenshot}
+                              alt={`Ad creative ${i + 1}`}
+                              className="h-40 w-full object-cover object-top"
+                            />
+                          ) : (
+                            <div className="flex h-40 items-center justify-center bg-[#F5F7FA] px-2 text-center text-[10px] text-[#9AA6B5]">
+                              No creative capture
+                            </div>
+                          )}
+                          <div className="space-y-1 p-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-[9px] font-bold uppercase tracking-[0.06em] text-accent">
+                                #{i + 1}
+                              </span>
+                              {ad.daysRunning !== undefined && (
+                                <span className="rounded-full bg-emerald-50 px-1.5 py-0.5 text-[9px] font-bold text-emerald-700">
+                                  {ad.daysRunning}d live
+                                </span>
+                              )}
+                            </div>
+                            <p className="line-clamp-3 text-[10px] leading-snug text-[#5A6B7E]">
+                              {ad.text.replace(/library id:?\s*\d+/i, '').slice(0, 120)}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="mt-2 text-[10.5px] text-[#9AA6B5]">
+                      Top creatives ranked by longest-running — the standard
+                      performance proxy, since Meta publishes no impression data
+                      for commercial ads. Feeds the reasoning layer alongside
+                      the page snapshots.
+                    </p>
+                  </>
+                ) : tracker.ads.screenshot ? (
                   <figure className="mt-3">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -580,15 +656,10 @@ export default function AgentPage() {
                       alt={`Live ads of ${tracker.competitor} in the Meta Ad Library`}
                       className="max-h-[420px] w-full rounded-lg border border-[#E3E8EF] object-cover object-top shadow-card"
                     />
-                    <figcaption className="mt-1.5 text-[10.5px] text-[#9AA6B5]">
-                      Captured render of the public Ad Library results for
-                      &ldquo;{tracker.competitor}&rdquo;. Feeds the reasoning
-                      layer alongside the page snapshots.
-                    </figcaption>
                   </figure>
                 ) : (
                   <p className="mt-3 text-[12px] text-[#9AA6B5]">
-                    Captured without a screenshot (text only).
+                    Captured without creative screenshots (text only).
                   </p>
                 )}
               </div>
@@ -608,14 +679,14 @@ export default function AgentPage() {
                       : 'HTML capture · no screenshot'}
                   </Badge>
                 </div>
-                <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)]">
+                <div className="mt-2.5 grid grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)]">
                   {tracker.baseline.screenshot ? (
                     <figure>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={tracker.baseline.screenshot}
                         alt={`Screenshot of ${tracker.baseline.url}`}
-                        className="w-full rounded-lg border border-[#E3E8EF] shadow-card"
+                        className="max-h-[400px] w-full rounded-lg border border-[#E3E8EF] object-cover object-top shadow-card"
                       />
                       <figcaption className="mt-1.5 text-[10.5px] text-[#9AA6B5]">
                         Captured render of {tracker.baseline.url}
@@ -626,7 +697,7 @@ export default function AgentPage() {
                       No screenshot for this snapshot (text-only capture).
                     </div>
                   )}
-                  <dl className="space-y-2.5">
+                  <dl className="space-y-2">
                     {FIELDS.map((f) => (
                       <div key={f.key} className="grid grid-cols-[110px_minmax(0,1fr)] gap-3">
                         <dt className="text-[11px] font-bold uppercase tracking-[0.06em] text-[#8A97A8]">
@@ -890,6 +961,7 @@ function SetupCard({ onCreate }: { onCreate: (t: Tracker) => void }) {
   const [url, setUrl] = React.useState('https://happymammoth.com/');
   const [frequency, setFrequency] = React.useState('Manual (prototype)');
   const [notes, setNotes] = React.useState('');
+  const [metaPageId, setMetaPageId] = React.useState('');
 
   return (
     <Card className="p-6">
@@ -933,6 +1005,16 @@ function SetupCard({ onCreate }: { onCreate: (t: Tracker) => void }) {
           </Select>
         </div>
         <div className="space-y-1.5">
+          <Label htmlFor="metaPageId">Meta Page ID (optional)</Label>
+          <input
+            id="metaPageId"
+            value={metaPageId}
+            onChange={(e) => setMetaPageId(e.target.value)}
+            placeholder="Targets the exact Facebook page's ads; keyword search otherwise"
+            className="focusable h-9 w-full rounded-lg border border-[#D8DFE8] bg-white px-3 text-[13.5px] font-medium text-ink transition-colors hover:border-[#C3CCD9]"
+          />
+        </div>
+        <div className="space-y-1.5 sm:col-span-2">
           <Label htmlFor="notes">Notes (optional)</Label>
           <input
             id="notes"
@@ -953,6 +1035,7 @@ function SetupCard({ onCreate }: { onCreate: (t: Tracker) => void }) {
             url: url.trim(),
             frequency,
             notes: notes.trim(),
+            metaPageId: metaPageId.trim() || undefined,
             baseline: null,
             latest: null,
           })
