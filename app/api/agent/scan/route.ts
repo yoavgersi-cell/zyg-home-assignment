@@ -101,6 +101,17 @@ async function browserCapture(url: string) {
     let lastErr: unknown = null;
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
+        // JS-built storefronts paint the hero after load: wait for real text,
+        // then nudge lazy sections with a scroll before capturing.
+        await page
+          .waitForFunction('document.body && document.body.innerText.trim().length > 600', {
+            timeout: 7_000,
+          })
+          .catch(() => {});
+        await page.evaluate(() => window.scrollBy(0, 1000));
+        await new Promise((r) => setTimeout(r, 1200));
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await new Promise((r) => setTimeout(r, 700));
         const html = await page.content();
         const shot = (await page.screenshot({
           type: 'jpeg',
