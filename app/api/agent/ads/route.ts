@@ -106,9 +106,19 @@ export async function POST(req: Request) {
       /* scrolling is best-effort */
     }
 
-    const bodyText: string = await page.evaluate(
-      () => document.body?.innerText?.replace(/\s+/g, ' ').slice(0, 40000) || '',
-    );
+    let bodyText = '';
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        bodyText = await page.evaluate(
+          () => document.body?.innerText?.replace(/\s+/g, ' ').slice(0, 40000) || '',
+        );
+        break;
+      } catch (e) {
+        if (!/context was destroyed|cannot find context|navigat/i.test(String(e)) || attempt === 2)
+          throw e;
+        await new Promise((r) => setTimeout(r, 1800));
+      }
+    }
 
     const gated =
       /log in or sign up|log into facebook|checkpoint/i.test(bodyText.slice(0, 3000)) &&

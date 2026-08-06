@@ -95,13 +95,26 @@ async function browserCapture(url: string) {
     if (status >= 400) throw new Error(`HTTP_${status}`);
     // let hero content/fonts settle briefly
     await new Promise((r) => setTimeout(r, 800));
-    const html = await page.content();
-    const shot = (await page.screenshot({
-      type: 'jpeg',
-      quality: 60,
-      encoding: 'base64',
-    })) as string;
-    return { html, screenshot: `data:image/jpeg;base64,${shot}` };
+    // Sites may client-side redirect right after load (e.g. Shopify geo
+    // redirects); reading the page mid-navigation throws "execution context
+    // was destroyed" - wait out the navigation and retry.
+    let lastErr: unknown = null;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        const html = await page.content();
+        const shot = (await page.screenshot({
+          type: 'jpeg',
+          quality: 60,
+          encoding: 'base64',
+        })) as string;
+        return { html, screenshot: `data:image/jpeg;base64,${shot}` };
+      } catch (e) {
+        lastErr = e;
+        if (!/context was destroyed|cannot find context|navigat/i.test(String(e))) throw e;
+        await new Promise((r) => setTimeout(r, 1800));
+      }
+    }
+    throw lastErr instanceof Error ? lastErr : new Error('Page kept navigating during capture');
   } finally {
     await browser.close().catch(() => {});
   }
