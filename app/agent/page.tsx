@@ -679,7 +679,7 @@ export default function AgentPage() {
                       : 'HTML capture · no screenshot'}
                   </Badge>
                 </div>
-                <div className="mt-2.5 grid grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)]">
+                <div className="mt-2.5 grid grid-cols-1 items-stretch gap-x-5 gap-y-4 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)]">
                   {tracker.baseline.screenshot ? (
                     <figure>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -697,7 +697,7 @@ export default function AgentPage() {
                       No screenshot for this snapshot (text-only capture).
                     </div>
                   )}
-                  <dl className="space-y-2">
+                  <dl className="flex h-full flex-col justify-evenly gap-2 py-0.5">
                     {FIELDS.map((f) => (
                       <div key={f.key} className="grid grid-cols-[110px_minmax(0,1fr)] gap-3">
                         <dt className="text-[11px] font-bold uppercase tracking-[0.06em] text-[#8A97A8]">
