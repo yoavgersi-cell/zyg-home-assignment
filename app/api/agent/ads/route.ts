@@ -17,13 +17,15 @@ export const maxDuration = 60;
  * never substituted content.
  */
 
+const AD_COUNTRY = 'US'; // per product decision: track US-targeted ads only
+
 const keywordUrl = (competitor: string) =>
-  `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=${encodeURIComponent(
+  `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${AD_COUNTRY}&q=${encodeURIComponent(
     competitor,
   )}&search_type=keyword_unordered&media_type=all`;
 
 const pageUrl = (pageId: string) =>
-  `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&view_all_page_id=${encodeURIComponent(
+  `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${AD_COUNTRY}&view_all_page_id=${encodeURIComponent(
     pageId,
   )}&search_type=page&media_type=all`;
 
@@ -176,38 +178,45 @@ export async function POST(req: Request) {
       })),
     );
 
-    const cards: TopAd[] = [];
-    for (const rc of rawCards) {
+    // Rank by run time FIRST (performance proxy - see header comment),
+    // then screenshot only the top five - scrolling each into view so its
+    // lazy-loaded creative media paints before the capture.
+    const parsed = rawCards.map((rc) => {
       const { label, date } = parseStartDate(rc.text);
       const libMatch = rc.text.match(/library id:?\s*(\d{6,})/i);
-      let screenshot: string | undefined;
+      return {
+        index: rc.index,
+        card: {
+          libraryId: libMatch ? libMatch[1] : undefined,
+          startedRunning: label,
+          daysRunning: date
+            ? Math.max(0, Math.round((Date.now() - date.getTime()) / 86_400_000))
+            : undefined,
+          text: rc.text,
+        } as TopAd,
+      };
+    });
+    parsed.sort((a, b) => (b.card.daysRunning ?? -1) - (a.card.daysRunning ?? -1));
+    const winners = parsed.slice(0, 5);
+
+    for (const w of winners) {
       try {
-        const handle = await page.$(`[data-gi-card="${rc.index}"]`);
+        const handle = await page.$(`[data-gi-card="${w.index}"]`);
         if (handle) {
+          await handle.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+          await new Promise((r) => setTimeout(r, 900)); // let the creative load
           const shot = (await handle.screenshot({
             type: 'jpeg',
             quality: 55,
             encoding: 'base64',
           })) as string;
-          screenshot = `data:image/jpeg;base64,${shot}`;
+          w.card.screenshot = `data:image/jpeg;base64,${shot}`;
         }
       } catch {
         /* element screenshot is best-effort */
       }
-      cards.push({
-        libraryId: libMatch ? libMatch[1] : undefined,
-        startedRunning: label,
-        daysRunning: date
-          ? Math.max(0, Math.round((Date.now() - date.getTime()) / 86_400_000))
-          : undefined,
-        text: rc.text,
-        screenshot,
-      });
     }
-
-    // Longest-running first (performance proxy - see header comment).
-    cards.sort((a, b) => (b.daysRunning ?? -1) - (a.daysRunning ?? -1));
-    const top = cards.slice(0, 5);
+    const top = winners.map((w) => w.card);
 
     return NextResponse.json({
       ads: {

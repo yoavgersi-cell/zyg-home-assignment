@@ -616,10 +616,10 @@ export default function AgentPage() {
                             <img
                               src={ad.screenshot}
                               alt={`Ad creative ${i + 1}`}
-                              className="h-40 w-full object-cover object-top"
+                              className="w-full"
                             />
                           ) : (
-                            <div className="flex h-40 items-center justify-center bg-[#F5F7FA] px-2 text-center text-[10px] text-[#9AA6B5]">
+                            <div className="flex h-32 items-center justify-center bg-[#F5F7FA] px-2 text-center text-[10px] text-[#9AA6B5]">
                               No creative capture
                             </div>
                           )}
