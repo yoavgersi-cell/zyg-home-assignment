@@ -60,9 +60,10 @@ function extract(url: string, html: string): Omit<Snapshot, 'id' | 'screenshot' 
   const om = bodyText.match(OFFER_PATTERN);
   if (om && om.index !== undefined) {
     const start = Math.max(0, om.index - 40);
-    let snippet = bodyText.slice(start, om.index + om[0].length + 40);
-    if (start > 0) snippet = snippet.replace(/^\S*\s/, '');
-    offer = norm(snippet).slice(0, 120);
+    let snippet = bodyText.slice(start, om.index + om[0].length + 50);
+    if (start > 0) snippet = snippet.replace(/^\S*\s/, ''); // drop partial leading word
+    snippet = snippet.replace(/\s\S*$/, ''); // drop partial trailing word
+    offer = norm(snippet).slice(0, 110);
   }
 
   const prices = Array.from(
@@ -112,13 +113,59 @@ async function browserCapture(url: string) {
         await new Promise((r) => setTimeout(r, 1200));
         await page.evaluate(() => window.scrollTo(0, 0));
         await new Promise((r) => setTimeout(r, 700));
+        // Visual extraction: what the EYE sees on the rendered page, so the
+        // fields correlate with the screenshot (raw-HTML order lies - the
+        // nav's "Shop" is not the hero CTA).
+        const hints: { headline?: string; cta?: string } = await page
+          .evaluate(() => {
+            const vis = (el: Element) => {
+              const r = el.getBoundingClientRect();
+              const st = getComputedStyle(el);
+              return (
+                r.width > 10 && r.height > 8 && r.top < 1100 && r.bottom > 0 &&
+                st.visibility !== 'hidden' && st.display !== 'none' && parseFloat(st.opacity || '1') > 0.2
+              );
+            };
+            let headline = '';
+            let hlSize = 0;
+            document.querySelectorAll<HTMLElement>('h1,h2,h3,p,span,div').forEach((el) => {
+              if (el.childElementCount > 0) return;
+              const t = (el.textContent || '').replace(/\s+/g, ' ').trim();
+              if (t.length < 8 || t.length > 120) return;
+              if (!vis(el)) return;
+              const fs = parseFloat(getComputedStyle(el).fontSize) || 0;
+              if (fs > hlSize) {
+                hlSize = fs;
+                headline = t;
+              }
+            });
+            let cta = '';
+            let ctaScore = 0;
+            document.querySelectorAll<HTMLElement>('a,button,[role="button"]').forEach((el) => {
+              const t = (el.textContent || '').replace(/\s+/g, ' ').trim();
+              if (t.length < 3 || t.length > 32) return;
+              if (!vis(el)) return;
+              const r = el.getBoundingClientRect();
+              const st = getComputedStyle(el);
+              const styled =
+                st.backgroundColor !== 'rgba(0, 0, 0, 0)' || parseFloat(st.borderRadius) > 0;
+              const area = r.width * r.height;
+              const score = area * (styled ? 2 : 1);
+              if (area > 1200 && score > ctaScore) {
+                ctaScore = score;
+                cta = t;
+              }
+            });
+            return { headline, cta };
+          })
+          .catch(() => ({}));
         const html = await page.content();
         const shot = (await page.screenshot({
           type: 'jpeg',
           quality: 60,
           encoding: 'base64',
         })) as string;
-        return { html, screenshot: `data:image/jpeg;base64,${shot}` };
+        return { html, screenshot: `data:image/jpeg;base64,${shot}`, hints };
       } catch (e) {
         lastErr = e;
         if (!/context was destroyed|cannot find context|navigat/i.test(String(e))) throw e;
@@ -161,11 +208,13 @@ export async function POST(req: Request) {
   let screenshot: string | undefined;
   let capture: Snapshot['capture'] = 'browser';
   let captureError: string | undefined;
+  let hints: { headline?: string; cta?: string } = {};
 
   try {
     const r = await browserCapture(url);
     html = r.html;
     screenshot = r.screenshot;
+    hints = r.hints || {};
   } catch (browserErr) {
     console.error('[agent/scan] browser capture failed:', browserErr);
     captureError =
@@ -197,6 +246,9 @@ export async function POST(req: Request) {
   }
 
   const fields = extract(url, html);
+  // Prefer what is visually on screen over raw-HTML document order.
+  if (hints.headline) fields.headline = hints.headline;
+  if (hints.cta) fields.cta = hints.cta;
   if (!fields.title && !fields.headline) {
     return NextResponse.json(
       { error: 'Fetched the page but could not extract readable content.' },
