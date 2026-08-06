@@ -138,22 +138,25 @@ export async function POST(req: Request) {
     const countMatch = bodyText.match(/([\d.,]+)\s*results?/i);
 
     // Tag each ad card container in the DOM (cards contain "Library ID").
+    // Take the OUTERMOST ancestor that is still card-width: the first tall
+    // ancestor is only the card's text section - the creative lives in a
+    // sibling below it, so climbing to the outermost keeps it in frame.
     const cardCount: number = await page.evaluate(() => {
       const leaves = Array.from(document.querySelectorAll<HTMLElement>('div, span')).filter(
         (el) => el.childElementCount === 0 && /library id/i.test(el.textContent || ''),
       );
       let idx = 0;
       for (const leaf of leaves) {
-        let anc: HTMLElement | null = leaf;
-        while (anc && anc.parentElement) {
-          anc = anc.parentElement;
+        let anc: HTMLElement | null = leaf.parentElement;
+        let best: HTMLElement | null = null;
+        while (anc) {
           const r = anc.getBoundingClientRect();
-          if (r.width >= 240 && r.width <= 620 && r.height >= 220) {
-            if (!anc.hasAttribute('data-gi-card')) {
-              anc.setAttribute('data-gi-card', String(idx++));
-            }
-            break;
-          }
+          if (r.width > 620) break; // reached the results grid
+          if (r.width >= 240 && r.height >= 180) best = anc;
+          anc = anc.parentElement;
+        }
+        if (best && !best.hasAttribute('data-gi-card')) {
+          best.setAttribute('data-gi-card', String(idx++));
         }
         if (idx >= 12) break; // enough candidates
       }
@@ -204,7 +207,7 @@ export async function POST(req: Request) {
         const handle = await page.$(`[data-gi-card="${w.index}"]`);
         if (handle) {
           await handle.evaluate((el) => el.scrollIntoView({ block: 'center' }));
-          await new Promise((r) => setTimeout(r, 900)); // let the creative load
+          await new Promise((r) => setTimeout(r, 1500)); // let the creative load
           const shot = (await handle.screenshot({
             type: 'jpeg',
             quality: 55,
